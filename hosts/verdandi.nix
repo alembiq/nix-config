@@ -414,10 +414,9 @@ in
         gpgSmartcards.enable = true;
         cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
         bluetooth.enable = true; #TODO paired BT deviced
-        opengl = {
+        graphics = {
             enable = true;
-            driSupport = true;
-            driSupport32Bit = true;
+            enable32Bit = true;
         };
     };
 

@@ -12,7 +12,7 @@
             config.use_fancy_tab_bar = false
             config.scrollback_lines = 5000
             config.enable_scroll_bar = true
-            config.font = wezterm.font 'FiraCode Nerd Font'
+            config.font = wezterm.font 'FiraCode Nerd Font Mono'
             config.color_scheme = 'custom'
             config.check_for_updates = false
             config.warn_about_missing_glyphs=false

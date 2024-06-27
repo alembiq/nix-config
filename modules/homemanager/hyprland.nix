@@ -1,10 +1,11 @@
+# some inspiration https://github.com/prasanthrangan/hyprdots/tree/main
 
 { pkgs, lib, config, ... }:
 {
         home = {
             packages = with pkgs; [
                 slurp grim
-                xdg-desktop-portal-wlr
+                # xdg-desktop-portal-wlr
                 xdg-desktop-portal-hyprland
                 wlogout
                 hypridle
@@ -56,15 +57,30 @@
             systemd.enable = true;
             systemd.variables = ["--all"];
             settings = {
-                env = "GTK_THEME,Nord";
+                env = [
+                    "GTK_THEME,Nord"
+                    "XDG_CURRENT_DESKTOP,Hyprland"
+                    "XDG_SESSION_TYPE,wayland"
+                    "XDG_SESSION_DESKTOP,Hyprland"
+                    "QT_QPA_PLATFORM,wayland;xcb"
+                    "QT_QPA_PLATFORMTHEME,qt6ct"
+                    "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+                    "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+                    "MOZ_ENABLE_WAYLAND,1"
+                    "GDK_SCALE,1"
+                ];
                 exec-once = [
-                    "${pkgs.udiskie}/bin/udiskie &"
+                    "${pkgs.udiskie}/bin/udiskie --no-automount --smart-tray &"
                     "${pkgs.swaynotificationcenter}/bin/swaync"
                     "${pkgs.wpaperd}/bin/wpaperd"
                     "${pkgs.dbus}/bin/dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY"
                     "${pkgs.wl-clipboard}/bin/wl-clip-persist --clipboard both"
                     "${pkgs.waybar}/bin/waybar #systemctl --user restart waybar"
                     "${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-kde-authentication-agent-1"
+                    "${pkgs.wpaperd}/bin/wpaperd &"
+                    "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+                    "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
+                    "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
                     # FIXME suspend/resume does not requires password
                     # "${pkgs.swayidle}/bin/swayidle -w timeout 90 '${pkgs.swaylock-effects}/bin/swaylock -f' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep '${pkgs.swaylock-effects}/bin/swaylock -f'"
                 ];
@@ -78,6 +94,16 @@
                 bindm = [
                     "$mod, mouse:272, movewindow"
                     "$mod, mouse:273, resizewindow"
+                ];
+                bindl = [
+                    " , XF86AudioMute, exec, $scrPath/volumecontrol.sh -o m" # toggle audio mute
+                    " , XF86AudioMicMute, exec, $scrPath/volumecontrol.sh -i m" # toggle microphone mute
+                ];
+                bindel = [
+                    " , XF86AudioLowerVolume, exec, $scrPath/volumecontrol.sh -o d" # decrease volume
+                    " , XF86AudioRaiseVolume, exec, $scrPath/volumecontrol.sh -o i" # increase volume
+                    " , XF86AudioLowerVolume, exec, $scrPath/volumecontrol.sh -o d" # decrease volume
+                    " , XF86AudioRaiseVolume, exec, $scrPath/volumecontrol.sh -o i" # increase volume
                 ];
                 bind = [
                     ",switch:off:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,1920x1080,320x1440,1'"
@@ -164,14 +190,21 @@
                 };
                 "animations" = {
                     "enabled" = "yes";
-                    "bezier" = "myBezier, 0.05, 2.5, 0.1, 1.05";
+                    "bezier" = [
+                        "wind, 0.05, 0.9, 0.1, 1.05"
+                        "winIn, 0.1, 1.1, 0.1, 1.1"
+                        "winOut, 0.3, -0.3, 0, 1"
+                        "liner, 1, 1, 1, 1"
+                    ];
                     "animation" = [
-                        "windows, 1, 7, myBezier"
-                        "windowsOut, 1, 7, default, popin 80%"
-                        "border, 1, 10, default"
-                        "borderangle, 1, 8, default"
-                        "fade, 1, 7, default"
-                        "workspaces, 1, 6, default"
+                        "windows, 1, 6, wind, slide"
+                        "windowsIn, 1, 6, winIn, slide"
+                        "windowsOut, 1, 5, winOut, slide"
+                        "windowsMove, 1, 5, wind, slide"
+                        "border, 1, 1, liner"
+                        "borderangle, 1, 30, liner, loop"
+                        "fade, 1, 10, default"
+                        "workspaces, 1, 5, wind"
                     ];
                 };
                 "input" = {
@@ -210,15 +243,20 @@
                 # submap=reset
                 # # keybinds further down will be global again...
 
-                # windowrulev2 = suppressevent maximize, class:.*
-                # windowrulev2 = bordercolor rgb(FF0000) bordersize 10 stayfocused, class:^(pinentry-)
+                #get window details with `hyprctl clients`
+                windowrulev2 = float, title:^(File Operation Progress)(.*)$
+                windowrulev2 = opacity 0.97 0.85,class:^(firefox)$
+                windowrule   = opacity 0.90 0.75, title:(.*)(VSCodium)$
+                windowrulev2 = opacity 0.90 0.75,class:^(wofi)$
+                windowrulev2 = opacity 0.90 0.85,class:^(Element)$
+                windowrulev2 = opacity 0.90 0.85,class:^(Beeper)$
+                windowrulev2 = opacity 0.90 0.75,class:^(Morgen)$
+                windowrulev2 = opacity 0.90 0.85,class:^(obsidian)$
+                windowrulev2 = opacity 0.90 0.75,class:^(blueman-manager)$
+                windowrulev2 = opacity 0.90 0.75,class:^(org.pulseaudio.pavucontrol)$
+                windowrulev2 = opacity 0.90 0.75,class:^(org.kde.polkit-kde-authentication-agent-1)$
+                windowrulev2 = opacity 0.90 0.75,class:^(org.freedesktop.impl.portal.desktop.hyprland)$
 
-                # $pavucontrol = class:^(pavucontrol)$
-                #     windowrulev2 = float,$pavucontrol
-                #     windowrulev2 = size 60% 60%,$pavucontrol
-                #     windowrulev2 = move 20% 6%,$pavucontrol
-                #     # windowrulev2 = workspace special silent,$pavucontrol
-                #     windowrulev2 = opacity 0.80,$pavucontrol
             '';
         };
 }

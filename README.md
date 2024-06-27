@@ -17,8 +17,6 @@ base0D: "#EBCB8B"
 base0E: "#A3BE8C"
 base0F: "#B48EAD"
 
-"FiraCode Nerd Font"
-
 ${pkgs.swayidle} -w timeout 60 "hyprlock" before-sleep "hyprlock" & # lock screen after 10 min of idle
 ${pkgs.swayidle} -w timeout 1200 "systemctl hibernate" &             # hibernate after 20 mins of idle
 

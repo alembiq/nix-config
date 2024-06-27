@@ -403,9 +403,6 @@ in
                         "kubera-lan kubera-lan.svornosti" = {
                             hostname = "10.0.42.250";
                         };
-                        # "kubera-wlan kubera-wlan.svornosti" = {
-                        #     hostname = "10.0.43.250";
-                        # };
                         "kubera-tailscale" = {
                             hostname= "100.118.57.39";
                         };
@@ -423,15 +420,6 @@ in
                             hostname = "10.0.42.253";
                             user = "ansible";
                         };
-                        # "tyr-iot tyr-iot.svornosti" = {
-                        #     hostname = "10.0.41.254";
-                        # };
-                        # "tyr-lan tyr-lan.svornosti" = {
-                        #     hostname = "10.0.42.254";
-                        # };
-                        # "tyr-wlan tyr-wlan.svornosti" = {
-                        #     hostname = "10.0.43.254";
-                        # };
                         # "tyr tyr.alembiq.net tyr*" = {
                         #     hostname = "tyr.alembiq.net";
                         #     identityFile = "~/.ssh/YUBI-KK2024.pub";
@@ -443,9 +431,6 @@ in
                         #     #     StreamLocalBindUnlink = true;
                         #     #     RemoteForward = "/run/user/1001/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
                         #     # };
-                        # };
-                        # "verdandi-iot verdandi-iot.svornosti" = {
-                        #     hostname = "10.0.41.101";
                         # };
                         "verdandi-lan verdandi-lan.svornosti" = {
                             hostname = "10.0.42.101";
