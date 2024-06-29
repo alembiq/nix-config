@@ -14,7 +14,7 @@
             gruntfuggly.todo-tree
             bungcip.better-toml
             redhat.vscode-yaml
-            eamodio.gitlens
+            # eamodio.gitlens
             #FIXME inherit ALLOW_UNFREE devsense.composer-php-vscode
             #FIXME inherit ALLOW_UNFREE devsense.phptools-vscode
             arcticicestudio.nord-visual-studio-code

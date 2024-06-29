@@ -399,6 +399,7 @@ in
             powertop
             ipcalc
             wget
+            lm_sensors
             easyeffects pavucontrol #alternatives qpwgraph ncpamixer helvum
             libu2f-host
             yubikey-personalization

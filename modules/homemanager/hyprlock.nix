@@ -5,29 +5,28 @@
         settings = {
             general = {
                 hide_cursor = true;
-                grace = 0;
+                grace = 10;
+                disable_loading_bar = true;
+                no_fade_in = false;
             };
             background = [
                 {
-                #   monitor = mainMonitor;
-                #   path = "${config.home.homeDirectory}/.config/hypr/wallpapers/${vars.wallpaper}";
-                blur_passes = 2;
-                noise = 0.0117;
-                contrast = 0.8916;
-                brightness = 0.8172;
-                vibrancy = 0.1696;
-                vibrancy_darkness = 0.0;
+                path = "${config.home.homeDirectory}/nextcloud/Pictures/wallpapers/drone-5.jpg";
+                # blur_passes = 2;
+                # noise = 0.0117;
+                # contrast = 0.8916;
+                # brightness = 0.8172;
+                # vibrancy = 0.1696;
+                # vibrancy_darkness = 0.0;
                 }
             ];
             input-field = [
                 {
-                #   monitor = mainMonitor;
                 size = "200, 50";
                 position = "0, -20";
-                outer_color = "rgb(46, 52, 64)";
-                inner_color = "rgb(216, 222, 233)";
-                font_color = "rgb(46, 52, 64)";
-                placeholder_text = "<i>Contraseña...</i>";
+                outer_color = config.lib.stylix.colors.base00;
+                inner_color = config.lib.stylix.colors.base01;
+                font_color = config.lib.stylix.colors.base05;
                 }
             ];
             label = [
@@ -37,7 +36,7 @@
                 position = "0, 80";
                 halign = "center";
                 valign = "center";
-                color = "rgb(216, 222, 233)";
+                color = config.lib.stylix.colors.base04;
                 }
             ];
         };

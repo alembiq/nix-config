@@ -256,6 +256,7 @@
                 windowrulev2 = opacity 0.90 0.75,class:^(org.pulseaudio.pavucontrol)$
                 windowrulev2 = opacity 0.90 0.75,class:^(org.kde.polkit-kde-authentication-agent-1)$
                 windowrulev2 = opacity 0.90 0.75,class:^(org.freedesktop.impl.portal.desktop.hyprland)$
+                windowrulev2 = opacity 0.90 0.75,class:^(org.wezfurlong.wezterm)$
 
             '';
         };
