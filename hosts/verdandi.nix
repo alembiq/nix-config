@@ -92,6 +92,7 @@ in
             ../modules/homemanager/wezterm.nix
             ../modules/homemanager/firefox.nix
             ../modules/homemanager/nextcloud.nix
+            ../modules/homemanager/photography.nix
             ../modules/homemanager/vscodium.nix
             ../modules/homemanager/sway.nix
             ../modules/homemanager/wofi.nix
@@ -133,6 +134,7 @@ in
                     "application/xhtml+xml" = "firefox.desktop";
                     "x-scheme-handler/morgen" = "morgen.desktop";
                     "application/rtf" = "writer.desktop";
+                    "application/vnd.oasis.opendocument.spreadsheet" =" onlyoffice-desktopeditors.desktop";
                 };
             }; #END of home-manager.users.charles.xdg
 

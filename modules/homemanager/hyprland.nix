@@ -24,8 +24,8 @@
             ];
         };
 #TODO wpaperd vs stylix.image mkforce
-        # programs.wpaperd = {
-        #     enable = true;
+        programs.wpaperd = {
+            enable = true;
 #             #     settings = {
 #             #         any = {
 #             #             path = "/home/charles/nextcloud/Pictures/wallpapers";
@@ -37,7 +37,7 @@
 #             #             path = "/home/charles/nextcloud/Pictures/wallpapers/52204128092_76bb16feb4_k.jpg";
 #             #         };
 #             #     };
-        # };
+        };
         xdg.configFile."wpaperd/config.toml" = {
             text = ''
             [any]
@@ -248,7 +248,7 @@
 
                 #get window details with `hyprctl clients`
                 # windowrulev2 = float, title:^(File Operation Progress)(.*)$
-                windowrulev2 = opacity 0.97 0.85,class:^(firefox)$
+                windowrulev2 = opacity 1 0.85,class:^(firefox)$
                 windowrule   = opacity 0.90 0.75, title:(.*)(VSCodium)$
                 windowrulev2 = opacity 0.90 0.75,class:^(wofi)$
 
