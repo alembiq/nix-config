@@ -393,13 +393,6 @@ in
     }; #END of programs
 
     environment = {
-        sessionVariables = {
-            NIXOS_OZONE_WL = "1"; # Hint Electon apps to use wayland
-            QT_QPA_PLATFORM = "wayland";
-            MOZ_ENABLE_WAYLAND = "1";
-            XDG_SESSION_TYPE = "wayland";
-            SDL_VIDEODRIVER = "wayland";
-        };
         systemPackages = with pkgs; [
             vscodium
             btrfs-progs

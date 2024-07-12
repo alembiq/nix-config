@@ -109,10 +109,14 @@
     programs.mbsync.enable = true;
     programs.msmtp = {
         enable = true;
+        extraConfig = ''
+            logfile ~/.msmtpXXX.log
+        '';
         # extraConfig = ''
         #   logfile ${config.xdg.dataHome}/msmtp/msmtp.log
         # '';
         #FIXME msmtp ignore log file location, creates ~/{bin,log}
+        #it also ignores /etc/profiles/per-user/charles/etc/profile.d/hm-session-vars.sh
         #FIXME msmtp create "account default: karelkremel" and bugs
     };
     programs.notmuch = { #TODO config https://notmuchmail.org/mutttips/
