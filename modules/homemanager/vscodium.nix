@@ -21,7 +21,6 @@
             naumovs.color-highlight
             vscode-icons-team.vscode-icons
             rust-lang.rust-analyzer
-            mkhl.direnv
             #TODO test bmewburn.vscode-intelephense-client
             #TODO test tamasfe.even-better-toml
             #TODO test pythagoratechnologies.gpt-pilot-vs-code
@@ -58,7 +57,6 @@
             }
         ];
         userSettings = {
-            "direnv.path.executable" = "${pkgs.direnv}/bin/direnv";
             "diffEditor.ignoreTrimWhitespace" = false;
             "diffEditor.renderSideBySide" = false;
             "editor.columnSelection" = false;

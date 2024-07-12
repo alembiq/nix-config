@@ -131,6 +131,7 @@
                 fi
             '';
             shellAliases = {
+                "wezterm" = "nix run github:wez/wezterm?dir=nix";
                 "ls" = "ls --color=auto";
                 "ll" = "ls -alF";
                 "grep" = "grep --color=auto";

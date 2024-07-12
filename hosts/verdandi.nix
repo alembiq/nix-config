@@ -151,7 +151,6 @@ in
             #   ln -sf $HOME/nextcloud/Documents $HOME.Documents;
             #   ln -sf $HOME/nextcloud/Pictures $HOME.Pictures;
             # '';
-
             systemd.user = {
                 startServices = true;
                 sockets.yubikey-touch-detector = {
@@ -213,11 +212,10 @@ in
                     deluge
                     onlyoffice-bin # libreoffice
                     # makemkv handbrake libaacs libbluray libdvdcss
-                    warp-terminal wezterm
+                    warp-terminal # BROKEN wezterm #wave-term
                     xfce.thunar
                     rpi-imager
                     okular # mate.atril
-                    nix-direnv # direnv
                 ];
                 stateVersion = "23.11";
             }; #END of home-manager.users.charles.home
