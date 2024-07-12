@@ -203,7 +203,7 @@ in
                     obsidian
                     morgen
                     element-desktop
-                    nmap
+                    netscanner nmap
                     poppler_utils #pdf tools
                     mc
                     vlc #jdk21
@@ -211,13 +211,13 @@ in
                     overskride blueberry # blueman
                     ungoogled-chromium
                     deluge
-                    onlyoffice-bin libreoffice #TODO choose office
+                    onlyoffice-bin # libreoffice
                     # makemkv handbrake libaacs libbluray libdvdcss
                     warp-terminal wezterm
                     xfce.thunar
                     rpi-imager
-                    mate.atril # vs okular
-                    direnv
+                    okular # mate.atril
+                    nix-direnv # direnv
                 ];
                 stateVersion = "23.11";
             }; #END of home-manager.users.charles.home
