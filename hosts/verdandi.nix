@@ -53,21 +53,10 @@ in
         bash
     '';
 
-    system.activationScripts = {
-        msmtp = { #FIXME folder MSMTP not using
-            text = ''
-                mkdir -p /home/charles/.local/share/msmtp
-                chown charles /home/charles/.local/share/msmtp
-                chmod 700 /home/charles/.local/share/msmtp
-            '';
-        };
-    };
-
 
     home-manager = {
-        # TODO Notmuch
         users.charles = {
-            stylix = { #FIXME stylix ignoring targers; missing chromium, firefox, vscode, pinentry
+            stylix = { #FIXME stylix ignoring: chromium, firefox extensions, vscode menu, pinentry
                 base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml"; # https://raw.githubusercontent.com/ada-lovecraft/base16-nord-scheme/master/nord.yaml
                 polarity = "dark";
                 autoEnable = true;

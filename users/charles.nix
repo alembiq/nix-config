@@ -40,7 +40,7 @@ in
         users.charles = {
             imports = [ ./default.nix ];
             accounts.contact.basePath = "~/.local/share/contacts/contacts/";
-            accounts.email = { # Office365 oauth2 https://github.com/harishkrupo/oauth2ms
+            accounts.email = { # Office365 oauth2 https://github.com/harishkrupo/oauth2ms or https://howto.cs.uchicago.edu/nix:mutt
                 # maildirBasePath = "$HOME/Maildir";
                 accounts."karelkremel@gmail.com" = {
                     neomutt = {
@@ -273,8 +273,7 @@ in
                     aliases = {
                         # back = "reset --soft HEAD~";
                         undo = "reset HEAD~1 --mixed";
-                        graph = "log --oneline --graph --decorate";
-                        lg = "log --pretty=format:'%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]' --decorate --date=short";
+                        graph = "log --pretty=format:'%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]' --decorate --date=short --graph";
                         conflicts = "diff --name-only --diff-filter=U";
                     };
                 };
@@ -294,7 +293,6 @@ in
                     enable = true;
                     matchBlocks = {
                         net = {
-                            # host = builtins.concatStringsSep " " hostnames;
                             forwardAgent = true;
                             remoteForwards = [{
                             bind.address = ''/%d/.gnupg-sockets/S.gpg-agent'';
@@ -324,9 +322,9 @@ in
                                 # RemoteForward = "/run/user/1111/gnupg/S.gpg-agent.ssh /run/user/1111/gnupg/S.gpg-agent.ssh";
                             };
                         };
-                        "eir.tailscale" = {
-                            hostname = "100.96.210.78";
-                        };
+                        # "eir.tailscale" = {
+                        #     hostname = "100.96.210.78";
+                        # };
                         "forge.*" = {
                             identityFile = "~/.ssh/YUBI-KK2024.pub";
                             user = "root";
@@ -346,20 +344,6 @@ in
                         "nextmail nextmail.alembiq.net" = {
                             hostname = "37.205.13.138";
                         };
-                        "rpi-brno.strnadova" = {
-                            hostname = "192.168.0.181";
-                        };
-                        "rpi-brno.svornosti" = {
-                            hostname = "10.0.42.153";
-                        };
-                        "rpi-brno.tailscale" = {
-                            hostname = "100.68.235.5";
-                        };
-                        "rpi-brno.*" = {
-                            identityFile = "~/.ssh/YUBI-KK2024.pub";
-                            user = "charles";
-                            forwardAgent = true;
-                        };
                     ## HOME NETWORK
                         # "badb-lan badb-lan.svornosti" = {
                         #     hostname = "10.0.42.107";
@@ -368,7 +352,7 @@ in
                         #     hostname = "10.0.43.107";
                         # };
                         # "badb-tailscale" = {
-                        #     hostname = "";
+                        #     hostname = "100.102.24.92";
                         # };
                         "fileserver fileserver.svornosti" = {
                             hostname = "10.0.42.208";
@@ -403,9 +387,9 @@ in
                         "kubera-lan kubera-lan.svornosti" = {
                             hostname = "10.0.42.250";
                         };
-                        "kubera-tailscale" = {
-                            hostname= "100.118.57.39";
-                        };
+                        # "kubera-tailscale" = {
+                        #     hostname= "100.118.57.39";
+                        # };
                         "nextcloud nextcloud.svornosti cloud.ochman.info" = {
                             hostname = "10.0.42.203";
                             user = "ansible";
@@ -420,35 +404,20 @@ in
                             hostname = "10.0.42.253";
                             user = "ansible";
                         };
-                        # "tyr tyr.alembiq.net tyr*" = {
-                        #     hostname = "tyr.alembiq.net";
-                        #     identityFile = "~/.ssh/YUBI-KK2024.pub";
-                        #     user = "charles";
-                        #     forwardAgent = true;
-                        #     port = 60001;
-                        #     # ssh tyr.alembiq.net -L 8888:10.0.42.250:8006
-                        #     # extraOptions = {
-                        #     #     StreamLocalBindUnlink = true;
-                        #     #     RemoteForward = "/run/user/1001/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
-                        #     # };
+                        # "verdandi-lan verdandi-lan.svornosti" = {
+                        #     hostname = "10.0.42.101";
                         # };
-                        "verdandi-lan verdandi-lan.svornosti" = {
-                            hostname = "10.0.42.101";
-                        };
                         # "verdandi-wlan verdandi-wlan.svornosti" = {
                         #     hostname = "10.0.43.101";
                         # };
-                        "verdandi-tailscale" = {
-                            hostname = "100.74.156.12";
-                        };
-                        "10.0.4?.* *.svornosti *.tailscale" = {
+                        # "verdandi-tailscale" = {
+                        #     hostname = "100.74.156.12";
+                        # };
+                        "10.0.4?.* *.svornosti" = { #  *.tailscale
                             identityFile = "~/.ssh/YUBI-KK2024.pub";
                             # user = "charles";
                             forwardAgent = true;
                         };
-                        # "10.0.4?.* !*.svornosti" = {
-                        #     proxyJump = "tyr";
-                        # };
                         "jellyfin* nextcloud* pihole*" = {
                             identityFile = "~/.ssh/YUBI-KK2024.pub";
                             user = "ansible";
@@ -466,7 +435,6 @@ in
                             addressFamily = "inet";
                             forwardX11 = false;
                             forwardX11Trusted = false;
-                        #     identitiesOnly = true;
                         };
                     };
                 };

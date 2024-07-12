@@ -16,7 +16,7 @@
     outputs = { self, nixpkgs, nixpkgs-stable, home-manager, home-manager-stable, nixos-hardware, sops-nix, stylix, ... }@inputs:
     let
         system = "x86_64-linux";
-        specialArgs = inputs // { inherit system nixos-hardware; };
+        specialArgs =  inputs // { inherit system nixos-hardware; };
 
         shared-modules = [
             sops-nix.nixosModules.sops
@@ -38,13 +38,6 @@
                 allowUnfreePredicate = (_: true);
             };
         };
-        pkgs-stable = import nixpkgs-stable {
-            system = system;
-            config = {
-                allowUnfree = true;
-                allowUnfreePredicate = (_: true);
-            };
-        };
     in {
         nixosConfigurations = {
             verdandi = nixpkgs.lib.nixosSystem {
@@ -58,7 +51,7 @@
             octopi = nixpkgs.lib.nixosSystem {
                 inherit specialArgs pkgs;
                 system = "aarch64-linux";
-                modules = shared-modules ++ [ ./hosts/badb.nix ];
+                modules = shared-modules ++ [ ./hosts/octopi.nix ];
             };
         };
     };

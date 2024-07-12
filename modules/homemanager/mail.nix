@@ -19,6 +19,7 @@
         ];
     };
     #FIXME dynamic user / home-manager.users.charles.accounts.contact.basePath
+    #TODO programs.khard.settings accounts.contact.accounts..khard.enable
     xdg.configFile."khard/khard.conf".text = /* toml */ ''
         [addressbooks]
         [[contacts]]
@@ -26,6 +27,7 @@
     '';
     #FIXME dynamic user, sops, UID
     #TODO https://github.com/pimutils/vdirsyncer/issues/1021 after it's fixed create script until
+    #TODO accounts.contact.accounts..vdirsyncer.enable & services.vdirsyncer.
     xdg.configFile."vdirsyncer/config".text = /* ini */ ''
         [general]
         status_path = "~/.config/vdirsyncer/status/"
@@ -66,64 +68,23 @@
         image/jpeg; ${pkgs.gwenview}/bin/gwenview %s
     '';
 
-    systemd.user = {
-        services.notmuch = {
-            Unit = {
-                Description = "notmuch & mbsync";
-                After = "network-online.target";
-            };
-            Service = {
-                Type = "simple";
-                ExecStart= "${pkgs.notmuch}/bin/notmuch new ";
-                TimeoutStopSec = "300";
-                KillMode = "process";
-                KillSignal = "SIGINT";
-            };
-            Install.WantedBy = ["default.target"];
-        };
-        #FIXME https://home-manager-options.extranix.com/?query=vdirsyncer&release=master do initial discover and then sync
-        services.vdirsyncer = {
-            Unit = { Description = "vdirsyncer synchronization"; };
-            Service = {
-                Type = "oneshot";
-                ExecStart = "${pkgs.vdirsyncer}/bin/vdirsyncer sync";
-            };
-        };
-        timers.vdirsyncer = {
-            Unit = { Description = "Automatic vdirsyncer synchronization"; };
-            Timer = {
-                OnBootSec = "30";
-                OnUnitActiveSec = "5m";
-            };
-            Install = { WantedBy = [ "timers.target" ]; };
-        };
-        timers.notmuch = {
-            Unit.Description = "Automatic sync emails and index them when booted up after 5 minutes then rerun every 5 minutes";
-            Timer.OnBootSec = "5min";
-            Timer.OnUnitActiveSec = "5min";
-            Install.WantedBy = ["default.target" "timers.target"];
-        };
-        startServices = true;
+    services.vdirsyncer = {
+        enable = true;
+        frequency = "*:0/5";
     };
 
+
+    services.mbsync = {
+        enable = true;
+        configFile = "${config.xdg.configHome}/isync/mbsyncrc"; #FIXME it's read but not written to
+        postExec = "${pkgs.notmuch}/bin/notmuch new";
+    };
     programs.mbsync.enable = true;
     programs.msmtp = {
-        enable = true;
-        extraConfig = ''
-            logfile ~/.msmtpXXX.log
-        '';
-        # extraConfig = ''
-        #   logfile ${config.xdg.dataHome}/msmtp/msmtp.log
-        # '';
-        #FIXME msmtp ignore log file location, creates ~/{bin,log}
-        #it also ignores /etc/profiles/per-user/charles/etc/profile.d/hm-session-vars.sh
-        #FIXME msmtp create "account default: karelkremel" and bugs
+        enable = true;  #FIXME `.config/msmtp/msmtp` contains extra "account default: karelkremel"
     };
     programs.notmuch = { #TODO config https://notmuchmail.org/mutttips/
         enable = true;
-        hooks = { #pull and index: notmuch new
-            preNew = "${pkgs.isync}/bin/mbsync --all";
-        };
     };
 
     programs.neomutt = {
@@ -321,7 +282,7 @@
                 map = [ "index" "pager" ];
             }
             {
-                action = "<shell-escape>${pkgs.isync}/bin/mbsync -c ~/.mbsyncrc -a<enter>";
+                action = "<shell-escape>${pkgs.isync}/bin/mbsync -c ${config.xdg.configHome}/isync/mbsyncrc -a<enter>";
                 key = "O";
                 map = [ "index" ];
             }
@@ -454,13 +415,4 @@
         };
     };
 
-
-    home.file."bin/msmtp" = {
-    text = ''
-        #!${pkgs.stdenv.shell}
-        ${pkgs.libnotify}/bin/notify-send "Sending mail ✉️"
-        ${pkgs.msmtp}/bin/msmtp --read-envelope-from $@
-    '';
-    executable = true;
-    };
 }

@@ -17,8 +17,13 @@ base0D: "#EBCB8B"
 base0E: "#A3BE8C"
 base0F: "#B48EAD"
 
-${pkgs.swayidle} -w timeout 60 "hyprlock" before-sleep "hyprlock" & # lock screen after 10 min of idle
-${pkgs.swayidle} -w timeout 1200 "systemctl hibernate" &             # hibernate after 20 mins of idle
-
-https://raw.githubusercontent.com/TheMaxMur/NixOS-Configuration/master/home/modules/hypridle/default.nix
-https://raw.githubusercontent.com/TheMaxMur/NixOS-Configuration/master/home/modules/hyprlock/default.nix
+separate xdg and folders
+move mailbox to `.local/shared/mail/` # `accounts.email.maildirBasePath`
+set documents to nextcloud
+set pictures to nextlcoud
+`hm.accounts.email.accounts` configuration to `.config/isync/mbsyncrc`
+`/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg`
+creating new khard/vdirsyncer contacts from neomutt
+create `octopi` config
+sending mail (msmtp) notification
+incomming mail (mbsync) notification
