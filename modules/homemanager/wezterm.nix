@@ -1,8 +1,8 @@
-{pkgs, config, ...}:
+{pkgs, config, ...}@inputs:
 {
     programs.wezterm = {
         enable = true;
-            # config.window_background_opacity = 0.90
+        package = inputs.wezterm.packages.${pkgs.system}.default;
         extraConfig = let inherit (config.stylix) fonts; in ''
             local wezterm = require 'wezterm';
             local config = wezterm.config_builder()

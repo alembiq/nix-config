@@ -16,7 +16,6 @@
                 wofi
                 wl-clip-persist
                 wlroots
-                wezterm
                 waybar
     #             libsForQt5.polkit-kde-agent
                 udiskie
@@ -112,7 +111,7 @@
                     ",switch:off:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,1920x1080,320x1440,1'"
                     ",switch:on:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,disabled'"
 
-                    "$mod, RETURN, exec, warp-terminal" #WAYLAND_DISPLAY=1 wezterm" # warp-terminal
+                    "$mod, RETURN, exec, wezterm" # warp-terminal
                     "$mod SHIFT, Q, killactive,"
                     #FIXME lock without suspend "$mod, L, exec, swaylock -f --screenshots --effect-pixelate 20 --fade-in 0.2 ; hyprctl dispatch dpms off"
                     "CTRLALT, DELETE, exec, wlogout"

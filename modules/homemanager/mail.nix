@@ -278,7 +278,7 @@
 
             {
                 action = "<pipe-message>${pkgs.khard}/bin/khard add-email<return>";
-                key = "<a>";
+                key = "A";
                 map = [ "index" "pager" ];
             }
             {

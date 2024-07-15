@@ -23,7 +23,6 @@ set documents to nextcloud
 set pictures to nextlcoud
 `hm.accounts.email.accounts` configuration to `.config/isync/mbsyncrc`
 `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg`
-creating new khard/vdirsyncer contacts from neomutt
 create `octopi` config
 sending mail (msmtp) notification
 incomming mail (mbsync) notification

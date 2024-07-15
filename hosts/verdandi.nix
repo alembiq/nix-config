@@ -22,14 +22,14 @@ in
         (modulesPath + "/installer/scan/not-detected.nix")
         inputs.disko.nixosModules.default
         ./default.nix
-        ../modules/nixos/remotebuilder.nix
+        # ../modules/nixos/remotebuilder.nix
         ../users/charles.nix
         ../users/backup.nix
         ./verdandi-disko.nix
         ../modules/nixos/hyprland.nix
         ../modules/nixos/sway.nix
         ../modules/nixos/stylix.nix
-        nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
+        nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
     ];
 
     sops = {
@@ -509,7 +509,7 @@ in
     boot.loader.systemd-boot.configurationLimit = 20;
     boot.loader.systemd-boot.consoleMode = "auto"; #FIXME same console size everywhere - systemd-bootd limitation :(
     boot.loader.efi.canTouchEfiVariables = true;
-    boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "uas" "sd_mod" ];
+    boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "uas" "sd_mod" "thinkpad_acpi"];
     boot.kernelModules = [ "kvm-intel" ];
     # https://github.com/NixOS/nixpkgs/issues/219239
     boot.initrd.kernelModules = ["i915"];
