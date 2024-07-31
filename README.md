@@ -19,8 +19,6 @@ base0F: "#B48EAD"
 
 separate xdg and folders
 move mailbox to `.local/shared/mail/` # `accounts.email.maildirBasePath`
-set documents to nextcloud
-set pictures to nextlcoud
 `hm.accounts.email.accounts` configuration to `.config/isync/mbsyncrc`
 `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg`
 create `octopi` config

@@ -406,7 +406,11 @@ in
             localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
 
         };
-        appimage.enable = true;
+        appimage = {
+            binfmt = true;
+            enable = true;
+            package = pkgs.appimage-run;
+        };
     }; #END of programs
 
     environment = {
