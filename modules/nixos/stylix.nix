@@ -13,7 +13,7 @@
             popups = 0.9;
             terminal = 0.7;
         };
-        cursor = {
+        cursor = { #FIXME cursors
             package = pkgs.nordzy-cursor-theme;
             name = "Nordzy-cursors";
             };

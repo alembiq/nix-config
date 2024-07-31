@@ -6,28 +6,26 @@
         nixos-hardware.url = "github:NixOS/nixos-hardware/master";
         home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
         home-manager-stable = { url = "github:nix-community/home-manager/release-24.05"; inputs.nixpkgs.follows = "nixpkgs-stable"; };
-        sops-nix = { url = "github:Mic92/sops-nix/yubikey-support"; inputs.nixpkgs.follows = "nixpkgs";  };
+        sops-nix = { url = "github:Mic92/sops-nix/yubikey-support"; };
         wezterm = { url = "github:wez/wezterm?dir=nix"; };
-        disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
+        disko = { url = "github:nix-community/disko";};
         stylix = { url = "github:danth/stylix"; inputs = { nixpkgs.follows = "nixpkgs"; home-manager.follows = "home-manager"; }; };
         hyprland.url = "github:hyprwm/Hyprland";
         hyprland-plugins = { url = "github:hyprwm/hyprland-plugins"; inputs.hyprland.follows = "hyprland"; };
     };
-
-    outputs = { self, nixpkgs, nixpkgs-stable, home-manager, home-manager-stable, nixos-hardware, sops-nix, stylix, ... }@inputs:
+    outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
         system = "x86_64-linux";
-        specialArgs =  inputs // { inherit system nixos-hardware; };
-
+        specialArgs =  inputs // { inherit system ; };
         shared-modules = [
-            sops-nix.nixosModules.sops
-            stylix.nixosModules.stylix
+            inputs.sops-nix.nixosModules.sops
+            inputs.stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager {
                 home-manager = {
                     useUserPackages = true;
                     extraSpecialArgs = specialArgs;
                     sharedModules = [
-                        sops-nix.homeManagerModules.sops
+                        inputs.sops-nix.homeManagerModules.sops
                     ];
                 };
             }

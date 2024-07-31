@@ -46,16 +46,42 @@ in
     security = {
         sudo.wheelNeedsPassword = false;
     };
-
-    environment.etc."greetd/environments".text = ''
-        Hyprland
-        sway
-        bash
-    '';
-
+        # ${inputs.hyprland.packages.${pkgs.system}.hyprland}/bin/Hyprland
 
     home-manager = {
         users.charles = {
+
+
+    gtk = lib.mkForce {
+        enable = true;
+        theme = {
+            name = "Nordic";
+            package = pkgs.nordic;
+        };
+        iconTheme = {
+            name = "Nordzy";
+            package = pkgs.nordzy-icon-theme;
+        };
+        cursorTheme = {
+            name = "Nordzy-cursors";
+            package = pkgs.nordzy-cursor-theme;
+            size = 32;
+        };
+    };
+    dconf = {
+        settings = {
+            "org/gnome/desktop/interface" = {
+                gtk-theme = "Nordic";
+                cursor-theme = "Nordzy-cursors";
+            };
+            "org/gnome/desktop/wm/preferences" = {
+                theme = "Nordzy";
+            };
+        };
+    };
+
+
+
             stylix = { #FIXME stylix ignoring: chromium, firefox extensions, vscode menu, pinentry
                 base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml"; # https://raw.githubusercontent.com/ada-lovecraft/base16-nord-scheme/master/nord.yaml
                 polarity = "dark";
@@ -104,16 +130,11 @@ in
                     "charles/svornosti/fileserver/samba" = { };
                 };
             }; #END of home-manager.users.charles.sops
-            gtk = {
-                enable = true;
-                iconTheme = {
-                    name = "Nordzy-dark";
-                    package = pkgs.nordzy-icon-theme;
-                };
-            };
+
             xdg.mimeApps = {
               enable = true;
                   defaultApplications = {
+                    "application/pdf" ="okularApplication_pdf.desktop";
                     "x-scheme-handler/element" = "element-desktop.desktop";
                     "text/html" = "firefox.desktop";
                     "x-scheme-handler/http" = "firefox.desktop";
@@ -122,24 +143,17 @@ in
                     "x-scheme-handler/unknown" = "firefox.desktop";
                     "application/xhtml+xml" = "firefox.desktop";
                     "x-scheme-handler/morgen" = "morgen.desktop";
-                    "application/rtf" = "writer.desktop";
                     "application/vnd.oasis.opendocument.spreadsheet" =" onlyoffice-desktopeditors.desktop";
                 };
             }; #END of home-manager.users.charles.xdg
 
-            # home.file = { #FIXME symlink create with relative path
-            #     "Documents".target = "./nextcloud/Documents";
-            #     "Documents".target = builtins.toString "/home/charles/nextcloud/Documents";
-            #     Pictures.source = builtins.toPath "/home/charles/nextcloud/Pictures";
-            #     Documents.source = file.mkOutOfStoreSymlink "/home/charles/nextcloud/Documents";
-            #     Documents.target = builtins.toString "nextcloud/Documents";
-            # };
-            xdg.userDirs.documents = "${config.home.homeDirectory}/nextcloud/Documents";
-            xdg.userDirs.pictures = "${config.home.homeDirectory}/nextcloud/Pictures";
-            # home.activation.linkMyStuff = ''
-            #   ln -sf $HOME/nextcloud/Documents $HOME.Documents;
-            #   ln -sf $HOME/nextcloud/Pictures $HOME.Pictures;
-            # '';
+            xdg.userDirs = {
+                enable = true;
+                documents = "$HOME/documents";
+                pictures = "$HOME/pictures";
+                music = "$HOME/audio";
+                download = "$HOME/downloads";
+            };
             systemd.user = {
                 startServices = true;
                 sockets.yubikey-touch-detector = {
@@ -202,9 +216,11 @@ in
                     onlyoffice-bin # libreoffice
                     # makemkv handbrake libaacs libbluray libdvdcss
                     warp-terminal # BROKEN wezterm #wave-term
-                    xfce.thunar
+                    xfce.thunar xfce.thunar-archive-plugin xfce.thunar-volman
+                    nordzy-icon-theme nordzy-cursor-theme
                     rpi-imager
                     okular # mate.atril
+                    xdg-utils nwg-displays
                 ];
                 stateVersion = "23.11";
             }; #END of home-manager.users.charles.home
@@ -224,15 +240,26 @@ in
     systemd.services.ModemManager.enable = true;
 
     services = {
+        # zram-generator = {
+        #     enable = true;
+        #     settings.zram0 = {
+        #         compression-algorithm = "zstd";
+        #         zram-size = "ram * 2";
+        #     };
+        # };
         greetd = {
             enable = true;
-            # restart = false;
             settings = {
                 default_session = {
-                    command = ''
-                        ${pkgs.greetd.tuigreet}/bin/tuigreet -r --asterisks --time \
-                        --cmd Hyprland
-                    '';
+                    command = builtins.concatStringsSep " " [
+                        "${pkgs.greetd.tuigreet}/bin/tuigreet"
+                        "--asterisks"
+                        "--remember"
+                        "--time"
+                        "--sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
+                        "--time-format '%I:%M %p | %a • %h | %F'"
+                        "--cmd Hyprland"
+                    ];
                 };
                 user = "charles";
             };
@@ -379,6 +406,7 @@ in
             localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
 
         };
+        appimage.enable = true;
     }; #END of programs
 
     environment = {
@@ -399,7 +427,6 @@ in
         ];
     };
 
-    sound.enable = true;
     hardware = {
         gpgSmartcards.enable = true;
         cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -419,7 +446,15 @@ in
     security = {
         rtkit.enable = true;
         pam.services = {
-            greetd.enableGnomeKeyring = true;
+            greetd = {
+                enableGnomeKeyring = true;
+                gnupg = {
+                    enable = true;
+                    storeOnly = true;
+                };
+                #TODO YUBIKEY auth https://github.com/ruimarinho/yubikey-handbook/blob/master/yubico-otp/setting-up-a-remote-server/creating-the-yubikey-pam-authentication-policy.md
+                #yubicoAuth = true;
+            };
             hyprlock = {}; # to enable hyprlock auth
         };
     };

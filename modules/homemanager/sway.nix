@@ -122,7 +122,7 @@ in {
                     "Mod1+Control+Delete" = "${pkgs.wlogout}/bin/wlogout";
                     "${modifier}+d" = "exec ${menu}";
                     "${modifier}+Return" = "exec kitty";
-                    "Print" = "exec slurp | grim -g - $HOME/Downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')";
+                    "Print" = "exec slurp | grim -g - $HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')";
                     "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
                     "XF86AudioMicMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
                     "XF86AudioRaiseVolume" = "exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+";

@@ -74,17 +74,29 @@
                         type = "zfs_fs";
                         mountpoint = "/home/charles/Maildir";
                     };
-                   "home/charles/cache" = {
-                       type = "zfs_fs";
-                       mountpoint = "/home/charles/.cache";
-                   };
-                   "home/charles/torrent" = {
-                       type = "zfs_fs";
-                       mountpoint = "/home/charles/Downloads/torrent";
-                   };
-                    "home/charles/nextcloud" = {
+                    "home/charles/cache" = {
                         type = "zfs_fs";
-                        mountpoint = "/home/charles/nextcloud";
+                        mountpoint = "/home/charles/.cache";
+                    };
+                    "home/charles/torrent" = {
+                       type = "zfs_fs";
+                       mountpoint = "/home/charles/downloads/torrent";
+                    };
+                    "home/charles/documents" = {
+                        type = "zfs_fs";
+                        mountpoint = "/home/charles/documents";
+                    };
+                    "home/charles/pictures" = {
+                        type = "zfs_fs";
+                        mountpoint = "/home/charles/pictures";
+                    };
+                    "home/charles/games" = {
+                        type = "zfs_fs";
+                        mountpoint = "/home/charles/games";
+                    };
+                    "home/charles/audio" = {
+                        type = "zfs_fs";
+                        mountpoint = "/home/charles/audio";
                     };
                 };
             };

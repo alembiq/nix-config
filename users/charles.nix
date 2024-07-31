@@ -322,9 +322,6 @@ in
                                 # RemoteForward = "/run/user/1111/gnupg/S.gpg-agent.ssh /run/user/1111/gnupg/S.gpg-agent.ssh";
                             };
                         };
-                        # "eir.tailscale" = {
-                        #     hostname = "100.96.210.78";
-                        # };
                         "forge.*" = {
                             identityFile = "~/.ssh/YUBI-KK2024.pub";
                             user = "root";
@@ -345,15 +342,9 @@ in
                             hostname = "37.205.13.138";
                         };
                     ## HOME NETWORK
-                        # "badb-lan badb-lan.svornosti" = {
-                        #     hostname = "10.0.42.107";
-                        # };
-                        # "badb-wlan badb-wlan.svornosti" = {
-                        #     hostname = "10.0.43.107";
-                        # };
-                        # "badb-tailscale" = {
-                        #     hostname = "100.102.24.92";
-                        # };
+                        "badb-wlan badb-wlan.svornosti" = {
+                            hostname = "10.0.42.111";
+                        };
                         "fileserver fileserver.svornosti" = {
                             hostname = "10.0.42.208";
                         };
@@ -387,9 +378,16 @@ in
                         "kubera-lan kubera-lan.svornosti" = {
                             hostname = "10.0.42.250";
                         };
-                        # "kubera-tailscale" = {
-                        #     hostname= "100.118.57.39";
-                        # };
+                        "arm-ripper.svornosti" = {
+                            hostname = "kubera-lan.svornosti";
+                            localForwards = [
+                                {
+                                    bind.port = 8888;
+                                    host.address = "172.17.0.2";
+                                    host.port = 8080;
+                                }
+                            ];
+                        };
                         "nextcloud nextcloud.svornosti cloud.ochman.info" = {
                             hostname = "10.0.42.203";
                             user = "ansible";
@@ -410,12 +408,8 @@ in
                         # "verdandi-wlan verdandi-wlan.svornosti" = {
                         #     hostname = "10.0.43.101";
                         # };
-                        # "verdandi-tailscale" = {
-                        #     hostname = "100.74.156.12";
-                        # };
                         "10.0.4?.* *.svornosti" = { #  *.tailscale
                             identityFile = "~/.ssh/YUBI-KK2024.pub";
-                            # user = "charles";
                             forwardAgent = true;
                         };
                         "jellyfin* nextcloud* pihole*" = {

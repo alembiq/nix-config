@@ -5,7 +5,6 @@
         home = {
             packages = with pkgs; [
                 slurp grim
-                # xdg-desktop-portal-wlr
                 xdg-desktop-portal-hyprland
                 wlogout
                 hypridle
@@ -17,35 +16,34 @@
                 wl-clip-persist
                 wlroots
                 waybar
-    #             libsForQt5.polkit-kde-agent
                 udiskie
                 swaynotificationcenter
             ];
         };
 #TODO wpaperd vs stylix.image mkforce
-        programs.wpaperd = {
+        programs.wpaperd = lib.mkForce {
             enable = true;
-#             #     settings = {
-#             #         any = {
-#             #             path = "/home/charles/nextcloud/Pictures/wallpapers";
-#             #             duration = "30s";
-#             #             mode = "fit";
-#             #             sorting = "random";
-#             #         };
-#             #         eDP-1 = {
-#             #             path = "/home/charles/nextcloud/Pictures/wallpapers/52204128092_76bb16feb4_k.jpg";
-#             #         };
-#             #     };
+            settings = {
+                any = {
+                    path = "/home/charles/pictures/wallpapers";
+                    duration = "30s";
+                    mode = "fit";
+                    sorting = "random";
+                };
+                eDP-1 = {
+                    path = "/home/charles/pictures/wallpapers/52204128092_76bb16feb4_k.jpg";
+                };
+            };
         };
         xdg.configFile."wpaperd/config.toml" = {
             text = ''
             [any]
-            path = "/home/charles/nextcloud/Pictures/wallpapers"
+            path = "/home/charles/pictures/wallpapers"
             duration = "30s"
             mode = "center"
             sorting = "random"
             [eDP-1]
-            path = "/home/charles/nextcloud/Pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
+            path = "/home/charles/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
             '';
         };
 
@@ -74,6 +72,7 @@
                     "${pkgs.wpaperd}/bin/wpaperd"
                     "${pkgs.dbus}/bin/dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY"
                     "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
+                    "hyprctl setcursor Nordzy-cursors 32"
     #FIXME clipboard
     #   exec-once = wl-paste --type text  --watch cliphist store -max-items 1000
     #   exec-once = wl-paste --type image --watch cliphist store -max-items 1000
@@ -119,7 +118,7 @@
                     "$mod SHIFT, SPACE, togglefloating"
 
                     "$mod, D, exec, pkill wofi || wofi --show drun"
-                    ",Print,exec,slurp | grim -g - $HOME/Downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
+                    ",Print,exec,slurp | grim -g - $HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
                     "ALT, SHIFT, exec, hyprctl --batch 'switchxkblayout at-translated-set-2-keyboard next ; ergo-k860-keyboard next'"
 
                     ", XF86MonBrightnessUp, exec, brightnessctl -q s +10%"

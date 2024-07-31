@@ -80,7 +80,7 @@
                    };
                    "home/charles/torrent" = {
                        type = "zfs_fs";
-                       mountpoint = "/home/charles/Downloads/torrent";
+                       mountpoint = "/home/charles/downloads/torrent";
                    };
                     "home/charles/nextcloud" = {
                         type = "zfs_fs";

@@ -48,7 +48,7 @@
     '';
         # username.fetch = ["shell", "${pkgs.gnused}/bin/sed", "-n", "'/^USERNAME=/s///p'", "/run/user/1111/secrets/charles/nextcloud"]
 
-    xdg.configFile."neomutt/mailcap".text = /* ini */ ''
+    xdg.configFile."neomutt/mailcap".text = /* TODO opening office documents */ ''
         # # MS Word documents
         # application/msword; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
         # application/vnd.ms-excel; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
@@ -61,7 +61,7 @@
         text/calendar; ${pkgs.vcal}/bin/vcal %s; copiousoutput;
 
         #PDFs
-        application/pdf; atril %s pdf
+        application/pdf; ${pkgs.okular}/bin/okular %s pdf
 
         #Images
         image/png; ${pkgs.gwenview}/bin/gwenview %s

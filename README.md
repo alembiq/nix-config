@@ -26,3 +26,8 @@ set pictures to nextlcoud
 create `octopi` config
 sending mail (msmtp) notification
 incomming mail (mbsync) notification
+
+https://github.com/nix-community/nixpkgs-wayland -> inputs.nixpkgs-wayland.packages.${system}.wayprompt  # from nixpkgs-wayland exclusively - pinentry UI
+
+# programs.gpg.homedir = "${hm.config.xdg.dataHome}/gnupg";
+# home.file."${hm.config.programs.gpg.homedir}/.keep".text = "";

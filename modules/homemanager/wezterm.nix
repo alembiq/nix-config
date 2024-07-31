@@ -2,6 +2,7 @@
 {
     programs.wezterm = {
         enable = true;
+        enableBashIntegration = true;
         package = inputs.wezterm.packages.${pkgs.system}.default;
         extraConfig = let inherit (config.stylix) fonts; in ''
             local wezterm = require 'wezterm';
@@ -17,6 +18,16 @@
             config.color_scheme = 'custom'
             config.check_for_updates = false
             config.warn_about_missing_glyphs=false
+            config.front_end = 'WebGpu'
+
+            config.keys = {
+                { key = '[',     mods = 'CTRL|ALT',  action = wezterm.action.SplitVertical({ domain = 'CurrentPaneDomain' }), },
+                { key = ']',     mods = 'CTRL|ALT',  action = wezterm.action.SplitHorizontal({ domain = 'CurrentPaneDomain' }), },
+                { key = 'k',     mods = 'CTRL|ALT',  action = wezterm.action.ActivatePaneDirection('Up') },
+                { key = 'j',     mods = 'CTRL|ALT',  action = wezterm.action.ActivatePaneDirection('Down') },
+                { key = 'h',     mods = 'CTRL|ALT',  action = wezterm.action.ActivatePaneDirection('Left') },
+                { key = 'l',     mods = 'CTRL|ALT',  action = wezterm.action.ActivatePaneDirection('Right') },
+            }
 
             return config
             '';

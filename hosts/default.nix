@@ -89,9 +89,6 @@
                 enable = true;
                 enableSSHSupport = true;
                 pinentryPackage = lib.mkForce pkgs.pinentry-qt; #pkgs.pinentry-curses;
-                # settings = {
-                #     trust-model = "tofu+pgp";
-                # };
             };
         };
         mtr.enable = true;
@@ -131,7 +128,6 @@
                 fi
             '';
             shellAliases = {
-                "wezterm" = "nix run github:wez/wezterm?dir=nix";
                 "ls" = "ls --color=auto";
                 "ll" = "ls -alF";
                 "grep" = "grep --color=auto";
@@ -192,7 +188,7 @@
             allowPing = true;
             trustedInterfaces = [ "tailscale0 " ];
             allowedUDPPorts = [ config.services.tailscale.port ];
-            allowedTCPPorts = [ 22 11111 ];
+            allowedTCPPorts = [ 22 ];
         };
         nftables.enable = true;
     };

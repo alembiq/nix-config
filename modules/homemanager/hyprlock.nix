@@ -11,7 +11,7 @@
             };
             background = [
                 {
-                path = "${config.home.homeDirectory}/nextcloud/Pictures/wallpapers/drone-5.jpg";
+                path = "${config.home.homeDirectory}/pictures/wallpapers/drone-5.jpg";
                 # blur_passes = 2;
                 # noise = 0.0117;
                 # contrast = 0.8916;
