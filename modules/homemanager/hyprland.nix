@@ -16,35 +16,24 @@
                 wl-clip-persist
                 wlroots
                 waybar
+                playerctl
                 udiskie
                 swaynotificationcenter
             ];
         };
-#TODO wpaperd vs stylix.image mkforce
         programs.wpaperd = lib.mkForce {
             enable = true;
             settings = {
                 any = {
                     path = "/home/charles/pictures/wallpapers";
                     duration = "30s";
-                    mode = "fit";
+                    mode = "center";
                     sorting = "random";
                 };
                 eDP-1 = {
                     path = "/home/charles/pictures/wallpapers/52204128092_76bb16feb4_k.jpg";
                 };
             };
-        };
-        xdg.configFile."wpaperd/config.toml" = {
-            text = ''
-            [any]
-            path = "/home/charles/pictures/wallpapers"
-            duration = "30s"
-            mode = "center"
-            sorting = "random"
-            [eDP-1]
-            path = "/home/charles/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
-            '';
         };
 
         wayland.windowManager.hyprland = {
@@ -56,7 +45,7 @@
             settings = {
                 env = [
                     "GTK_THEME,Nord"
-                    "XDG_CURRENT_DESKTOP,Hyprland"
+                    "XDG_CURRENT_DESKTOP,hyprland"
                     "XDG_SESSION_TYPE,wayland"
                     "XDG_SESSION_DESKTOP,Hyprland"
                     "QT_QPA_PLATFORM,wayland;xcb"
@@ -70,18 +59,14 @@
                     "${pkgs.udiskie}/bin/udiskie --no-automount --smart-tray &"
                     "${pkgs.swaynotificationcenter}/bin/swaync"
                     "${pkgs.wpaperd}/bin/wpaperd"
+                    "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
                     "${pkgs.dbus}/bin/dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY"
-                    "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
-                    "hyprctl setcursor Nordzy-cursors 32"
-    #FIXME clipboard
-    #   exec-once = wl-paste --type text  --watch cliphist store -max-items 1000
-    #   exec-once = wl-paste --type image --watch cliphist store -max-items 1000
-                    "${pkgs.waybar}/bin/waybar #systemctl --user restart waybar"
-                    "${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-kde-authentication-agent-1"
-                    "${pkgs.wpaperd}/bin/wpaperd &"
                     "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
                     "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
-                    "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+                    "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
+                    "${pkgs.waybar}/bin/waybar #systemctl --user restart waybar"
+                    "${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-kde-authentication-agent-1"
+                    "hyprctl setcursor Nordzy-cursors 32"
                     # FIXME suspend/resume does not requires password
                     # "${pkgs.swayidle}/bin/swayidle -w timeout 90 '${pkgs.swaylock-effects}/bin/swaylock -f' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep '${pkgs.swaylock-effects}/bin/swaylock -f'"
                 ];
@@ -97,42 +82,34 @@
                     "$mod, mouse:273, resizewindow"
                 ];
                 bindl = [
-                    " , XF86AudioMute, exec, $scrPath/volumecontrol.sh -o m" # toggle audio mute
-                    " , XF86AudioMicMute, exec, $scrPath/volumecontrol.sh -i m" # toggle microphone mute
+                    ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+                    ", XF86AudioMicMute, exec, wpctl set-source-mute @DEFAULT_SOURCE@ toggle"
+                    ", XF86AudioPlay, exec, playerctl play-pause"
+                    ", XF86AudioPause, exec, playerctl pause"
+                    ", XF86AudioNext, exec, playerctl next"
+                    ", XF86AudioPrev, exec, playerctl previous"
+
                 ];
                 bindel = [
-                    " , XF86AudioLowerVolume, exec, $scrPath/volumecontrol.sh -o d" # decrease volume
-                    " , XF86AudioRaiseVolume, exec, $scrPath/volumecontrol.sh -o i" # increase volume
-                    " , XF86AudioLowerVolume, exec, $scrPath/volumecontrol.sh -o d" # decrease volume
-                    " , XF86AudioRaiseVolume, exec, $scrPath/volumecontrol.sh -o i" # increase volume
+                    ", XF86MonBrightnessUp, exec, brightnessctl -q s +10%"
+                    ", XF86MonBrightnessDown, exec, brightnessctl -q s 10%-"
+                    ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+                    ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
                 ];
                 bind = [
                     ",switch:off:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,1920x1080,320x1440,1'"
                     ",switch:on:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,disabled'"
 
-                    "$mod, RETURN, exec, wezterm" # warp-terminal
+                    "$mod, RETURN, exec, wezterm" # terminal
                     "$mod SHIFT, Q, killactive,"
                     #FIXME lock without suspend "$mod, L, exec, swaylock -f --screenshots --effect-pixelate 20 --fade-in 0.2 ; hyprctl dispatch dpms off"
                     "CTRLALT, DELETE, exec, wlogout"
+                    ", XF86Lock, exec, wlogout"
                     "$mod, F, fullscreen,"
                     "$mod SHIFT, SPACE, togglefloating"
-
                     "$mod, D, exec, pkill wofi || wofi --show drun"
                     ",Print,exec,slurp | grim -g - $HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
                     "ALT, SHIFT, exec, hyprctl --batch 'switchxkblayout at-translated-set-2-keyboard next ; ergo-k860-keyboard next'"
-
-                    ", XF86MonBrightnessUp, exec, brightnessctl -q s +10%"
-                    ", XF86MonBrightnessDown, exec, brightnessctl -q s 10%-"
-                    ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-                    ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK 5%-"
-                    #TODO identify proper keynames for audio
-                    # ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-                    # ", XF86AudioPlay, exec, playerctl play-pause"
-                    # ", XF86AudioPause, exec, playerctl pause"
-                    # ", XF86AudioNext, exec, playerctl next"
-                    # ", XF86AudioPrev, exec, playerctl previous"
-                    # ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-                    # ", XF86Lock, exec, hyprlock"
 
                     # Move focus with mainMod + arrow keys
                     "$mod, left, movefocus, l"
@@ -140,11 +117,16 @@
                     "$mod, up, movefocus, u"
                     "$mod, down, movefocus, d"
                     # Move window
-                    "SUPERSHIFT, left, movewindow,l"
-                    "SUPERSHIFT, right, movewindow,d"
-                    "SUPERSHIFT, up, movewindow,u"
-                    "SUPERSHIFT, down, movewindow,r"
-
+                    "$mod SHIFT, left, movewindow,l"
+                    "$mod SHIFT, right, movewindow,r"
+                    "$mod SHIFT, up, movewindow,u"
+                    "$mod SHIFT, down, movewindow,d"
+                    "$mod, Y, togglesplit"
+                    # Resize window
+                    "$mod CTRL,right,resizeactive,20 0"
+                    "$mod CTRL,left,resizeactive,-20 0"
+                    "$mod CTRL,up,resizeactive,0 -20"
+                    "$mod CTRL,down,resizeactive,0 20"
                     # Example special workspace (scratchpad)
                     "$mod, U, togglespecialworkspace, magic"
                     "$mod SHIFT, U, movetoworkspace, special:magic"

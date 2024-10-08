@@ -36,7 +36,7 @@
             Service = {
                 Type = "simple";
                 EnvironmentFile="/run/user/1111/secrets/charles/nextcloud"; #FIXME dynamic user
-                ExecStart="${pkgs.nextcloud-client}/bin/nextcloudcmd -h -s -u $USERNAME -p $PASSWORD --path /Documents /home/charles/documents https://cloud.ochman.info"; #FIXME exclude sync folders
+                ExecStart="${pkgs.nextcloud-client}/bin/nextcloudcmd -h -s -u $USERNAME -p $PASSWORD --path /Documents /home/charles/documents https://cloud.ochman.info";
                 TimeoutStopSec = "180";
                 KillMode = "process";
                 KillSignal = "SIGINT";

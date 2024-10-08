@@ -3,84 +3,25 @@
 {
 
 
-    i18n.defaultLocale = "en_US.UTF-8";
-
-    i18n.extraLocaleSettings = {
-        LC_ADDRESS = "cs_CZ.UTF-8";
-        LC_IDENTIFICATION = "cs_CZ.UTF-8";
-        LC_MEASUREMENT = "cs_CZ.UTF-8";
-        LC_MONETARY = "cs_CZ.UTF-8";
-        LC_NAME = "cs_CZ.UTF-8";
-        LC_NUMERIC = "cs_CZ.UTF-8";
-        LC_PAPER = "cs_CZ.UTF-8";
-        LC_TELEPHONE = "cs_CZ.UTF-8";
-        LC_TIME = "cs_CZ.UTF-8";
-    };
-
-
-
     environment.systemPackages = with pkgs; [
         sops
-        git
         gnupg
-        opensc
-        pcsctools
+        wget
         tailscale
         sanoid pv mbuffer lzop zstd
         molly-guard
     ];
 
-    system.activationScripts = { #FIXME folder .gnupg creation
-        gnupg = {
-            text = ''
-                mkdir -p /root/.gnupg
-                chown root /root/.gnupg
-            '';
-        };
-    };
-
-    # https://github.com/vinnymeller/nixos-config/blob/master/programs/gpg/default.nix
-    environment.shellInit = ''
-        gpg-connect-agent updatestartuptty /bye
-        export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-    '';
-    # systemd.user = {
-    #     timers."restart-gpg-agent" = {
-    #         enable = true;
-    #         wantedBy = ["timers.target"];
-    #         timerConfig = {
-    #         OnCalendar = "*:0/5";
-    #         Unit = "restart-gpg-agent.service";
-    #         };
-    #     };
-    #     services = {
-    #             "restart-gpg-agent" = {
-    #                 enable = true;
-    #                 script = ''
-    #                 ${pkgs.gnupg}/bin/gpgconf --kill gpg-agent
-    #                 '';
-    #                 serviceConfig = {
-    #                 Type = "oneshot";
-    #         };
-    #     };
-    # }; #END of systemd.user
-
-    services = {
-        fwupd.enable = true;
-        openssh = {
-            enable = true;
-            settings.PasswordAuthentication = false;
-            # authorizedKeysInHomedir = true; #NIXOS 24.11
-        };
-        tailscale = { #TODO logging limit tailscale
-            enable = true;
-        };
-        xserver.displayManager.sessionCommands = ''
-            # https://github.com/NixOS/nixpkgs/commit/5391882ebd781149e213e8817fba6ac3c503740c
-            ${pkgs.gnupg}/bin/gpg-connect-agent /bye
-            export GPG_TTY=$(tty)
-        '';
-    }; #END of services
+    sops = {
+        age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+        defaultSopsFile = ../secrets/wifi.yaml ;
+                secrets = {
+                    "wifi" = {
+                        # owner = "user";
+                        # path = "/etc/file";
+                    };
+                };
+    }; #END of SOPS
 
     programs = {
         ssh.startAgent = false;
@@ -94,8 +35,6 @@
         mtr.enable = true;
         bash = {
             completion.enable = true;
-#                hostname | ${pkgs.figlet}/bin/figlet -f slant -c -w $COLUMNS
-                # df -h
             interactiveShellInit = ''
                 source /etc/lsb-release
                 printf '%.0s*' $(seq $COLUMNS)
@@ -108,7 +47,7 @@
                 zfs list
                 printf '%.0s*' $(seq $COLUMNS)
             '';
-            loginShellInit = "echo loginShellInit";
+            loginShellInit = "echo $USER login...";
             promptInit = ''
                 [[ $PS1 && -f /run/current-system/sw/share/bash-completion/completions/git-prompt.sh ]] && . /run/current-system/sw/share/bash-completion/completions/git-prompt.sh
                 if [ "$TERM" != "dumb" ] ; then
@@ -159,10 +98,73 @@
                 # "docker-cleanup-volumes" = "docker volume prune -f"
                 # "docker-cleanup-images" = "docker system prune -a -f"
                 # "docker-killall" = "for i in $(docker ps|cut -d\  -f1|grep -v CON); do docker kill ${i} ; done"
+                # "docker-update-images" = "docker image ls --format='{{.Repository}}:{{.Tag}}' | xargs -I {} docker pull {}";
 
             };
         };
     }; #END of programs
+
+    time.timeZone = "Europe/Prague";
+    i18n.defaultLocale = "en_US.UTF-8";
+    i18n.extraLocaleSettings = {
+        LC_ADDRESS = "cs_CZ.UTF-8";
+        LC_IDENTIFICATION = "cs_CZ.UTF-8";
+        LC_MEASUREMENT = "cs_CZ.UTF-8";
+        LC_MONETARY = "cs_CZ.UTF-8";
+        LC_NAME = "cs_CZ.UTF-8";
+        LC_NUMERIC = "cs_CZ.UTF-8";
+        LC_PAPER = "cs_CZ.UTF-8";
+        LC_TELEPHONE = "cs_CZ.UTF-8";
+        LC_TIME = "cs_CZ.UTF-8";
+    };
+
+    # https://nixos.wiki/wiki/Fonts
+    fonts.packages = with pkgs; [
+        fira-code
+        fira-code-nerdfont
+    ];
+
+    system.activationScripts = { #FIXME folder .gnupg creation
+        gnupg = {
+            text = ''
+                mkdir -p /root/.gnupg
+                chown root /root/.gnupg
+            '';
+        };
+    };
+
+    # https://github.com/vinnymeller/nixos-config/blob/master/programs/gpg/default.nix
+    environment.shellInit = ''
+        gpg-connect-agent updatestartuptty /bye
+        export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    '';
+
+    services = {
+        fwupd.enable = true;
+        openssh = {
+            enable = true;
+            settings.PasswordAuthentication = false;
+        };
+        #TODO logging limit tailscale
+        tailscale = {
+            enable = true;
+        };
+        xserver.displayManager.sessionCommands = ''
+            # https://github.com/NixOS/nixpkgs/commit/5391882ebd781149e213e8817fba6ac3c503740c
+            ${pkgs.gnupg}/bin/gpg-connect-agent /bye
+            export GPG_TTY=$(tty)
+        '';
+    }; #END of services
+
+    networking = {
+        firewall = {
+            allowPing = true;
+            trustedInterfaces = [ "tailscale0 " ];
+            allowedUDPPorts = [ config.services.tailscale.port ];
+            allowedTCPPorts = [ 22 ];
+        };
+        nftables.enable = true;
+    };
 
     security.polkit.enable = true;
 
@@ -181,16 +183,11 @@
             automatic = true;
             dates = [ "03:45" ];
         };
-    };
-
-    networking = {
-        firewall = {
-            allowPing = true;
-            trustedInterfaces = [ "tailscale0 " ];
-            allowedUDPPorts = [ config.services.tailscale.port ];
-            allowedTCPPorts = [ 22 ];
+        gc = {
+            automatic = true;
+            dates = "daily";
+            options = "--delete-older-than 40d";
         };
-        nftables.enable = true;
     };
 
     system.activationScripts.diff = {
@@ -201,7 +198,5 @@
         '';
     };
 
-
-  time.timeZone = "Europe/Prague";
   system.stateVersion = "23.11";
 }

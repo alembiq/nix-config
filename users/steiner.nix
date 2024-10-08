@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+    ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+in
 {
     users.users.steiner = {
         isNormalUser = true;
@@ -6,8 +9,8 @@
         extraGroups =
             [
                 "wheel"
+            ] ++ ifTheyExist [
                 "networkmanager"
-                "docker"
                 "nixconfig"
                 "docker"
             ];

@@ -264,7 +264,6 @@
             "cat /dev/stdin > /tmp/muttmail.html && ${pkgs.xdg-utils}/bin/xdg-open /tmp/muttmail.html";
         in
         [
-            # TODO mail open in browser
             {
                 action = "<enter-command>set my_old_pipe_decode=$pipe_decode my_old_wait_key=$wait_key nopipe_decode nowait_key<enter>\<shell-escape>notmuch-mutt -r --prompt search<enter>\<change-folder-readonly>`echo $HOME/.cache/notmuch/mutt/results`<enter>\<enter-command>set pipe_decode=$my_old_pipe_decode wait_key=$my_old_wait_key<enter>i";
                 key = ''\Cf'';

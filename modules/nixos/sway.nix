@@ -20,7 +20,7 @@ let
             -b 'Reboot' 'systemctl reboot'
         '';
     modifier = "Mod4";
-    term = "wezterm";
+    term = "${pkgs.wezterm}/bin/wezterm";
     menu = "wofi --show drun | xargs swaymsg exec --";
 in {
 

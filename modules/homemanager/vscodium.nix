@@ -21,33 +21,16 @@
             naumovs.color-highlight
             vscode-icons-team.vscode-icons
             rust-lang.rust-analyzer
+            ms-azuretools.vscode-docker
             #TODO test bmewburn.vscode-intelephense-client
             #TODO test tamasfe.even-better-toml
-            #TODO test pythagoratechnologies.gpt-pilot-vs-code
             #TODO test ms-vscode-remote.remote-ssh
-            #TODO test jnoortheen.nix-ide
-            #TODO test github.copilot
-            #TODO test genieai.chatgpt-vscode
-            #TODO test chris-hayes.chatgpt-reborn
-            #TODO test brettm12345.nixfmt-vscode
         ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-            # {
-            #     name = "alejandra";
-            #     publisher = "kamadorueda";
-            #     version = "1.4.0";
-            #     sha256 = "gxnjUUtkeTlbASCoBMbyGuVEtTvp027Gx5+ngHwEms0=";
-            # }
             {
                 name = "latte";
                 publisher = "kasik96";
                 version = "0.18.0";
                 sha256 = "gxnjUUtkeTlbASCoBMbyGuVEtTvp027Gx5+ngHwEms0=";
-            }
-            {
-                name = "php-cs-fixer";
-                publisher = "junstyle";
-                version = "0.3.11";
-                sha256 = "8friIER4tRAkpv3WxdQl5xev60Zw6l1yCtr4RouW2DI=";
             }
             {
                 name = "intelli-php-vscode";
@@ -117,13 +100,10 @@
             "html.format.preserveNewLines" = true;
             "html.format.wrapAttributes" = "preserve-aligned";
             "html.format.wrapLineLength" = 240;
-            "[php]" = {
-                "editor.formatOnSave" = true;
-                "editor.defaultFormatter" = "junstyle.php-cs-fixer";
-            };
-            "php-cs-fixer.onsave" = true;
-            "php-cs-fixer.autoFixByBracket" = false;
-            "php-cs-fixer.rules" = "@PSR2";
+            # "[php]" = {
+            #     "editor.formatOnSave" = true;
+            #     "editor.defaultFormatter" = "junstyle.php-cs-fixer";
+            # };
             "php.suggest.basic" = false;
             "redhat.telemetry.enabled" = false;
             "rest-client.decodeEscapedUnicodeCharacters" = true;
@@ -213,8 +193,6 @@
                 "!encrypted/pkcs1-oaep scalar"
                 "!vault scalar"
             ];
-            # "php-cs-fixer.executablePath" = "${extensionPath}/php-cs-fixer.phar";
-            # "php-cs-fixer.lastDownload" = 1652699716863;
             "workbench.editor.enablePreview" = false;
             "git.autofetch" = true;
             "workbench.editor.empty.hint" = "hidden";

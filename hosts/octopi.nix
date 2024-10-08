@@ -7,7 +7,7 @@ let
   user = "guest";
   password = "guest";
   SSID = "ALEMBIQ.net";
-  SSIDpassword = "2016101420220701";
+  SSIDpassword = "**********";
   interface = "wlan0";
   hostname = "octopi";
 

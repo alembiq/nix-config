@@ -8,6 +8,7 @@ let
     find ${config.home-manager.users.charles.accounts.email.maildirBasePath}/$1 -type d -exec bash -c 'd1=("$1"/cur/); d2=("$1"/*/); [[ ! -e "$d1" && -e "$d2" ]]' _ {} \; -printf "%p "
   '';
   autodiscoverMailboxes = path: "mailboxes `${list-mailboxes}/bin/list-mailboxes ${path}`";
+  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
 {
     users.users.charles = {
@@ -18,6 +19,7 @@ in
         extraGroups =
             [
                 "wheel"
+            ] ++ ifTheyExist [
                 "input"
                 "audio"
                 "video"
@@ -39,6 +41,13 @@ in
     home-manager = {
         users.charles = {
             imports = [ ./default.nix ];
+            xdg.userDirs = {
+                enable = true;
+                documents = "$HOME/documents";
+                pictures = "$HOME/pictures";
+                music = "$HOME/audio";
+                download = "$HOME/downloads";
+            };
             accounts.contact.basePath = "~/.local/share/contacts/contacts/";
             accounts.email = { # Office365 oauth2 https://github.com/harishkrupo/oauth2ms or https://howto.cs.uchicago.edu/nix:mutt
                 # maildirBasePath = "$HOME/Maildir";
@@ -392,16 +401,18 @@ in
                             hostname = "10.0.42.203";
                             user = "ansible";
                         };
-                        "octopi-lan octopi-lan.svornosti" = {
-                            hostname = "10.0.42.221";
+                        "octopi.svornosti" = {
+                            hostname = "10.0.42.232";
                         };
-                        "octopi-wlan octopi-wlan.svornosti" = {
-                            hostname = "10.0.43.221";
-                        };
-                        "pihole pihole.svornosti" = {
+                        "pihole.svornosti" = {
                             hostname = "10.0.42.253";
                             user = "ansible";
                         };
+                        "pikvm.svornosti" = {
+                            hostname = "10.0.42.249";
+                            user = "root";
+                        };
+
                         # "verdandi-lan verdandi-lan.svornosti" = {
                         #     hostname = "10.0.42.101";
                         # };
@@ -424,6 +435,11 @@ in
                             forwardAgent = true;
                             # proxyJump = "tyr";
                         };
+                        # "lancre" = {
+                        #     hostname = "lancre.tail52316.ts.net";
+                        #     identityFile = "~/.ssh/YUBI-KK2024.pub";
+                        #     user = "charles";
+                        # };
                     ## GENERAL
                         "*" = {
                             addressFamily = "inet";
@@ -450,7 +466,7 @@ in
                     list-mailboxes
                     list-empty-mailboxes
                     htop
-                    tree
+                    ipcalc
                 ];
                 stateVersion = "23.11";
             }; #END of home-manager.users.charles.home
