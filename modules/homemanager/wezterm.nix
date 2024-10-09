@@ -33,7 +33,6 @@
             "[a-z]+(?:-[a-z0-9]+)+-[a-z0-9]",
         }
 
-        -- https://dev.to/lovelindhoni/make-wezterm-mimic-tmux-5893
         config.keys = {
             { key = '[',     mods = 'CTRL|ALT',  action = wezterm.action.SplitVertical({ domain = 'CurrentPaneDomain' }), },
             { key = ']',     mods = 'CTRL|ALT',  action = wezterm.action.SplitHorizontal({ domain = 'CurrentPaneDomain' }), },
@@ -41,7 +40,7 @@
             { key = 'j',     mods = 'CTRL|ALT',  action = wezterm.action.ActivatePaneDirection('Down') },
             { key = 'h',     mods = 'CTRL|ALT',  action = wezterm.action.ActivatePaneDirection('Left') },
             { key = 'l',     mods = 'CTRL|ALT',  action = wezterm.action.ActivatePaneDirection('Right') },
-            { key = "f",     mods = "CTRL|ALT",  action = action.TogglePaneZoomState  },
+            -- https://dev.to/lovelindhoni/make-wezterm-mimic-tmux-5893
         }
 
         return config

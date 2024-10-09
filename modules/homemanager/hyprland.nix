@@ -25,6 +25,10 @@
       playerctl
       udiskie
       swaynotificationcenter
+      ivm # TODO evaluate
+      libva # TODO evaluate
+      dconf # TODO evaluate dconf2nix
+
     ];
   };
   programs.wpaperd = lib.mkForce {
@@ -62,6 +66,7 @@
         "GDK_SCALE,1"
       ];
       exec-once = [
+        "systemctl --user start sops-nix"
         "${pkgs.udiskie}/bin/udiskie --no-automount --smart-tray &"
         "${pkgs.swaynotificationcenter}/bin/swaync"
         "${pkgs.wpaperd}/bin/wpaperd"

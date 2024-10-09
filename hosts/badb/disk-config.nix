@@ -1,9 +1,9 @@
 {
   disko.devices = {
     disk = {
-      nvme = {
-        device = "/dev/sda";
+      x = {
         type = "disk";
+        device = "/dev/sda";
         content = {
           type = "gpt";
           partitions = {
@@ -13,22 +13,8 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountOptions = [ "umask=0077" ];
                 mountpoint = "/boot";
-              };
-            };
-            zfs = {
-              size = "100G";
-              content = {
-                type = "zfs";
-                pool = "zpool";
-              };
-            };
-            plainSwap = {
-              size = "4G";
-              content = {
-                type = "swap";
-                resumeDevice = true; # resume from hiberation from this device
+                mountOptions = [ "umask=0077" ];
               };
             };
             encryptedSwap = {
@@ -36,6 +22,22 @@
               content = {
                 type = "swap";
                 randomEncryption = true;
+                priority = 100; # prefer to encrypt as long as we have space for it
+              };
+            };
+            plainSwap = {
+              size = "4G";
+              content = {
+                type = "swap";
+                discardPolicy = "both";
+                resumeDevice = true; # resume from hiberation from this device
+              };
+            };
+            zfs = {
+              size = "20G";
+              content = {
+                type = "zfs";
+                pool = "zroot";
               };
             };
           };
@@ -43,14 +45,14 @@
       };
     };
     zpool = {
-      zpool = {
+      zroot = {
         type = "zpool";
         rootFsOptions = {
           compression = "zstd";
           "com.sun:auto-snapshot" = "false";
           encryption = "aes-256-gcm";
-          keyformat = "passphrase";
-          # keylocation = "file:///tmp/secret.key";
+          # keyformat = "passphrase";
+          keylocation = "file:///tmp/secret.key";
         };
         postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zpool@blank$' || zfs snapshot zpool@blank";
         datasets = {

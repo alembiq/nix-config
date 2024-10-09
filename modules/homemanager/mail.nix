@@ -82,6 +82,8 @@
     frequency = "*:0/5";
   };
 
+  systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
+
   services.mbsync = {
     enable = true;
     configFile = "${config.xdg.configHome}/isync/mbsyncrc"; # FIXME it's read but not written to

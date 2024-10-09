@@ -1,7 +1,7 @@
 {
   description = "My flakes configuration";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # master
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
@@ -28,7 +28,9 @@
         home-manager.follows = "home-manager";
       };
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    #hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
@@ -39,7 +41,6 @@
       self,
       nixpkgs,
       nixpkgs-stable,
-      home-manager,
       ...
     }:
     let
@@ -51,8 +52,12 @@
         inputs.sops-nix.nixosModules.sops
         inputs.stylix.nixosModules.stylix
         inputs.disko.nixosModules.default
-        home-manager.nixosModules.home-manager
+        inputs.home-manager.nixosModules.home-manager
         {
+          nixpkgs.overlays = [ inputs.hyprpanel.overlay ];
+          _module.args = {
+            inherit inputs;
+          };
           home-manager = {
             useUserPackages = true;
             extraSpecialArgs = specialArgs;
@@ -81,17 +86,18 @@
         verdandi = nixpkgs.lib.nixosSystem {
           inherit specialArgs pkgs;
           system = "x86_64-linux";
-          modules = shared-modules ++ [ ./hosts/verdandi.nix ];
+          modules = shared-modules ++ [ ./hosts/verdandi ];
         };
         badb = nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
+          # change to nixpkgs-stable
+          inherit specialArgs pkgs; # change to pkgs-stable
           system = "x86_64-linux";
           modules = shared-modules ++ [ ./hosts/badb ];
         };
         octopi = nixpkgs.lib.nixosSystem {
           inherit specialArgs pkgs;
           system = "aarch64-linux";
-          modules = shared-modules ++ [ ./hosts/octopi.nix ];
+          modules = shared-modules ++ [ ./hosts/octopi ];
         };
       };
     };

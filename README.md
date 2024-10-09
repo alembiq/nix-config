@@ -1,4 +1,6 @@
 # RANDOM notes
+- users/charles-workstation.nix:71 sops redirect experiment
+
 - get `UID` to a variable to adjust paths...
 - move mailbox `accounts.email.maildirBasePath` to `.local/shared/mail/` + zfs (disko)
 - move `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg` > programs.gpg.homedir = "${hm.config.xdg.dataHome}/gnupg";

@@ -3,7 +3,7 @@
   lib,
   pkgs,
   modulesPath,
-  inputs,
+  nixos-hardware,
   ...
 }:
 let
@@ -24,37 +24,39 @@ in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    # inputs.disko.nixosModules.default
+    ./disk-config.nix
     ../default.nix
     ../default-workstation.nix
+    ../../modules/nixos/audio.nix
+    ../../modules/nixos/bluetooth.nix
+
     # ../modules/nixos/remotebuilder.nix
     ../../users/charles.nix
     ../../users/backup.nix
-    ./verdandi-disko.nix
     ../../modules/nixos/hyprland.nix
     ../../modules/nixos/sway.nix
     ../../modules/nixos/stylix.nix
     ../../modules/nixos/docker.nix
-    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
+    nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
   ];
 
   home-manager = {
     users.charles = {
       imports = [
-        ../modules/homemanager/theming.nix
-        ../modules/homemanager/mail.nix
-        ../modules/homemanager/waybar.nix
-        ../modules/homemanager/hyprland.nix
-        ../modules/homemanager/hyprlock.nix
-        ../modules/homemanager/hypridle.nix
-        ../modules/homemanager/wezterm.nix
-        ../modules/homemanager/firefox.nix
-        ../modules/homemanager/nextcloud.nix
-        ../modules/homemanager/photography.nix
-        ../modules/homemanager/vscodium.nix
-        ../modules/homemanager/sway.nix
-        ../modules/homemanager/wofi.nix
-        ../users/charles-workstation.nix
+        ../../modules/homemanager/theming.nix
+        ../../modules/homemanager/mail.nix
+        ../../modules/homemanager/waybar.nix
+        ../../modules/homemanager/hyprland.nix
+        ../../modules/homemanager/hyprlock.nix
+        ../../modules/homemanager/hypridle.nix
+        ../../modules/homemanager/wezterm.nix
+        ../../modules/homemanager/firefox.nix
+        ../../modules/homemanager/nextcloud.nix
+        ../../modules/homemanager/photography.nix
+        ../../modules/homemanager/vscodium.nix
+        ../../modules/homemanager/sway.nix
+        ../../modules/homemanager/wofi.nix
+        ../../users/charles-workstation.nix
       ];
 
       home = {
@@ -64,7 +66,6 @@ in
           calibre
           poppler_utils # pdf tools
           overskride
-          blueberry # blueman
           deluge
           # makemkv handbrake libaacs libbluray libdvdcss
           warp-terminal
@@ -85,39 +86,6 @@ in
       {
                   download_location = "/srv/torrents/";
               }'';
-    auto-cpufreq = {
-      enable = true;
-      settings = {
-        battery = {
-          governor = "powersave";
-          turbo = "never";
-        };
-        charger = {
-          governor = "performance";
-          turbo = "auto";
-        };
-      };
-    };
-    system76-scheduler.settings.cfsProfiles.enable = true;
-    power-profiles-daemon.enable = false; # needed to enable TLP
-    tlp = {
-      enable = true;
-      settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 100;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 50;
-
-        START_CHARGE_THRESH_BAT0 = 40;
-        STOP_CHARGE_THRESH_BAT0 = 80;
-      };
-    };
     zfs = {
       trim.enable = true;
       autoScrub.enable = true;
@@ -249,11 +217,11 @@ in
 
   #TODO paired BT deviced
   hardware = {
-    bluetooth.enable = true;
     cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
   };
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_zen; # _latest, _zen, _hardened, _rt, _rt_latest, etc.
     loader = {
       systemd-boot = {
         enable = true;

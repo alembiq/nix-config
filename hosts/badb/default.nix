@@ -3,6 +3,7 @@
   lib,
   pkgs,
   disko,
+  nixos-hardware,
   ...
 }:
 
@@ -10,110 +11,160 @@
   imports = [
     ./disk-config.nix
     ./hardware-configuration.nix
+    ../default.nix
+    ../default-workstation.nix
+    # ../modules/nixos/remotebuilder.nix
+
+    ../../modules/nixos/audio.nix
+    # ../../modules/nixos/bluetooth.nix
+    ../../modules/nixos/audio.nix
+    ../../users/charles.nix
+    ../../users/backup.nix
+    ../../modules/nixos/sway.nix
+    ../../modules/nixos/stylix.nix
+    nixos-hardware.nixosModules.common-cpu-intel
+    nixos-hardware.nixosModules.common-pc-laptop
+    nixos-hardware.nixosModules.common-pc-ssd
   ];
 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
   services.displayManager.sddm.wayland.enable = true;
-
-  # Enable the Plasma 5 Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+  home-manager = {
+    users.charles = {
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+      imports = [
+        ../../modules/homemanager/mail.nix
+        ../../modules/homemanager/waybar.nix
+        # ../modules/homemanager/hyprland.nix
+        # ../modules/homemanager/hyprlock.nix
+        # ../modules/homemanager/hypridle.nix
+        ../../modules/homemanager/wezterm.nix
+        ../../modules/homemanager/firefox.nix
+        ../../modules/homemanager/nextcloud.nix
+        # ../modules/homemanager/photography.nix
+        ../../modules/homemanager/vscodium.nix
+        ../../modules/homemanager/sway.nix
+        ../../modules/homemanager/wofi.nix
+      ];
 
-  # Enable sound.
-  # hardware.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
+      home = {
+        packages = with pkgs; [
+          poppler_utils # pdf tools
+        ];
+        stateVersion = "23.11";
+      }; # END of home-manager.users.charles.home
+    }; # END of home-manager.users.charles
+  }; # END of home-manager
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
+  services = {
+    # zram-generator = {
+    #     enable = true;
+    #     settings.zram0 = {
+    #         compression-algorithm = "zstd";
+    #         zram-size = "ram * 2";
+    #     };
+    # };
+    zfs = {
+      trim.enable = true;
+      autoScrub.enable = true;
+    };
+    sanoid = {
+      enable = true;
+      interval = "*:2,32";
+      templates.backup = {
+        hourly = 36;
+        daily = 14;
+        weekly = 0;
+        monthly = 0;
+        yearly = 0;
+        autoprune = true;
+        autosnap = true;
+      };
+      templates.day = {
+        hourly = 0;
+        daily = 7;
+        weekly = 0;
+        monthly = 0;
+        yearly = 0;
+        autoprune = true;
+        autosnap = true;
+      };
+      templates.rotate = {
+        autoprune = true;
+        autosnap = true;
+        hourly = 1;
+        daily = 1;
+        weekly = 1;
+        monthly = 0;
+        yearly = 0;
+      };
+      datasets."zpool/home/charles" = {
+        useTemplate = [ "backup" ];
+      };
+      datasets."zpool/nixos/etc" = {
+        useTemplate = [ "backup" ];
+      };
+      datasets."zpool/nixos" = {
+        useTemplate = [ "day" ];
+      };
+      datasets."zpool/home/charles/mail" = {
+        useTemplate = [ "rotate" ];
+      };
+      datasets."zpool/home/charles/cache" = {
+        useTemplate = [ "rotate" ];
+      };
+      datasets."zpool/home/charles/torrent" = {
+        useTemplate = [ "rotate" ];
+      };
+      datasets."zpool/home/charles/audio" = {
+        useTemplate = [ "rotate" ];
+      };
+      datasets."zpool/home/charles/documents" = {
+        useTemplate = [ "rotate" ];
+      };
+      datasets."zpool/home/charles/games" = {
+        useTemplate = [ "rotate" ];
+      };
+      datasets."zpool/home/charles/pictures" = {
+        useTemplate = [ "rotate" ];
+      };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.alice = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  #   packages = with pkgs; [
-  #     firefox
-  #     tree
-  #   ];
-  # };
+    };
+    syncoid = {
+      # FIXME do pull insted of push
+      user = "backup";
+      enable = true;
+      interval = "*:35";
+      commonArgs = [
+        "--no-sync-snap"
+        "--debug"
+      ];
+      # commands = {
+      #     "nixos" = {
+      #         source = "zpool/nixos/etc";
+      #         target = "backup@100.118.57.39:tank/vault/localhost-verdandi/20240325_nixos";
+      #         sendOptions = "w c";
+      #         #TODO syncoid path and the key /var/lib/syncoid/id_ed25519 ? user backup
+      #         sshKey = "/var/lib/syncoid/id_ed25519";
+      #         extraArgs = [ "--sshoption=StrictHostKeyChecking=off" "--recursive" ];
+      #     };
+      #     "home" = {
+      #         source = "zpool/home/charles";
+      #         target = "backup@100.118.57.39:tank/vault/localhost-verdandi/20240325_charles";
+      #         sendOptions = "w c";
+      #         sshKey = "/var/lib/syncoid/id_ed25519";
+      #         extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
+      #     };
+      # FIXME syncoid SENDER needs `zfs allow backup create,receive,destroy,rollback,snapshot,hold,release,mount zroot`
+      # RECEIVER needs zfs allow backup receive,mount,create
+      # };
+    };
+  }; # END of services
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
-
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.05"; # Did you read the comment?
+  environment = {
+    systemPackages = with pkgs; [ ansible ];
+  };
 
 }

@@ -8,14 +8,6 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  #   fileSystems."/" = {
-  #     device = "/dev/disk/by-uuid/41b1b102-8ce7-479a-8089-62d8bc226cf4";
-  #     fsType = "ext4";
-  #   };
-
-  #   swapDevices =
-  #     [{ device = "/dev/disk/by-uuid/d7372988-f7b3-4cea-837f-e6cd710e3cc5"; }];
-
   networking = {
     hostId = "555dafd6"; # head -c 8 /etc/machine-id
     hostName = "badb";

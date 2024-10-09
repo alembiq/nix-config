@@ -13,10 +13,11 @@
   xdg = {
     portal = {
       enable = true;
+      config.common.default = "*";
       wlr.enable = true;
       extraPortals = [
         pkgs.xdg-desktop-portal-hyprland
-        pkgs.xdg-desktop-portal-wlr
+        # pkgs.xdg-desktop-portal-wlr
         pkgs.xdg-desktop-portal-gtk
         # https://discourse.nixos.org/t/xdg-portals-all-broken/48308/16
       ];

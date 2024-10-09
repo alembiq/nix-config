@@ -7,6 +7,10 @@
 
 {
 
+  environment.variables = {
+    XDG_DATA_HOME = "$HOME/.local/share";
+  };
+
   environment.systemPackages = with pkgs; [
     sops
     gnupg
@@ -42,7 +46,7 @@
     };
     mtr.enable = true;
     bash = {
-      enableCompletion = true;
+      completion.enable = true;
       interactiveShellInit = ''
         source /etc/lsb-release
         printf '%.0s*' $(seq $COLUMNS)
@@ -127,10 +131,33 @@
   };
 
   # https://nixos.wiki/wiki/Fonts
-  fonts.packages = with pkgs; [
-    fira-code
-    fira-code-nerdfont
-  ];
+  fonts = {
+    packages = with pkgs; [
+      fira-code
+      fira-code-nerdfont
+      noto-fonts-emoji
+    ];
+    enableDefaultPackages = false;
+
+    fontconfig = {
+      defaultFonts = {
+        monospace = [
+          "FiraCode Nerd Font Mono"
+          "Noto Color Emoji"
+        ];
+        sansSerif = [
+          "DejaVu Sans Nerd Font"
+          "Noto Color Emoji"
+        ];
+        serif = [
+          "DejaVu Serif Nerd Font"
+          "Noto Color Emoji"
+        ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
+
+  };
 
   system.activationScripts = {
     # FIXME folder .gnupg creation
@@ -178,11 +205,15 @@
   security.polkit.enable = true;
 
   nix = {
+    extraOptions = ''
+      warn-dirty = false
+    '';
     settings = {
       experimental-features = [
         "nix-command"
         "flakes"
       ];
+      auto-optimise-store = true;
       substituters = [
         "https://hyprland.cachix.org"
         "https://nix-community.cachix.org"
@@ -192,10 +223,10 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
-    optimise = {
-      automatic = true;
-      dates = [ "03:45" ];
-    };
+    # optimise = {
+    #   automatic = true;
+    #   dates = [ "03:45" ];
+    # };
     gc = {
       automatic = true;
       dates = "daily";

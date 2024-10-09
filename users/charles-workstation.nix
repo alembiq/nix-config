@@ -43,6 +43,8 @@ in
       "x-scheme-handler/element" = "element-desktop.desktop";
       "text/html" = "firefox.desktop";
       "text/plain" = " codium.desktop";
+      "image/png" = "imv.desktop";
+      "image/jpeg" = "imv.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
       "x-scheme-handler/https" = "firefox.desktop";
       "x-scheme-handler/about" = "firefox.desktop";
@@ -68,7 +70,9 @@ in
       "charles/email/ochman" = { };
       "charles/email/snempohanskychobci" = { };
       "charles/nextcloud" = { };
-      "charles/svornosti/fileserver/samba" = { };
+      "charles/svornosti/fileserver/samba" = {
+        path = "/home/charles/.config/fileserver-samba";
+      };
     };
   }; # END of home-manager.users.charles.sops
 

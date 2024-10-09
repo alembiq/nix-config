@@ -278,6 +278,7 @@ in
             commit.gpgSign = true;
             # gpg.program = "${config.programs.gpg.package}/bin/gpg2";
             pull.rebase = "true";
+            push.autoSetupRemote = true;
           };
           aliases = {
             # back = "reset --soft HEAD~";
@@ -291,11 +292,19 @@ in
           publicKeys = [
             # https://discourse.nixos.org/t/gpg-smartcard-for-ssh/33689
             {
-              source = ../secrets/KK-0x05F6EFFABE002CB2-2024-01-26.asc;
+              source = ../secrets/KK-4A72D7FD235E50F93F6801A005F6EFFABE002CB2-2024-01-26.asc;
               trust = "ultimate";
             }
             {
-              source = ../secrets/KO-0xFE39AAD9091A1CD7-2024-01-26.asc;
+              source = ../secrets/KO-B924244CA7E66DB473867B7CFE39AAD9091A1CD7-2024-01-26.asc;
+              trust = "ultimate";
+            }
+            {
+              source = ../secrets/KK-D25EEBEF376E7A1FFC2BBA00DAB8D3784DF29978-2023-09-14.asc;
+              trust = "ultimate";
+            }
+            {
+              source = ../secrets/KO-9A15295E39561003E02DE539576DCF9C4F332B1B-2023-09-14.asc;
               trust = "ultimate";
             }
           ];

@@ -34,6 +34,43 @@
   };
 
   services = {
+    gvfs.enable = true;
+    power-profiles-daemon.enable = true;
+
+    # auto-cpufreq = {
+    #   enable = true;
+    #   settings = {
+    #     battery = {
+    #       governor = "powersave";
+    #       turbo = "never";
+    #     };
+    #     charger = {
+    #       governor = "performance";
+    #       turbo = "auto";
+    #     };
+    #   };
+    # };
+    # system76-scheduler.settings.cfsProfiles.enable = true;
+    # tlp = {
+    #   enable = true;
+    #   settings = {
+    #     CPU_SCALING_GOVERNOR_ON_AC = "performance";
+    #     CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+    #     CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+    #     CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+    #     CPU_MIN_PERF_ON_AC = 0;
+    #     CPU_MAX_PERF_ON_AC = 100;
+    #     CPU_MIN_PERF_ON_BAT = 0;
+    #     CPU_MAX_PERF_ON_BAT = 50;
+
+    #     START_CHARGE_THRESH_BAT0 = 40;
+    #     STOP_CHARGE_THRESH_BAT0 = 80;
+    #   };
+    # };
+
+    udisks2.enable = true;
     pcscd.enable = true;
     udev.packages = with pkgs; [
       yubikey-personalization
@@ -56,15 +93,6 @@
         user = "charles";
       };
     };
-    pipewire = {
-      enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      pulse.enable = true;
-      wireplumber.enable = true;
-    };
     xserver = {
       enable = true;
     };
@@ -82,7 +110,6 @@
   };
 
   security = {
-    rtkit.enable = true;
     sudo.wheelNeedsPassword = false;
     pam = {
       # yubico = { #nix-shell --command 'ykinfo -s' -p yubikey-personalization
@@ -101,7 +128,7 @@
         swaylock = { }; # to enable swaylock auth
         hyprlock = { }; # to enable hyprlock auth
         greetd = {
-          enableGnomeKeyring = true;
+          #   enableGnomeKeyring = true;
           gnupg = {
             enable = true;
             storeOnly = true;
@@ -110,6 +137,20 @@
       };
     };
   };
+
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "tty";
+    StandardError = "journal"; # Without this errors will spam on screen
+    # Without these bootlogs will spam on screen
+    TTYReset = true;
+    TTYVHangup = true;
+    TTYVTDisallocate = true;
+  };
+
+  # To prevent getting stuck at shutdown
+  systemd.extraConfig = "DefaultTimeoutStopSec=30s";
 
   systemd.sleep.extraConfig = ''
     AllowSuspend=yes

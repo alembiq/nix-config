@@ -18,6 +18,7 @@
       # FIXME cursors
       package = pkgs.nordzy-cursor-theme;
       name = "Nordzy-cursors";
+      size = 24;
     };
     image = pkgs.fetchurl {
       # https://i.redd.it/drtekja8qmib1.jpg
@@ -36,9 +37,7 @@
         name = "FiraCode Nerd Font Mono"; # TODO try cascadia-code
         package = pkgs.fira-code-nerdfont;
       };
-      # serif = config.stylix.fonts.monospace;
-      # sansSerif = config.stylix.fonts.monospace;
-      # emoji = config.stylix.fonts.monospace;
+
       serif = {
         package = pkgs.dejavu_fonts;
         name = "DejaVu Serif";
