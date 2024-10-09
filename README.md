@@ -43,3 +43,13 @@ base0C: "#D08770"
 base0D: "#EBCB8B"
 base0E: "#A3BE8C"
 base0F: "#B48EAD"
+
+
+
+# nmcli
+```
+     nmcli con show
+     nmcli con modify HotelWifiName wifi.cloned-mac-address 70:48:f7:1a:2b:3c
+     nmcli device disconnect wlp0s20f3
+     nmcli device connect wlp0s20f3
+```

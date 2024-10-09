@@ -1,112 +1,125 @@
 # mbsync https://beb.ninja/post/email/
 # msmtp https://nixos.wiki/wiki/Msmtp
 # https://sbr.pm/configurations/mails.html
-{ inputs, lib, config, pkgs, ... }:
 {
-    home = {
-        packages = with pkgs; [
-            neomutt
-            isync
-            mailcap
-            msmtp
-            notmuch-mutt
-            urlscan
-            khard
-            vcal
-            vdirsyncer
-            w3m
-            libsForQt5.pim-sieve-editor
-        ];
-    };
-    #FIXME dynamic user / home-manager.users.charles.accounts.contact.basePath
-    #TODO programs.khard.settings accounts.contact.accounts..khard.enable
-    xdg.configFile."khard/khard.conf".text = /* toml */ ''
-        [addressbooks]
-        [[contacts]]
-        path = ~/.local/share/contacts/contacts/
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
+  home = {
+    packages = with pkgs; [
+      neomutt
+      isync
+      mailcap
+      msmtp
+      notmuch-mutt
+      urlscan
+      khard
+      vcal
+      vdirsyncer
+      w3m
+      libsForQt5.pim-sieve-editor
+    ];
+  };
+  #FIXME dynamic user / home-manager.users.charles.accounts.contact.basePath
+  #TODO programs.khard.settings accounts.contact.accounts..khard.enable
+  xdg.configFile."khard/khard.conf".text = # toml
+    ''
+      [addressbooks]
+      [[contacts]]
+      path = ~/.local/share/contacts/contacts/
     '';
-    #FIXME dynamic user, sops, UID
-    #TODO https://github.com/pimutils/vdirsyncer/issues/1021 after it's fixed create script until
-    #TODO accounts.contact.accounts..vdirsyncer.enable & services.vdirsyncer.
-    xdg.configFile."vdirsyncer/config".text = /* ini */ ''
-        [general]
-        status_path = "~/.config/vdirsyncer/status/"
-        [pair nextcloud_contacts]
-        a = "nextcloud_contacts_local"
-        b = "nextcloud_contacts_remote"
-        collections = ["from a", "from b"]
-        metadata = ["displayname"]
-        [storage nextcloud_contacts_local]
-        type = "filesystem"
-        path = "~/.local/share/contacts/"
-        fileext = ".vcf"
-        [storage nextcloud_contacts_remote]
-        type = "carddav"
-        url = "https://cloud.ochman.info/remote.php/dav/addressbooks/users/charles/"
-        username.fetch = ["shell", "source /run/user/1111/secrets/charles/nextcloud ; echo $USERNAME"]
-        password.fetch = ["shell", "source /run/user/1111/secrets/charles/nextcloud ; echo $PASSWORD"]
+  #FIXME dynamic user, sops, UID
+  #TODO https://github.com/pimutils/vdirsyncer/issues/1021 after it's fixed create script until
+  #TODO accounts.contact.accounts..vdirsyncer.enable & services.vdirsyncer.
+  xdg.configFile."vdirsyncer/config".text = # ini
+    ''
+      [general]
+      status_path = "~/.config/vdirsyncer/status/"
+      [pair nextcloud_contacts]
+      a = "nextcloud_contacts_local"
+      b = "nextcloud_contacts_remote"
+      collections = ["from a", "from b"]
+      metadata = ["displayname"]
+      [storage nextcloud_contacts_local]
+      type = "filesystem"
+      path = "~/.local/share/contacts/"
+      fileext = ".vcf"
+      [storage nextcloud_contacts_remote]
+      type = "carddav"
+      url = "https://cloud.ochman.info/remote.php/dav/addressbooks/users/charles/"
+      username.fetch = ["shell", "source /run/user/1111/secrets/charles/nextcloud ; echo $USERNAME"]
+      password.fetch = ["shell", "source /run/user/1111/secrets/charles/nextcloud ; echo $PASSWORD"]
     '';
-        # username.fetch = ["shell", "${pkgs.gnused}/bin/sed", "-n", "'/^USERNAME=/s///p'", "/run/user/1111/secrets/charles/nextcloud"]
+  # username.fetch = ["shell", "${pkgs.gnused}/bin/sed", "-n", "'/^USERNAME=/s///p'", "/run/user/1111/secrets/charles/nextcloud"]
 
-    xdg.configFile."neomutt/mailcap".text = /* TODO opening office documents */ ''
-        # # MS Word documents
-        # application/msword; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
-        # application/vnd.ms-excel; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
-        # application/vnd.openxmlformats-officedocument.presentationml.presentation; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
-        # application/vnd.oasis.opendocument.text; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
+  xdg.configFile."neomutt/mailcap".text = # TODO opening office documents
+    ''
+      # # MS Word documents
+      # application/msword; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
+      # application/vnd.ms-excel; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
+      # application/vnd.openxmlformats-officedocument.presentationml.presentation; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
+      # application/vnd.oasis.opendocument.text; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
 
-        # HTML
-        text/html; ${pkgs.w3m}/bin/w3m -I %{charset} -T text/html; copiousoutput;
-        text/plain; ${pkgs.nano}/bin/nano %s
-        text/calendar; ${pkgs.vcal}/bin/vcal %s; copiousoutput;
+      # HTML
+      text/html; ${pkgs.w3m}/bin/w3m -I %{charset} -T text/html; copiousoutput;
+      text/plain; ${pkgs.nano}/bin/nano %s
+      text/calendar; ${pkgs.vcal}/bin/vcal %s; copiousoutput;
 
-        #PDFs
-        application/pdf; ${pkgs.okular}/bin/okular %s pdf
+      #PDFs
+      application/pdf; ${pkgs.okular}/bin/okular %s pdf
 
-        #Images
-        image/png; ${pkgs.gwenview}/bin/gwenview %s
-        image/jpeg; ${pkgs.gwenview}/bin/gwenview %s
+      #Images
+      image/png; ${pkgs.gwenview}/bin/gwenview %s
+      image/jpeg; ${pkgs.gwenview}/bin/gwenview %s
     '';
 
-    services.vdirsyncer = {
-        enable = true;
-        frequency = "*:0/5";
-    };
+  services.vdirsyncer = {
+    enable = true;
+    frequency = "*:0/5";
+  };
 
+  services.mbsync = {
+    enable = true;
+    configFile = "${config.xdg.configHome}/isync/mbsyncrc"; # FIXME it's read but not written to
+    postExec = "${pkgs.notmuch}/bin/notmuch new";
+  };
+  programs.mbsync.enable = true;
+  programs.msmtp = {
+    enable = true; # FIXME `.config/msmtp/msmtp` contains extra "account default: karelkremel"
+  };
+  programs.notmuch = {
+    # TODO config https://notmuchmail.org/mutttips/
+    enable = true;
+  };
 
-    services.mbsync = {
-        enable = true;
-        configFile = "${config.xdg.configHome}/isync/mbsyncrc"; #FIXME it's read but not written to
-        postExec = "${pkgs.notmuch}/bin/notmuch new";
+  programs.neomutt = {
+    changeFolderWhenSourcingAccount = true;
+    enable = true;
+    unmailboxes = true;
+    sidebar = {
+      enable = true;
+      format = "%D%?F? [%F]?%* %?N?%N/?%S";
+      shortPath = true;
+      width = 30;
     };
-    programs.mbsync.enable = true;
-    programs.msmtp = {
-        enable = true;  #FIXME `.config/msmtp/msmtp` contains extra "account default: karelkremel"
-    };
-    programs.notmuch = { #TODO config https://notmuchmail.org/mutttips/
-        enable = true;
-    };
-
-    programs.neomutt = {
-        changeFolderWhenSourcingAccount = true;
-        enable = true;
-        unmailboxes = true;
-        sidebar= {
-            enable = true;
-            format = "%D%?F? [%F]?%* %?N?%N/?%S";
-            shortPath = true;
-            width = 30;
-        };
-        editor = "nano -r 80 -S %s";
-        checkStatsInterval = 10;
-    extraConfig = let
-      # Collect all addresses and aliases
-      addresses = lib.flatten (lib.mapAttrsToList (n: v: [ v.address ] ++ v.aliases) config.accounts.email.accounts);
-            # hdr_order = "From List-Id Organization Reply-To To CC Bcc Date Subject";
-            # ignore = "*";
-            # unignore = "From Subject To Cc Bcc Reply-To Organization Date List-Id";
-            # unhdr_order = "*";
-    in ''
+    editor = "nano -r 80 -S %s";
+    checkStatsInterval = 10;
+    extraConfig =
+      let
+        # Collect all addresses and aliases
+        addresses = lib.flatten (
+          lib.mapAttrsToList (n: v: [ v.address ] ++ v.aliases) config.accounts.email.accounts
+        );
+      in
+      # hdr_order = "From List-Id Organization Reply-To To CC Bcc Date Subject";
+      # ignore = "*";
+      # unignore = "From Subject To Cc Bcc Reply-To Organization Date List-Id";
+      # unhdr_order = "*";
+      ''
         alternates "${lib.concatStringsSep "|" addresses}"
         alternative_order application/pgp-encrypted text/plain text/enriched text/html text/* text/calendar
         auto_view text/html text/calendar application/ics application/pgp-encrypted
@@ -192,226 +205,290 @@
         # color body color1 default "^gpg: BAD signature from.*"
         mono body bold "^gpg: Good signature"
         mono body bold "^gpg: BAD signature from.*"
-    '';
-        binds = [
-            {
-                action = "noop";
-                key = ''\Cf''; #notmuch
-                map = [ "index" "pager"];
-            }
-            {
-                action = "noop";
-                key = ''\Cu''; #urlscan
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "noop";
-                key = "i"; #changing mailbox
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "noop";
-                key = "M"; #move to
-                map = [ "index" "pager" ];
-            }
-
-            {
-                action = "sidebar-toggle-visible";
-                key = "B";
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "group-reply";
-                key = "R";
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "sidebar-prev";
-                key = "<S-Up>";
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "sidebar-open";
-                key = "<S-Right>";
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "sidebar-next";
-                key = "<S-Down>";
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "sync-mailbox";
-                key = "<tab>";
-                map = [ "index" ];
-            }
-            {
-                action = "noop";
-                key = "<space>";
-                map = [ "editor" ];
-            }
-
-            {
-                action = "collapse-thread";
-                key = "<space>";
-                map = [ "index" ];
-            }
-
+      '';
+    binds = [
+      {
+        action = "noop";
+        key = "\\Cf"; # notmuch
+        map = [
+          "index"
+          "pager"
         ];
-        macros =
-        let
-            browserpipe =
-            "cat /dev/stdin > /tmp/muttmail.html && ${pkgs.xdg-utils}/bin/xdg-open /tmp/muttmail.html";
-        in
-        [
-            {
-                action = "<enter-command>set my_old_pipe_decode=$pipe_decode my_old_wait_key=$wait_key nopipe_decode nowait_key<enter>\<shell-escape>notmuch-mutt -r --prompt search<enter>\<change-folder-readonly>`echo $HOME/.cache/notmuch/mutt/results`<enter>\<enter-command>set pipe_decode=$my_old_pipe_decode wait_key=$my_old_wait_key<enter>i";
-                key = ''\Cf'';
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "<pipe-message>${pkgs.urlscan}/bin/urlscan<enter><exit>";
-                key = ''\Cu'';
-                map = [ "pager" "index" ];
-            }
-
-            {
-                action = "<pipe-message>${pkgs.khard}/bin/khard add-email<return>";
-                key = "A";
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "<shell-escape>${pkgs.isync}/bin/mbsync -c ${config.xdg.configHome}/isync/mbsyncrc -a<enter>";
-                key = "O";
-                map = [ "index" ];
-            }
-            {
-                action = "<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source /home/charles/.config/neomutt/karelkremel@gmail.com<enter><change-folder>!<enter>";
-                key = "i2";
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source /home/charles/.config/neomutt/karelkremel@karelkremel.com<enter><change-folder>!<enter>";
-                key = "i3";
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source /home/charles/.config/neomutt/charles@alembiq.net<enter><change-folder>!<enter>";
-                key = "i4";
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source /home/charles/.config/neomutt/karel@ochman.info<enter><change-folder>!<enter>";
-                key = "i5";
-                map = [ "index" "pager" ];
-            }
-            {
-                action = "<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source /home/charles/.config/neomutt/karel.kremel@snempohanskychobci.org<enter><change-folder>!<enter>";
-                key = "i6";
-                map = [ "index" "pager" ];
-            }
-            {
-            action = "<pipe-entry>${browserpipe}<enter><exit>";
-            key = "V";
-            map = [ "attach" ];
-            }
-            {
-            action = "<pipe-message>${pkgs.urlscan}/bin/urlscan<enter><exit>";
-            key = "F";
-            map = [ "pager" ];
-            }
-            {
-            action =
-                "<view-attachments><search>html<enter><pipe-entry>${browserpipe}<enter><exit>";
-            key = "V";
-            map = [ "index" "pager" ];
-            }
-            {
-                action = "<save-message>=ACCESS<enter>";
-                key = "Ma";
-                map = [ "index" "pager" "browser" ];
-            }
-            {
-                action = "<save-message>=MONEY<enter>";
-                key = "Mm";
-                map = [ "index" "pager" "browser" ];
-            }
-            {
-                action = "<save-message>=WORK<enter>";
-                key = "Mw";
-                map = [ "index" "pager" "browser" ];
-            }
+      }
+      {
+        action = "noop";
+        key = "\\Cu"; # urlscan
+        map = [
+          "index"
+          "pager"
         ];
-        settings = {
-            allow_ansi = "yes";
-            askcc = "yes";
-            autoedit = "yes";
-            collapse_unread = "no";
-            crypt_use_gpgme = "yes";
-            crypt_autosign = "yes";
-            crypt_opportunistic_encrypt = "yes";
-            crypt_replyencrypt = "yes";
-            crypt_replysign = "yes";
-            crypt_replysignencrypted = "yes";
-            crypt_timestamp = "yes";
-            crypt_verify_sig = "yes";
-            date_format = ''"%d/%m/%y %H:%M"'';
-            display_filter = ''"tac | sed '/\\\[-- Autoview/,+1d' | tac"'';
-            empty_subject = ''"Re: your untitled mail"'';
-            fast_reply = "yes";
-            fcc_attach = "yes";
-            forward_attachments = "yes";
-            forward_format = ''"Fwd: %s"'';
-            forward_quote = "yes";
-            help = "no";
-            charset = "utf-8";
-            imap_check_subscribed = "yes";
-            implicit_autoview = "yes";
-            include = "yes";
-            mailcap_path = "~/.config/neomutt/mailcap";
-            mail_check = "1";
-            mail_check_stats = "yes";
-            mark_old = "no";
-            markers = "no";
-            mime_forward = "yes";
-            pager_stop = "yes";
-            # set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
-            # set pgp_decode_command="gpg %?p?--passphrase-fd 0? --no-verbose --batch --output - %f"
-            # set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
-            # set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 0x5B7883F4 -- --hidden-recipient %r -- %f"
-            # set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0x5B7883F4 -- --hidden-recipient %r -- %f"
-            # set pgp_export_command="gpg --no-verbose --export --armor %r"
-            # set pgp_import_command="gpg --no-verbose --import -v %f"
-            # set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r"
-            # set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r"
-            # set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --ar
-            pgp_strict_enc = "yes";
-            query_command= ''"${pkgs.khard}/bin/khard email --parsable --search-in-source-files '%s'"'';
-            reverse_alias = "yes";
-            reverse_name = "yes";
-            rfc2047_parameters = "yes";
-            sidebar_divider_char = "│";
-            # sidebar_folder_indent = "yes";
-            sidebar_new_mail_only = "no";
-            sidebar_non_empty_mailbox_only = "no";
-            sidebar_on_right = "yes";
-            sidebar_sort_method = "unsorted";
-            sig_dashes = "no";
-            sig_on_top = "yes";
-            sleep_time = "1";
-            smart_wrap = "yes";
-            smtp_authenticators = "gssapi:login";
-            sort = "threads sort_aux=last-date";
-            sort_browser = "reverse-date";
-            status_format = ''"%f [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?]---(%s/%S)-%>-(%P)---"'';
-            status_on_top = "yes";
-            strict_threads = "yes";
-            text_flowed = "yes";
-            uncollapse_jump = "yes";
-            uncollapse_new = "yes";
-            wait_key = "no";
-            wrap = "120";
-        };
+      }
+      {
+        action = "noop";
+        key = "i"; # changing mailbox
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "noop";
+        key = "M"; # move to
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+
+      {
+        action = "sidebar-toggle-visible";
+        key = "B";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "group-reply";
+        key = "R";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "sidebar-prev";
+        key = "<S-Up>";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "sidebar-open";
+        key = "<S-Right>";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "sidebar-next";
+        key = "<S-Down>";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "sync-mailbox";
+        key = "<tab>";
+        map = [ "index" ];
+      }
+      {
+        action = "noop";
+        key = "<space>";
+        map = [ "editor" ];
+      }
+
+      {
+        action = "collapse-thread";
+        key = "<space>";
+        map = [ "index" ];
+      }
+
+    ];
+    macros =
+      let
+        browserpipe = "cat /dev/stdin > /tmp/muttmail.html && ${pkgs.xdg-utils}/bin/xdg-open /tmp/muttmail.html";
+      in
+      [
+        {
+          action = "<enter-command>set my_old_pipe_decode=$pipe_decode my_old_wait_key=$wait_key nopipe_decode nowait_key<enter><shell-escape>notmuch-mutt -r --prompt search<enter><change-folder-readonly>`echo $HOME/.cache/notmuch/mutt/results`<enter><enter-command>set pipe_decode=$my_old_pipe_decode wait_key=$my_old_wait_key<enter>i";
+          key = "\\Cf";
+          map = [
+            "index"
+            "pager"
+          ];
+        }
+        {
+          action = "<pipe-message>${pkgs.urlscan}/bin/urlscan<enter><exit>";
+          key = "\\Cu";
+          map = [
+            "pager"
+            "index"
+          ];
+        }
+
+        {
+          action = "<pipe-message>${pkgs.khard}/bin/khard add-email<return>";
+          key = "A";
+          map = [
+            "index"
+            "pager"
+          ];
+        }
+        {
+          action = "<shell-escape>${pkgs.isync}/bin/mbsync -c ${config.xdg.configHome}/isync/mbsyncrc -a<enter>";
+          key = "O";
+          map = [ "index" ];
+        }
+        {
+          action = "<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source /home/charles/.config/neomutt/karelkremel@gmail.com<enter><change-folder>!<enter>";
+          key = "i2";
+          map = [
+            "index"
+            "pager"
+          ];
+        }
+        {
+          action = "<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source /home/charles/.config/neomutt/karelkremel@karelkremel.com<enter><change-folder>!<enter>";
+          key = "i3";
+          map = [
+            "index"
+            "pager"
+          ];
+        }
+        {
+          action = "<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source /home/charles/.config/neomutt/charles@alembiq.net<enter><change-folder>!<enter>";
+          key = "i4";
+          map = [
+            "index"
+            "pager"
+          ];
+        }
+        {
+          action = "<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source /home/charles/.config/neomutt/karel@ochman.info<enter><change-folder>!<enter>";
+          key = "i5";
+          map = [
+            "index"
+            "pager"
+          ];
+        }
+        {
+          action = "<sync-mailbox><enter-command>unmailboxes *<enter><enter-command>source /home/charles/.config/neomutt/karel.kremel@snempohanskychobci.org<enter><change-folder>!<enter>";
+          key = "i6";
+          map = [
+            "index"
+            "pager"
+          ];
+        }
+        {
+          action = "<pipe-entry>${browserpipe}<enter><exit>";
+          key = "V";
+          map = [ "attach" ];
+        }
+        {
+          action = "<pipe-message>${pkgs.urlscan}/bin/urlscan<enter><exit>";
+          key = "F";
+          map = [ "pager" ];
+        }
+        {
+          action = "<view-attachments><search>html<enter><pipe-entry>${browserpipe}<enter><exit>";
+          key = "V";
+          map = [
+            "index"
+            "pager"
+          ];
+        }
+        {
+          action = "<save-message>=ACCESS<enter>";
+          key = "Ma";
+          map = [
+            "index"
+            "pager"
+            "browser"
+          ];
+        }
+        {
+          action = "<save-message>=MONEY<enter>";
+          key = "Mm";
+          map = [
+            "index"
+            "pager"
+            "browser"
+          ];
+        }
+        {
+          action = "<save-message>=WORK<enter>";
+          key = "Mw";
+          map = [
+            "index"
+            "pager"
+            "browser"
+          ];
+        }
+      ];
+    settings = {
+      allow_ansi = "yes";
+      askcc = "yes";
+      autoedit = "yes";
+      collapse_unread = "no";
+      crypt_use_gpgme = "yes";
+      crypt_autosign = "yes";
+      crypt_opportunistic_encrypt = "yes";
+      crypt_replyencrypt = "yes";
+      crypt_replysign = "yes";
+      crypt_replysignencrypted = "yes";
+      crypt_timestamp = "yes";
+      crypt_verify_sig = "yes";
+      date_format = ''"%d/%m/%y %H:%M"'';
+      display_filter = ''"tac | sed '/\\\[-- Autoview/,+1d' | tac"'';
+      empty_subject = ''"Re: your untitled mail"'';
+      fast_reply = "yes";
+      fcc_attach = "yes";
+      forward_attachments = "yes";
+      forward_format = ''"Fwd: %s"'';
+      forward_quote = "yes";
+      help = "no";
+      charset = "utf-8";
+      imap_check_subscribed = "yes";
+      implicit_autoview = "yes";
+      include = "yes";
+      mailcap_path = "~/.config/neomutt/mailcap";
+      mail_check = "1";
+      mail_check_stats = "yes";
+      mark_old = "no";
+      markers = "no";
+      mime_forward = "yes";
+      pager_stop = "yes";
+      # set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
+      # set pgp_decode_command="gpg %?p?--passphrase-fd 0? --no-verbose --batch --output - %f"
+      # set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
+      # set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 0x5B7883F4 -- --hidden-recipient %r -- %f"
+      # set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0x5B7883F4 -- --hidden-recipient %r -- %f"
+      # set pgp_export_command="gpg --no-verbose --export --armor %r"
+      # set pgp_import_command="gpg --no-verbose --import -v %f"
+      # set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r"
+      # set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r"
+      # set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --ar
+      pgp_strict_enc = "yes";
+      query_command = ''"${pkgs.khard}/bin/khard email --parsable --search-in-source-files '%s'"'';
+      reverse_alias = "yes";
+      reverse_name = "yes";
+      rfc2047_parameters = "yes";
+      sidebar_divider_char = "│";
+      # sidebar_folder_indent = "yes";
+      sidebar_new_mail_only = "no";
+      sidebar_non_empty_mailbox_only = "no";
+      sidebar_on_right = "yes";
+      sidebar_sort_method = "unsorted";
+      sig_dashes = "no";
+      sig_on_top = "yes";
+      sleep_time = "1";
+      smart_wrap = "yes";
+      smtp_authenticators = "gssapi:login";
+      sort = "threads sort_aux=last-date";
+      sort_browser = "reverse-date";
+      status_format = ''"%f [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?]---(%s/%S)-%>-(%P)---"'';
+      status_on_top = "yes";
+      strict_threads = "yes";
+      text_flowed = "yes";
+      uncollapse_jump = "yes";
+      uncollapse_new = "yes";
+      wait_key = "no";
+      wrap = "120";
     };
+  };
 
 }

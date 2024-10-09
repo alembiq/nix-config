@@ -3,61 +3,88 @@
   lib,
   pkgs,
   modulesPath,
-  nixos-hardware,
+  inputs,
   ...
-}@inputs:
+}:
+let
+  vlc = pkgs.vlc.override {
+    libbluray = pkgs.libbluray.override {
+      withJava = true;
+      withAACS = true;
+      withBDplus = true;
+    };
+  };
+in
+# db for libaacs: http://www.videolan.org/developers/libaacs.html
+# mkdir -p ~/.config/aacs
+# (
+# 	cd ~/.config/aacs
+# 	wget http://www.labdv.com/aacs/KEYDB.cfg
+# )
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    inputs.disko.nixosModules.default
-    ./default.nix
-    ./default-workstation.nix
+    # inputs.disko.nixosModules.default
+    ../default.nix
+    ../default-workstation.nix
     # ../modules/nixos/remotebuilder.nix
-    ../users/charles.nix
-    ../users/backup.nix
-    ./badb-disko.nix
-    ../modules/nixos/sway.nix
-    ../modules/nixos/stylix.nix
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.nixos-hardware.nixosModules.common-pc-laptop
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    ../../users/charles.nix
+    ../../users/backup.nix
+    ./verdandi-disko.nix
+    ../../modules/nixos/hyprland.nix
+    ../../modules/nixos/sway.nix
+    ../../modules/nixos/stylix.nix
+    ../../modules/nixos/docker.nix
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
   ];
 
   home-manager = {
     users.charles = {
-
       imports = [
+        ../modules/homemanager/theming.nix
         ../modules/homemanager/mail.nix
         ../modules/homemanager/waybar.nix
-        # ../modules/homemanager/hyprland.nix
-        # ../modules/homemanager/hyprlock.nix
-        # ../modules/homemanager/hypridle.nix
+        ../modules/homemanager/hyprland.nix
+        ../modules/homemanager/hyprlock.nix
+        ../modules/homemanager/hypridle.nix
         ../modules/homemanager/wezterm.nix
         ../modules/homemanager/firefox.nix
         ../modules/homemanager/nextcloud.nix
-        # ../modules/homemanager/photography.nix
+        ../modules/homemanager/photography.nix
         ../modules/homemanager/vscodium.nix
         ../modules/homemanager/sway.nix
         ../modules/homemanager/wofi.nix
+        ../users/charles-workstation.nix
       ];
 
       home = {
-        packages = with inputs.pkgs-stable; [
+        packages = with pkgs; [
+          prusa-slicer
+          openscad-unstable
+          calibre
           poppler_utils # pdf tools
+          overskride
+          blueberry # blueman
+          deluge
+          # makemkv handbrake libaacs libbluray libdvdcss
+          warp-terminal
+          krita
         ];
         stateVersion = "23.11";
       }; # END of home-manager.users.charles.home
     }; # END of home-manager.users.charles
   }; # END of home-manager
 
+  #TODO new kernel
+  #TODO fingerprint
+  #TODO NFC
+  #TODO hibernate
+
   services = {
-    # zram-generator = {
-    #     enable = true;
-    #     settings.zram0 = {
-    #         compression-algorithm = "zstd";
-    #         zram-size = "ram * 2";
-    #     };
-    # };
+    deluge.config = ''
+      {
+                  download_location = "/srv/torrents/";
+              }'';
     auto-cpufreq = {
       enable = true;
       settings = {
@@ -166,35 +193,52 @@
         "--no-sync-snap"
         "--debug"
       ];
-      # commands = {
-      #     "nixos" = {
-      #         source = "zpool/nixos/etc";
-      #         target = "backup@100.118.57.39:tank/vault/localhost-verdandi/20240325_nixos";
-      #         sendOptions = "w c";
-      #         #TODO syncoid path and the key /var/lib/syncoid/id_ed25519 ? user backup
-      #         sshKey = "/var/lib/syncoid/id_ed25519";
-      #         extraArgs = [ "--sshoption=StrictHostKeyChecking=off" "--recursive" ];
-      #     };
-      #     "home" = {
-      #         source = "zpool/home/charles";
-      #         target = "backup@100.118.57.39:tank/vault/localhost-verdandi/20240325_charles";
-      #         sendOptions = "w c";
-      #         sshKey = "/var/lib/syncoid/id_ed25519";
-      #         extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
-      #     };
-      # FIXME syncoid SENDER needs `zfs allow backup create,receive,destroy,rollback,snapshot,hold,release,mount zroot`
-      # RECEIVER needs zfs allow backup receive,mount,create
-      # };
+      commands = {
+        "nixos" = {
+          source = "zpool/nixos/etc";
+          target = "backup@100.118.57.39:tank/vault/localhost-verdandi/20240325_nixos";
+          sendOptions = "w c";
+          #TODO syncoid path and the key /var/lib/syncoid/id_ed25519 ? user backup
+          sshKey = "/var/lib/syncoid/id_ed25519";
+          extraArgs = [
+            "--sshoption=StrictHostKeyChecking=off"
+            "--recursive"
+          ];
+        };
+        "home" = {
+          source = "zpool/home/charles";
+          target = "backup@100.118.57.39:tank/vault/localhost-verdandi/20240325_charles";
+          sendOptions = "w c";
+          sshKey = "/var/lib/syncoid/id_ed25519";
+          extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
+        };
+        # FIXME syncoid SENDER needs `zfs allow backup create,receive,destroy,rollback,snapshot,hold,release,mount zroot`
+        # RECEIVER needs zfs allow backup receive,mount,create
+      };
     };
   }; # END of services
 
+  programs = {
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    };
+  }; # END of programs
+
+  #TODO 4G modem
+  systemd.services.ModemManager.enable = true;
   environment = {
-    systemPackages = with inputs.pkgs-stable; [ ansible ];
+    systemPackages = with pkgs; [
+      modemmanager
+      modem-manager-gui
+    ];
   };
 
   networking = {
-    hostId = "555dafd6"; # head -c 8 /etc/machine-id
-    hostName = "badb";
+    hostId = "cf4e3181"; # head -c 8 /etc/machine-id
+    hostName = "verdandi";
     networkmanager.enable = true;
     # nmcli con show
     # nmcli con modify HotelWifiName wifi.cloned-mac-address 70:48:f7:1a:2b:3c
@@ -203,30 +247,44 @@
     useDHCP = lib.mkDefault true;
   };
 
+  #TODO paired BT deviced
   hardware = {
+    bluetooth.enable = true;
     cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
   };
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
-
-  boot.initrd.availableKernelModules = [
-    "uhci_hcd"
-    "ehci_pci"
-    "ata_piix"
-    "ahci"
-    "firewire_ohci"
-    "tifm_7xx1"
-    "usbhid"
-    "usb_storage"
-    "sd_mod"
-    "sr_mod"
-    "sdhci_pci"
-  ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    loader = {
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 20;
+        consoleMode = "auto"; # FIXME same console size everywhere - systemd-bootd limitation :(
+      };
+      efi.canTouchEfiVariables = true;
+    };
+    initrd = {
+      # https://github.com/NixOS/nixpkgs/issues/219239
+      kernelModules = [ "i915" ];
+      availableKernelModules = [
+        "xhci_pci"
+        "nvme"
+        "usbhid"
+        "uas"
+        "sd_mod"
+        "thinkpad_acpi"
+      ];
+    };
+    kernelModules = [ "kvm-intel" ];
+    kernelParams = [
+      "mitigations=off"
+      "i915.enable_psr=0"
+      "i915.enable_fbc=1"
+      "i915.fastboot=0"
+      "i915.enable_dc=0"
+      "i915.enable_guc=3"
+    ]; # fastboot=0
+    extraModulePackages = [ ];
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

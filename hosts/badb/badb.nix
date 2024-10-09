@@ -3,21 +3,21 @@
   lib,
   pkgs,
   modulesPath,
-  nixos-hardware,
+  inputs,
   ...
-}@inputs:
+}:
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    inputs.disko.nixosModules.default
-    ./default.nix
-    ./default-workstation.nix
+    # inputs.disko.nixosModules.default
+    ../default.nix
+    ../default-workstation.nix
     # ../modules/nixos/remotebuilder.nix
-    ../users/charles.nix
-    ../users/backup.nix
+    ../../users/charles.nix
+    ../../users/backup.nix
     ./badb-disko.nix
-    ../modules/nixos/sway.nix
-    ../modules/nixos/stylix.nix
+    ../../modules/nixos/sway.nix
+    ../../modules/nixos/stylix.nix
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-laptop
     inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -27,22 +27,22 @@
     users.charles = {
 
       imports = [
-        ../modules/homemanager/mail.nix
-        ../modules/homemanager/waybar.nix
+        ../../modules/homemanager/mail.nix
+        ../../modules/homemanager/waybar.nix
         # ../modules/homemanager/hyprland.nix
         # ../modules/homemanager/hyprlock.nix
         # ../modules/homemanager/hypridle.nix
-        ../modules/homemanager/wezterm.nix
-        ../modules/homemanager/firefox.nix
-        ../modules/homemanager/nextcloud.nix
+        ../../modules/homemanager/wezterm.nix
+        ../../modules/homemanager/firefox.nix
+        ../../modules/homemanager/nextcloud.nix
         # ../modules/homemanager/photography.nix
-        ../modules/homemanager/vscodium.nix
-        ../modules/homemanager/sway.nix
-        ../modules/homemanager/wofi.nix
+        ../../modules/homemanager/vscodium.nix
+        ../../modules/homemanager/sway.nix
+        ../../modules/homemanager/wofi.nix
       ];
 
       home = {
-        packages = with inputs.pkgs-stable; [
+        packages = with pkgs; [
           poppler_utils # pdf tools
         ];
         stateVersion = "23.11";
@@ -189,7 +189,7 @@
   }; # END of services
 
   environment = {
-    systemPackages = with inputs.pkgs-stable; [ ansible ];
+    systemPackages = with pkgs; [ ansible ];
   };
 
   networking = {
@@ -206,10 +206,6 @@
   hardware = {
     cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
   };
-
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
 
   boot.initrd.availableKernelModules = [
     "uhci_hcd"

@@ -1,7 +1,7 @@
-{pkgs, config, ...}:
+{ pkgs, config, ... }:
 {
-    home.packages = with pkgs; [
-        rapid-photo-downloader
-        darktable
-        ];
+  home.packages = with pkgs; [
+    rapid-photo-downloader
+    darktable
+  ];
 }
