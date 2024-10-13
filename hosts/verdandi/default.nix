@@ -163,12 +163,12 @@ in
       interval = "*:35";
       commonArgs = [
         "--no-sync-snap"
-        "--debug"
+        # "--debug"
       ];
       commands = {
         "nixos" = {
           source = "zpool/nixos/etc";
-          target = "backup@100.118.57.39:tank/vault/localhost-verdandi/20240325_nixos";
+          target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_nixos";
           sendOptions = "w c";
           #TODO syncoid path and the key /var/lib/syncoid/id_ed25519 ? user backup
           sshKey = "/var/lib/syncoid/id_ed25519";
@@ -179,7 +179,7 @@ in
         };
         "home" = {
           source = "zpool/home/charles";
-          target = "backup@100.118.57.39:tank/vault/localhost-verdandi/20240325_charles";
+          target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_charles";
           sendOptions = "w c";
           sshKey = "/var/lib/syncoid/id_ed25519";
           extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
