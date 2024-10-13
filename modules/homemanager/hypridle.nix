@@ -4,10 +4,9 @@
     enable = true;
     settings = {
       general = {
-        lock_cmd = "pidof ${pkgs.hyprlock} || ${pkgs.hyprlock}";
-        before_sleep_cmd = "loginctl lock-session";
+        lock_cmd = "pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+        before_sleep_cmd = "${pkgs.grim}/bin/grim /tmp/screenshot.png && loginctl lock-session";
         after_sleep_cmd = "hyprctl dispatch dpms on";
-        # before_sleep_cmd = "loginctl lock-session";
         # after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
       };

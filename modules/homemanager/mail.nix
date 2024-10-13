@@ -34,6 +34,7 @@
     '';
   #FIXME dynamic user, sops, UID
   #TODO https://github.com/pimutils/vdirsyncer/issues/1021 after it's fixed create script until
+  #TODO vdirsyncer discover nextcloud_contacts needs confirmation
   #TODO accounts.contact.accounts..vdirsyncer.enable & services.vdirsyncer.
   xdg.configFile."vdirsyncer/config".text = # ini
     ''
@@ -56,14 +57,8 @@
     '';
   # username.fetch = ["shell", "${pkgs.gnused}/bin/sed", "-n", "'/^USERNAME=/s///p'", "/run/user/1111/secrets/charles/nextcloud"]
 
-  xdg.configFile."neomutt/mailcap".text = # TODO opening office documents
+  xdg.configFile."neomutt/mailcap".text =
     ''
-      # # MS Word documents
-      # application/msword; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
-      # application/vnd.ms-excel; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
-      # application/vnd.openxmlformats-officedocument.presentationml.presentation; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
-      # application/vnd.oasis.opendocument.text; ~/dotfiles/office/view-attachment.sh %s "-" '/Applications/LibreOffice.app'
-
       # HTML
       text/html; ${pkgs.w3m}/bin/w3m -I %{charset} -T text/html; copiousoutput;
       text/plain; ${pkgs.nano}/bin/nano %s
@@ -73,8 +68,8 @@
       application/pdf; ${pkgs.okular}/bin/okular %s pdf
 
       #Images
-      image/png; ${pkgs.gwenview}/bin/gwenview %s
-      image/jpeg; ${pkgs.gwenview}/bin/gwenview %s
+      image/png; ${pkgs.imv}/bin/imv %s
+      image/jpeg; ${pkgs.imv}/bin/imv %s
     '';
 
   services.vdirsyncer = {
@@ -88,6 +83,7 @@
     enable = true;
     configFile = "${config.xdg.configHome}/isync/mbsyncrc"; # FIXME it's read but not written to
     postExec = "${pkgs.notmuch}/bin/notmuch new";
+    verbose = false;
   };
   programs.mbsync.enable = true;
   programs.msmtp = {

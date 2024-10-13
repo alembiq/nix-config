@@ -12,6 +12,10 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+    nixpkgs-wayland = {
+        url = "github:nix-community/nixpkgs-wayland";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix/yubikey-support";
     };
@@ -54,7 +58,10 @@
         inputs.disko.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
         {
-          nixpkgs.overlays = [ inputs.hyprpanel.overlay ];
+          nixpkgs.overlays = [
+            inputs.hyprpanel.overlay
+            inputs.nixpkgs-wayland.overlay
+        ];
           _module.args = {
             inherit inputs;
           };

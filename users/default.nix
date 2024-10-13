@@ -3,6 +3,8 @@
   lib,
   options,
   config,
+  nixpkgs-wayland,
+  system,
   ...
 }:
 
@@ -110,7 +112,7 @@
         allow-preset-passphrase
       '';
       maxCacheTtl = 120;
-      # pinentryPackage = lib.mkForce pkgs.pinentry-qt;
+      pinentryPackage = lib.mkForce nixpkgs-wayland.packages.${system}.wayprompt; #pkgs.pinentry-qt;
       enableExtraSocket = true;
     };
     ssh-agent.enable = false;

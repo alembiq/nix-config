@@ -478,7 +478,7 @@ in
           onChange = "chmod 400 ~/.ssh/YUBI-KO2024.pub";
         };
         packages = with pkgs; [
-          pinentry-qt
+        #   pinentry-qt
           # pinentry-curses
           # pinentry-gnome3
           # pinentry-gtk2

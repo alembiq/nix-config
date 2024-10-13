@@ -14,7 +14,7 @@
     yubikey-personalization-gui
     yubikey-manager
     yubikey-touch-detector
-    powertop
+    # powertop
     git
     tree
     bc
@@ -36,40 +36,38 @@
 
   services = {
     gvfs.enable = true;
-    power-profiles-daemon.enable = true;
+    auto-cpufreq = {
+      enable = true;
+      settings = {
+        battery = {
+          governor = "powersave";
+          turbo = "never";
+        };
+        charger = {
+          governor = "performance";
+          turbo = "auto";
+        };
+      };
+    };
+    system76-scheduler.settings.cfsProfiles.enable = true;
+    tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-    # auto-cpufreq = {
-    #   enable = true;
-    #   settings = {
-    #     battery = {
-    #       governor = "powersave";
-    #       turbo = "never";
-    #     };
-    #     charger = {
-    #       governor = "performance";
-    #       turbo = "auto";
-    #     };
-    #   };
-    # };
-    # system76-scheduler.settings.cfsProfiles.enable = true;
-    # tlp = {
-    #   enable = true;
-    #   settings = {
-    #     CPU_SCALING_GOVERNOR_ON_AC = "performance";
-    #     CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-    #     CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-    #     CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 50;
 
-    #     CPU_MIN_PERF_ON_AC = 0;
-    #     CPU_MAX_PERF_ON_AC = 100;
-    #     CPU_MIN_PERF_ON_BAT = 0;
-    #     CPU_MAX_PERF_ON_BAT = 50;
-
-    #     START_CHARGE_THRESH_BAT0 = 40;
-    #     STOP_CHARGE_THRESH_BAT0 = 80;
-    #   };
-    # };
+        START_CHARGE_THRESH_BAT0 = 40;
+        STOP_CHARGE_THRESH_BAT0 = 80;
+      };
+    };
 
     udisks2.enable = true;
     pcscd.enable = true;
@@ -126,8 +124,8 @@
       services = {
         login.u2fAuth = true;
         sudo.u2fAuth = true;
-        swaylock = { }; # to enable swaylock auth
-        hyprlock = { }; # to enable hyprlock auth
+        swaylock = { }; # to enable swaylock auth FIXME
+        hyprlock = { }; # to enable hyprlock auth FIXME
         greetd = {
           #   enableGnomeKeyring = true;
           gnupg = {

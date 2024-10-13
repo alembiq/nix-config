@@ -5,10 +5,11 @@
 - move mailbox `accounts.email.maildirBasePath` to `.local/shared/mail/` + zfs (disko)
 - move `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg` > programs.gpg.homedir = "${hm.config.xdg.dataHome}/gnupg";
 - `hm.accounts.email.accounts` configuration to `.config/isync/mbsyncrc`
-- https://github.com/nix-community/nixpkgs-wayland -> inputs.nixpkgs-wayland.packages.${system}.wayprompt  # from nixpkgs-wayland exclusively - pinentry UI
 - sending mail (msmtp) notification
 - incomming mail (mbsync) notification
 - cosmic ???
+- after unlock opening on new workspace
+- move  /tmp/screenshot.png
 ### VERDANDI
 - SWAP for hibernate vs encrypted SWAP
 ### BADB

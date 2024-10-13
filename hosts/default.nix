@@ -2,6 +2,8 @@
   config,
   lib,
   pkgs,
+  nixpkgs-wayland,
+  system,
   ...
 }:
 
@@ -41,7 +43,7 @@
       agent = {
         enable = true;
         enableSSHSupport = true;
-        pinentryPackage = lib.mkForce pkgs.pinentry-qt; # pkgs.pinentry-curses;
+        pinentryPackage = lib.mkForce nixpkgs-wayland.packages.${system}.wayprompt ;# pkgs.pinentry-qt; # pkgs.pinentry-curses;
       };
     };
     mtr.enable = true;

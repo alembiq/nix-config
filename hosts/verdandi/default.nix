@@ -82,6 +82,10 @@ in
   #TODO hibernate
 
   services = {
+    thermald = {
+        enable = true;
+        ignoreCpuidCheck = true;
+    };
     deluge.config = ''
       {
                   download_location = "/srv/torrents/";

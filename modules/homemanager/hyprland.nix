@@ -9,8 +9,7 @@
 {
   home = {
     packages = with pkgs; [
-    #   slurp
-    #   grim
+      slurp grim
       xdg-desktop-portal-hyprland
       wlogout
       hypridle
@@ -23,9 +22,8 @@
       wlroots
       waybar
       playerctl
-      udiskie
       swaynotificationcenter
-      ivm # TODO evaluate
+      imv
       libva # TODO evaluate
       dconf # TODO evaluate dconf2nix
 
@@ -59,7 +57,7 @@
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
         "QT_QPA_PLATFORM,wayland;xcb"
-        "QT_QPA_PLATFORMTHEME,qt6ct"
+        "QT_QPA_PLATFORMTHEME,qt5ct"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
         "MOZ_ENABLE_WAYLAND,1"
@@ -78,8 +76,6 @@
         "${pkgs.waybar}/bin/waybar #systemctl --user restart waybar"
         "${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-kde-authentication-agent-1"
         "hyprctl setcursor Nordzy-cursors 32"
-        # FIXME suspend/resume does not requires password
-        # "${pkgs.swayidle}/bin/swayidle -w timeout 90 '${pkgs.swaylock-effects}/bin/swaylock -f' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep '${pkgs.swaylock-effects}/bin/swaylock -f'"
       ];
       monitor = [
         "eDP-1,1920x1080,320x1440,1"
@@ -98,7 +94,7 @@
         ", XF86AudioPause, exec, playerctl pause"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
-
+        "CTRLALT, L, exec, ${pkgs.grim}/bin/grim /tmp/screenshot.png && loginctl lock-session" #FIXME CTRLALT+L
       ];
       bindel = [
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -q s +10%"
@@ -165,6 +161,9 @@
             ) 10
           )
         );
+      "debug" = {
+        "disable_logs" = false;
+      };
       "general" = {
         "layout" = "dwindle";
         "allow_tearing" = false;
