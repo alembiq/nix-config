@@ -137,7 +137,7 @@
       fira-code-nerdfont
       noto-fonts-emoji
     ];
-    enableDefaultPackages = false;
+    # enableDefaultPackages = false;
 
     fontconfig = {
       defaultFonts = {

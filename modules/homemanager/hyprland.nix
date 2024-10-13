@@ -9,8 +9,8 @@
 {
   home = {
     packages = with pkgs; [
-      slurp
-      grim
+    #   slurp
+    #   grim
       xdg-desktop-portal-hyprland
       wlogout
       hypridle
@@ -101,8 +101,8 @@
 
       ];
       bindel = [
-        ", XF86MonBrightnessUp, exec, brightnessctl -q s +10%"
-        ", XF86MonBrightnessDown, exec, brightnessctl -q s 10%-"
+        ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -q s +10%"
+        ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl -q s 10%-"
         ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       ];
@@ -119,7 +119,7 @@
           "$mod, F, fullscreen,"
           "$mod SHIFT, SPACE, togglefloating"
           "$mod, D, exec, pkill wofi || wofi --show drun"
-          ",Print,exec,slurp | grim -g - $HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
+          ",Print,exec,${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - $HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
           "ALT, SHIFT, exec, hyprctl --batch 'switchxkblayout at-translated-set-2-keyboard next ; ergo-k860-keyboard next'"
 
           # Move focus with mainMod + arrow keys

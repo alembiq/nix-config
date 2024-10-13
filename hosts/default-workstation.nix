@@ -17,6 +17,7 @@
     powertop
     git
     tree
+    bc
     cifs-utils
     btrfs-progs
     lm_sensors

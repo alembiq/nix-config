@@ -135,8 +135,8 @@ in
         "XF86AudioMicMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
         "XF86AudioRaiseVolume" = "exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+";
         "XF86AudioLowerVolume" = "exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%-";
-        "XF86MonBrightnessUp" = "exec light -A 10";
-        "XF86MonBrightnessDown" = "exec light -U 10";
+        "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl -q s +10%";
+        "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightnessctl -q s 10%-";
         # Moving around
         "${modifier}+Left" = "focus left";
         "${modifier}+Down" = "focus down";
