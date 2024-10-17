@@ -5,9 +5,8 @@
     settings = {
       general = {
         lock_cmd = "pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-        before_sleep_cmd = "${pkgs.grim}/bin/grim /tmp/screenshot.png && loginctl lock-session";
+        before_sleep_cmd = "${pkgs.grim}/bin/grim /tmp/screenshot.png && ${pkgs.hyprlock}/bin/hyprlock && loginctl lock-session ";
         after_sleep_cmd = "hyprctl dispatch dpms on";
-        # after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
       };
       listener = [
@@ -22,12 +21,10 @@
         {
           timeout = 380;
           on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-          #   on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
         }
         {
           timeout = 600;
-          on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
-          #   on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+          on-timeout = "if [ $(cat /sys/class/power_supply/AC/online) = 0 ]; then ${pkgs.systemd}/bin/systemctl suspend; fi  ";
         }
       ];
     };

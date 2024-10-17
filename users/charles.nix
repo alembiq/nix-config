@@ -480,8 +480,8 @@ in
         packages = with pkgs; [
         #   pinentry-qt
           # pinentry-curses
-          pinentry-gtk2
-          # pinentry-gnome3
+        #   pinentry-gtk2
+          pinentry-gnome3
           list-mailboxes
           list-empty-mailboxes
           htop
