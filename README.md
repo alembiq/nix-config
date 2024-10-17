@@ -8,6 +8,8 @@
 - sending mail (msmtp) notification
 - incomming mail (mbsync) notification
 - cosmic ???
+- hyprland go suspend after first login
+- nixpkgs-wayland.packages.${system}.wayprompt not working with sops-nix
 - after unlock opening on new workspace
 - move  /tmp/screenshot.png
 ### VERDANDI

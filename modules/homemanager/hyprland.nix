@@ -9,7 +9,8 @@
 {
   home = {
     packages = with pkgs; [
-      slurp grim
+    #   slurp grim
+      hyprshot
       xdg-desktop-portal-hyprland
       wlogout
       hypridle
@@ -53,7 +54,7 @@
     settings = {
       env = [
         "GTK_THEME,Nord"
-        "XDG_CURRENT_DESKTOP,hyprland"
+        #FIXME duplicity? "XDG_CURRENT_DESKTOP,hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
         "QT_QPA_PLATFORM,wayland;xcb"
@@ -115,7 +116,11 @@
           "$mod, F, fullscreen,"
           "$mod SHIFT, SPACE, togglefloating"
           "$mod, D, exec, pkill wofi || wofi --show drun"
-          ",Print,exec,${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - $HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
+        #   ",Print,exec,${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - $HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
+          ", Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m region -o $HOME/downloads"
+          "ALT, Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m window -o $HOME/downloads"
+          "$mod, Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m output -o $HOME/downloads"
+
           "ALT, SHIFT, exec, hyprctl --batch 'switchxkblayout at-translated-set-2-keyboard next ; ergo-k860-keyboard next'"
 
           # Move focus with mainMod + arrow keys

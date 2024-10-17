@@ -29,7 +29,6 @@ in
     ../default-workstation.nix
     ../../modules/nixos/audio.nix
     ../../modules/nixos/bluetooth.nix
-
     # ../modules/nixos/remotebuilder.nix
     ../../users/charles.nix
     ../../users/backup.nix
