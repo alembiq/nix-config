@@ -9,7 +9,7 @@
 {
   home = {
     packages = with pkgs; [
-    #   slurp grim
+      #   slurp grim
       hyprshot
       xdg-desktop-portal-hyprland
       wlogout
@@ -96,7 +96,7 @@
         ", XF86AudioPause, exec, playerctl pause"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
-        "CTRLALT, L, exec, ${pkgs.grim}/bin/grim /tmp/screenshot.png && loginctl lock-session" #FIXME CTRLALT+L
+        "CTRLALT, L, exec, ${pkgs.grim}/bin/grim /tmp/screenshot.png && loginctl lock-session" # FIXME CTRLALT+L
       ];
       bindel = [
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -q s +10%"
@@ -117,7 +117,7 @@
           "$mod, F, fullscreen,"
           "$mod SHIFT, SPACE, togglefloating"
           "$mod, D, exec, pkill wofi || wofi --show drun"
-        #   ",Print,exec,${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - $HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
+          #   ",Print,exec,${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - $HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
           ", Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m region -o $HOME/downloads"
           "ALT, Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m window -o $HOME/downloads"
           "$mod, Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m output -o $HOME/downloads"

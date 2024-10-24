@@ -57,20 +57,19 @@
     '';
   # username.fetch = ["shell", "${pkgs.gnused}/bin/sed", "-n", "'/^USERNAME=/s///p'", "/run/user/1111/secrets/charles/nextcloud"]
 
-  xdg.configFile."neomutt/mailcap".text =
-    ''
-      # HTML
-      text/html; ${pkgs.w3m}/bin/w3m -I %{charset} -T text/html; copiousoutput;
-      text/plain; ${pkgs.nano}/bin/nano %s
-      text/calendar; ${pkgs.vcal}/bin/vcal %s; copiousoutput;
+  xdg.configFile."neomutt/mailcap".text = ''
+    # HTML
+    text/html; ${pkgs.w3m}/bin/w3m -I %{charset} -T text/html; copiousoutput;
+    text/plain; ${pkgs.nano}/bin/nano %s
+    text/calendar; ${pkgs.vcal}/bin/vcal %s; copiousoutput;
 
-      #PDFs
-      application/pdf; ${pkgs.okular}/bin/okular %s pdf
+    #PDFs
+    application/pdf; ${pkgs.okular}/bin/okular %s pdf
 
-      #Images
-      image/png; ${pkgs.imv}/bin/imv %s
-      image/jpeg; ${pkgs.imv}/bin/imv %s
-    '';
+    #Images
+    image/png; ${pkgs.imv}/bin/imv %s
+    image/jpeg; ${pkgs.imv}/bin/imv %s
+  '';
 
   services.vdirsyncer = {
     enable = true;

@@ -13,8 +13,8 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     nixpkgs-wayland = {
-        url = "github:nix-community/nixpkgs-wayland";
-        inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix/yubikey-support";
@@ -61,7 +61,7 @@
           nixpkgs.overlays = [
             inputs.hyprpanel.overlay
             inputs.nixpkgs-wayland.overlay
-        ];
+          ];
           _module.args = {
             inherit inputs;
           };

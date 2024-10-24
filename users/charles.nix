@@ -399,7 +399,7 @@ in
             #     hostname = "10.0.43.102";
             # };
             "jellyfin jellyfin.svornosti" = {
-              hostname = "10.0.42.207";
+              hostname = "10.0.42.202";
               user = "ansible";
             };
             "kubera-lan kubera-lan.svornosti" = {
@@ -478,9 +478,9 @@ in
           onChange = "chmod 400 ~/.ssh/YUBI-KO2024.pub";
         };
         packages = with pkgs; [
-        #   pinentry-qt
+          #   pinentry-qt
           # pinentry-curses
-        #   pinentry-gtk2
+          #   pinentry-gtk2
           pinentry-gnome3
           list-mailboxes
           list-empty-mailboxes

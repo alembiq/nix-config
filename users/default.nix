@@ -112,7 +112,7 @@
         allow-preset-passphrase
       '';
       maxCacheTtl = 120;
-      pinentryPackage = lib.mkForce pkgs.pinentry-gnome3; #nixpkgs-wayland.packages.${system}.wayprompt; #pkgs.pinentry-qt;
+      pinentryPackage = lib.mkForce pkgs.pinentry-gnome3; # nixpkgs-wayland.packages.${system}.wayprompt; #pkgs.pinentry-qt;
       enableExtraSocket = true;
     };
     ssh-agent.enable = false;

@@ -41,7 +41,8 @@ in
       sway-audio-idle-inhibit
       swaynotificationcenter
       swayosd
-      slurp grim
+      slurp
+      grim
     ];
   };
 

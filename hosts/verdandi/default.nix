@@ -82,8 +82,8 @@ in
 
   services = {
     thermald = {
-        enable = true;
-        ignoreCpuidCheck = true;
+      enable = true;
+      ignoreCpuidCheck = true;
     };
     deluge.config = ''
       {

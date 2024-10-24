@@ -24,7 +24,7 @@
         }
         {
           timeout = 600;
-          on-timeout = "if [ $(cat /sys/class/power_supply/AC/online) = 0 ]; then ${pkgs.systemd}/bin/systemctl suspend; fi  ";
+          on-timeout = "if [ $(cat /sys/class/power_supply/AC/online) != 1 ]; then ${pkgs.systemd}/bin/systemctl suspend; fi ";
         }
       ];
     };
