@@ -14,7 +14,6 @@
     yubikey-personalization-gui
     yubikey-manager
     yubikey-touch-detector
-    # powertop
     git
     tree
     bc
@@ -166,7 +165,7 @@
         automount_opts = "_netdev,x-system.requires=network.targer,x-systemd.automount,noauto,x-systemd.idle-timeout=15s,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,vers=3.1.1,user";
       in
       [
-        "${automount_opts},credentials=/run/user/1111/secrets/charles/svornosti/fileserver/samba,uid=1111,gid=100"
+        "${automount_opts},credentials=~/.config/fileserver-samba,uid=1111,gid=100"
       ];
     # FIXME dynamic GID, UID, sops
   };
@@ -178,7 +177,7 @@
         automount_opts = "_netdev,x-system.requires=network.targer,x-systemd.automount,noauto,x-systemd.idle-timeout=15s,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,vers=3.1.1,user";
       in
       [
-        "${automount_opts},credentials=/run/user/1111/secrets/charles/svornosti/fileserver/samba,uid=1111,gid=100"
+        "${automount_opts},credentials=~/.config/fileserver-samba,uid=1111,gid=100"
       ];
     # FIXME dynamic GID, UID, sops
   };
@@ -190,7 +189,7 @@
         automount_opts = "_netdev,x-system.requires=network.targer,x-systemd.automount,noauto,x-systemd.idle-timeout=15s,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,vers=3.1.1,user";
       in
       [
-        "${automount_opts},credentials=/run/user/1111/secrets/charles/svornosti/fileserver/samba,uid=1111,gid=100"
+        "${automount_opts},credentials=~/.config/fileserver-samba,uid=1111,gid=100"
       ];
     # FIXME dynamic GID, UID, sops
   };
@@ -202,7 +201,7 @@
         automount_opts = "_netdev,x-system.requires=network.targer,x-systemd.automount,noauto,x-systemd.idle-timeout=15s,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,vers=3.1.1,user";
       in
       [
-        "${automount_opts},credentials=/run/user/1111/secrets/charles/svornosti/fileserver/samba,uid=1111,gid=100"
+        "${automount_opts},credentials=/home/charles/.config/fileserver-samba,uid=1111,gid=100"
       ];
     # FIXME dynamic GID, UID, sops
   };
@@ -214,7 +213,7 @@
         automount_opts = "_netdev,x-system.requires=network.targer,x-systemd.automount,noauto,x-systemd.idle-timeout=15s,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,vers=3.1.1,user";
       in
       [
-        "${automount_opts},credentials=/run/user/1111/secrets/charles/svornosti/fileserver/samba,uid=1111,gid=100"
+        "${automount_opts},credentials=~/.config/fileserver-samba,uid=1111,gid=100"
       ];
     # FIXME dynamic GID, UID, sops
   };

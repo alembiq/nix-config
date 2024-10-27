@@ -55,7 +55,6 @@
     settings = {
       env = [
         "GTK_THEME,Nord"
-        #FIXME duplicity? "XDG_CURRENT_DESKTOP,hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
         "QT_QPA_PLATFORM,wayland;xcb"
@@ -97,7 +96,7 @@
         ", XF86AudioPause, exec, playerctl pause"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
-        "CTRLALT, L, exec, ${pkgs.grim}/bin/grim /tmp/screenshot.png && loginctl lock-session" # FIXME CTRLALT+L
+        "SUPER, L, exec, ${pkgs.grim}/bin/grim ~/.local/screenlock.png && loginctl lock-session" # FIXME CTRLALT+L
       ];
       bindel = [
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -q s +10%"
@@ -112,13 +111,11 @@
 
           "$mod, RETURN, exec, wezterm" # terminal
           "$mod SHIFT, Q, killactive,"
-          #FIXME lock without suspend "$mod, L, exec, swaylock -f --screenshots --effect-pixelate 20 --fade-in 0.2 ; hyprctl dispatch dpms off"
           "CTRLALT, DELETE, exec, wlogout"
           ", XF86Lock, exec, wlogout"
           "$mod, F, fullscreen,"
           "$mod SHIFT, SPACE, togglefloating"
           "$mod, D, exec, pkill wofi || wofi --show drun"
-          #   ",Print,exec,${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - $HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
           ", Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m region -o $HOME/downloads"
           "ALT, Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m window -o $HOME/downloads"
           "$mod, Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m output -o $HOME/downloads"

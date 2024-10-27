@@ -17,7 +17,7 @@
       background = [
         {
           #   path = "${config.home.homeDirectory}/pictures/wallpapers/drone-5.jpg";
-          path = "/tmp/screenshot.png";
+          path = "~/.local/screenlock.png";
           blur_passes = 1;
           noise = 1.17e-2;
           contrast = 0.8916;

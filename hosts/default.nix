@@ -183,7 +183,6 @@
       enable = true;
       settings.PasswordAuthentication = false;
     };
-    #TODO logging limit tailscale
     tailscale = {
       enable = true;
     };

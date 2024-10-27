@@ -33,21 +33,4 @@
       };
     };
   };
-
-  stylix = {
-    # FIXME stylix ignoring: chromium, pinentry
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml"; # https://raw.githubusercontent.com/ada-lovecraft/base16-nord-scheme/master/nord.yaml
-    polarity = "dark";
-    autoEnable = true;
-    targets.firefox.enable = true;
-    targets.gtk.enable = true;
-    targets.hyprland.enable = true;
-    targets.sway.enable = true;
-    targets.swaylock.enable = true;
-    targets.vscode.enable = true;
-    targets.waybar.enable = false;
-    targets.wezterm.enable = false;
-    targets.wpaperd.enable = true;
-    targets.xresources.enable = true;
-  };
 }

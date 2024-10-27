@@ -12,7 +12,7 @@
       };
       Service = {
         Type = "simple";
-        EnvironmentFile = "/run/user/1111/secrets/charles/nextcloud"; # FIXME dynamic user
+        EnvironmentFile = "/home/charles/.local/nextcloud";
         ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Documents /home/charles/documents https://cloud.ochman.info";
         TimeoutStopSec = "300";
         KillMode = "process";
@@ -38,7 +38,7 @@
       };
       Service = {
         Type = "simple";
-        EnvironmentFile = "/run/user/1111/secrets/charles/nextcloud"; # FIXME dynamic user
+        EnvironmentFile = "/home/charles/.local/nextcloud";
         ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /InstantUpload /home/charles/pictures https://cloud.ochman.info";
         TimeoutStopSec = "180";
         KillMode = "process";
@@ -56,7 +56,6 @@
       ];
     };
 
-
     # AUDIO
     services.nextcloud-audio-autosync = {
       Unit = {
@@ -65,7 +64,7 @@
       };
       Service = {
         Type = "simple";
-        EnvironmentFile = "/run/user/1111/secrets/charles/nextcloud"; # FIXME dynamic user
+        EnvironmentFile = "/home/charles/.local/nextcloud";
         ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Audio /home/charles/audio https://cloud.ochman.info";
         TimeoutStopSec = "300";
         KillMode = "process";
@@ -91,7 +90,7 @@
       };
       Service = {
         Type = "simple";
-        EnvironmentFile = "/run/user/1111/secrets/charles/nextcloud"; # FIXME dynamic user
+        EnvironmentFile = "/home/charles/.local/nextcloud";
         ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Games /home/charles/games https://cloud.ochman.info";
         TimeoutStopSec = "360";
         KillMode = "process";

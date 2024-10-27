@@ -32,7 +32,6 @@
       [[contacts]]
       path = ~/.local/share/contacts/contacts/
     '';
-  #FIXME dynamic user, sops, UID
   #TODO https://github.com/pimutils/vdirsyncer/issues/1021 after it's fixed create script until
   #TODO vdirsyncer discover nextcloud_contacts needs confirmation
   #TODO accounts.contact.accounts..vdirsyncer.enable & services.vdirsyncer.
@@ -52,10 +51,9 @@
       [storage nextcloud_contacts_remote]
       type = "carddav"
       url = "https://cloud.ochman.info/remote.php/dav/addressbooks/users/charles/"
-      username.fetch = ["shell", "source /run/user/1111/secrets/charles/nextcloud ; echo $USERNAME"]
-      password.fetch = ["shell", "source /run/user/1111/secrets/charles/nextcloud ; echo $PASSWORD"]
+      username.fetch = ["shell", "source ~/.local/nextcloud ; echo $USERNAME"]
+      password.fetch = ["shell", "source ~/.local/nextcloud ; echo $PASSWORD"]
     '';
-  # username.fetch = ["shell", "${pkgs.gnused}/bin/sed", "-n", "'/^USERNAME=/s///p'", "/run/user/1111/secrets/charles/nextcloud"]
 
   xdg.configFile."neomutt/mailcap".text = ''
     # HTML

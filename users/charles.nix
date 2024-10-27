@@ -92,7 +92,7 @@ in
             showSignature = "append";
           };
           # FIXME dynamic UID, sops passwordCommand = "cat ${config.sops.secrets."charles/email/ochman".path}";
-          passwordCommand = "${pkgs.coreutils}/bin/cat /run/user/1111/secrets/charles/email/gmail";
+          passwordCommand = "${pkgs.coreutils}/bin/cat /home/charles/.local/gmail";
         };
         accounts."karelkremel@karelkremel.com" = {
           neomutt = {
@@ -133,7 +133,7 @@ in
             '';
             showSignature = "append";
           };
-          passwordCommand = "${pkgs.coreutils}/bin/cat /run/user/1111/secrets/charles/email/karelkremel"; # FIXME dynamic UID, sops
+          passwordCommand = "${pkgs.coreutils}/bin/cat /home/charles/.local/karelkremel"; # FIXME dynamic UID, sops
           smtp = {
             host = "nextmail.alembiq.net";
           };
@@ -178,7 +178,7 @@ in
             '';
             showSignature = "append";
           };
-          passwordCommand = "${pkgs.coreutils}/bin/cat /run/user/1111/secrets/charles/email/alembiq"; # FIXME dynamic UID, sops
+          passwordCommand = "${pkgs.coreutils}/bin/cat /home/charles/.local/alembiq"; # FIXME dynamic UID, sops
           smtp = {
             host = "nextmail.alembiq.net";
           };
@@ -220,7 +220,7 @@ in
             '';
             showSignature = "append";
           };
-          passwordCommand = "${pkgs.coreutils}/bin/cat /run/user/1111/secrets/charles/email/ochman";
+          passwordCommand = "${pkgs.coreutils}/bin/cat /home/charles/.local/ochman";
           smtp = {
             host = "nextmail.alembiq.net";
           };
@@ -262,7 +262,7 @@ in
             '';
             showSignature = "append";
           };
-          passwordCommand = "${pkgs.coreutils}/bin/cat /run/user/1111/secrets/charles/email/snempohanskychobci"; # FIXME dynamic UID, sops
+          passwordCommand = "${pkgs.coreutils}/bin/cat /home/charles/.local/snempohanskychobci"; # FIXME dynamic UID, sops
           smtp = {
             host = "nextmail.alembiq.net";
           };

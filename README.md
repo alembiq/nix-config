@@ -1,18 +1,24 @@
 # RANDOM notes
-- users/charles-workstation.nix:71 sops redirect experiment
-- get `UID` to a variable to adjust paths...
-- move mailbox `accounts.email.maildirBasePath` to `.local/shared/mail/` + zfs (disko)
-- move `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg` > programs.gpg.homedir = "${hm.config.xdg.dataHome}/gnupg";
-- `hm.accounts.email.accounts` configuration to `.config/isync/mbsyncrc`
+- join sops secrets into ?one? file?
+- variable for `user home path`, `uid`, `gid`     ??? hm.config homedir
+- replace all 1111/charles references from modules/ with vars from user/host
+- check variables/commands in systemd services for replacing charles/1111
 - sending mail (msmtp) notification
 - incomming mail (mbsync/notmuch) notification
 - mbsync Notice: SSLType is deprecated. Use TLSType instead.
 - notmuch compact
 - cosmic ???
-- hyprland go suspend after first login
+- hyprland go suspend after first login when laptop closed
 - nixpkgs-wayland.packages.${system}.wayprompt not working with sops-nix
-- after unlock opening on new workspace
-- move  /tmp/screenshot.png
+## MOVE
+- move `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg` > programs.gpg.homedir = "${hm.config.xdg.dataHome}/gnupg";
+- move mailbox `accounts.email.maildirBasePath` to `.local/shared/mail/` + zfs (disko)
+- move ~/Calibre Library
+- move ~/.viminfo ~/.mysql_history
+- move ~/.composer ~/.docker
+- move ~/log ~/.msmtp.queue/
+- move ~/.mbsyncrc (`hm.accounts.email.accounts` configuration to `.config/isync/mbsyncrc`)
+- move ~/.waveterm ~/.mozilla ~/.vscode-oss`
 ### VERDANDI
 - SWAP for hibernate vs encrypted SWAP
 ### BADB

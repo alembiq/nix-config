@@ -64,14 +64,26 @@ in
     #FIXME sops not initiated in CLI
     defaultSopsFile = ../users/charles.yaml;
     secrets = {
-      "charles/email/gmail" = { };
-      "charles/email/karelkremel" = { };
-      "charles/email/alembiq" = { };
-      "charles/email/ochman" = { };
-      "charles/email/snempohanskychobci" = { };
-      "charles/nextcloud" = { };
+      "charles/email/gmail" = {
+        path = "/home/charles/.local/gmail";
+      };
+      "charles/email/karelkremel" = {
+        path = "/home/charles/.local/karelkremel";
+      };
+      "charles/email/alembiq" = {
+        path = "/home/charles/.local/alembiq";
+      };
+      "charles/email/ochman" = {
+        path = "/home/charles/.local/ochman";
+      };
+      "charles/email/snempohanskychobci" = {
+        path = "/home/charles/.local/snempohanskychobci";
+      };
+      "charles/nextcloud" = {
+        path = "/home/charles/.local/nextcloud";
+      };
       "charles/svornosti/fileserver/samba" = {
-        path = "/home/charles/.config/fileserver-samba";
+        path = "/home/charles/.local/fileserver-samba";
       };
     };
   }; # END of home-manager.users.charles.sops
@@ -110,7 +122,9 @@ in
       Service = {
         Type = "oneshot";
         ExecStart = "${pkgs.coreutils}/bin/ln -Tfs /run/user/1111/gnupg /home/charles/.gnupg-sockets";
+        # ExecStart = "${pkgs.coreutils}/bin/ln -Tfs /run/user/$(id -u)/gnupg /home/$(whoami)/.gnupg-sockets";
         ExecStop = "${pkgs.coreutils}/bin/rm /home/charles/.gnupg-sockets";
+        # ExecStop = "${pkgs.coreutils}/bin/rm /home/charles/.gnupg-sockets";
         RemainAfterExit = true;
       };
       Install.WantedBy = [ "default.target" ];

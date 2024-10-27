@@ -170,22 +170,20 @@ in
         "nixos" = {
           source = "zpool/nixos/etc";
           target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_nixos";
-          sendOptions = "wcpR"; # R for recursive
+          sendOptions = "wcpR";
           #TODO syncoid path and the key /var/lib/syncoid/id_ed25519 ? user backup
           sshKey = "/var/lib/syncoid/id_ed25519";
-          extraArgs = [
-            "--sshoption=StrictHostKeyChecking=off"
-          ];
+          extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
         };
         "home" = {
           source = "zpool/home/charles";
           target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_charles";
-          sendOptions = "w c p";
+          sendOptions = "wcp";
           sshKey = "/var/lib/syncoid/id_ed25519";
           extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
         };
         # FIXME syncoid SENDER needs `zfs allow backup create,receive,destroy,rollback,snapshot,hold,release,mount zroot`
-        # RECEIVER needs zfs allow backup receive,mount,create
+        # FIXME syncoid RECEIVER needs zfs allow backup receive,mount,create
       };
     };
   }; # END of services
