@@ -13,6 +13,7 @@ in
 {
   users.users.charles = {
     isNormalUser = true;
+    description = "Karel";
     home = "/home/charles";
     uid = 1111;
     initialHashedPassword = "$6$v6PQnaaF2/FOFBtq$RGM/DUzJogCWKjdEJCxA0KFnLTBTxzIWDqgUUTAW2ZTAtxFrl4omDeXs3Nmu4KULBc1Lofn0Fh4IrnkDmuVbI/"; # mkpasswd -m SHA-512
@@ -375,7 +376,7 @@ in
             "fileserver fileserver.svornosti" = {
               hostname = "10.0.42.208";
             };
-            "fw fw.alembiq.net" = {
+            "fw.alembiq.net" = {
               hostname = "tyr.alembiq.net";
               user = "root";
               identityFile = "~/.ssh/YUBI-KK2024.pub";
@@ -405,16 +406,16 @@ in
             "kubera-lan kubera-lan.svornosti" = {
               hostname = "10.0.42.250";
             };
-            "arm-ripper.svornosti" = {
-              hostname = "kubera-lan.svornosti";
-              localForwards = [
-                {
-                  bind.port = 8888;
-                  host.address = "172.17.0.2";
-                  host.port = 8080;
-                }
-              ];
-            };
+            # "arm-ripper.svornosti" = {
+            #   hostname = "kubera-lan.svornosti";
+            #   localForwards = [
+            #     {
+            #       bind.port = 8888;
+            #       host.address = "172.17.0.2";
+            #       host.port = 8080;
+            #     }
+            #   ];
+            # };
             "nextcloud nextcloud.svornosti cloud.ochman.info" = {
               hostname = "10.0.42.203";
               user = "ansible";
@@ -454,11 +455,12 @@ in
               forwardAgent = true;
               # proxyJump = "tyr";
             };
-            # "lancre" = {
-            #     hostname = "lancre.tail52316.ts.net";
-            #     identityFile = "~/.ssh/YUBI-KK2024.pub";
-            #     user = "charles";
-            # };
+            "fw.brno" = {
+              hostname = "10.0.52.254";
+              user = "root";
+              identityFile = "~/.ssh/YUBI-KK2024.pub";
+              forwardAgent = true;
+            };
             ## GENERAL
             "*" = {
               addressFamily = "inet";

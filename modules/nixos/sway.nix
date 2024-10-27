@@ -40,6 +40,7 @@ in
       swayidle
       sway-audio-idle-inhibit
       swaynotificationcenter
+      notify-desktop
       swayosd
       slurp
       grim

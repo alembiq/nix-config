@@ -36,7 +36,7 @@ in
     ../../modules/nixos/sway.nix
     ../../modules/nixos/stylix.nix
     ../../modules/nixos/docker.nix
-    nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
+    nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
   ];
 
   home-manager = {
@@ -68,6 +68,7 @@ in
           deluge
           # makemkv handbrake libaacs libbluray libdvdcss
           warp-terminal
+          waveterm
           krita
         ];
         stateVersion = "23.11";
@@ -162,24 +163,24 @@ in
       interval = "*:35";
       commonArgs = [
         "--no-sync-snap"
+        "--no-privilege-elevation"
         # "--debug"
       ];
       commands = {
         "nixos" = {
           source = "zpool/nixos/etc";
           target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_nixos";
-          sendOptions = "w c";
+          sendOptions = "wcpR"; # R for recursive
           #TODO syncoid path and the key /var/lib/syncoid/id_ed25519 ? user backup
           sshKey = "/var/lib/syncoid/id_ed25519";
           extraArgs = [
             "--sshoption=StrictHostKeyChecking=off"
-            "--recursive"
           ];
         };
         "home" = {
           source = "zpool/home/charles";
           target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_charles";
-          sendOptions = "w c";
+          sendOptions = "w c p";
           sshKey = "/var/lib/syncoid/id_ed25519";
           extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
         };

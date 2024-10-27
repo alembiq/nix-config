@@ -1,12 +1,13 @@
 # RANDOM notes
 - users/charles-workstation.nix:71 sops redirect experiment
-
 - get `UID` to a variable to adjust paths...
 - move mailbox `accounts.email.maildirBasePath` to `.local/shared/mail/` + zfs (disko)
 - move `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg` > programs.gpg.homedir = "${hm.config.xdg.dataHome}/gnupg";
 - `hm.accounts.email.accounts` configuration to `.config/isync/mbsyncrc`
 - sending mail (msmtp) notification
-- incomming mail (mbsync) notification
+- incomming mail (mbsync/notmuch) notification
+- mbsync Notice: SSLType is deprecated. Use TLSType instead.
+- notmuch compact
 - cosmic ???
 - hyprland go suspend after first login
 - nixpkgs-wayland.packages.${system}.wayprompt not working with sops-nix

@@ -18,7 +18,7 @@
         {
           #   path = "${config.home.homeDirectory}/pictures/wallpapers/drone-5.jpg";
           path = "/tmp/screenshot.png";
-          blur_passes = 2;
+          blur_passes = 1;
           noise = 1.17e-2;
           contrast = 0.8916;
           brightness = 0.8172;
@@ -45,7 +45,7 @@
           color = "rgb(${config.lib.stylix.colors.base04})";
         }
         {
-          text = "    $USER";
+          text = "  $USER ";
           font_size = 32;
           position = "0, -180";
           halign = "center";

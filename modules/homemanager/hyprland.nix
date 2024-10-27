@@ -24,6 +24,7 @@
       waybar
       playerctl
       swaynotificationcenter
+      notify-desktop
       imv
       libva # TODO evaluate
       dconf # TODO evaluate dconf2nix
