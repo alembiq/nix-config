@@ -1,5 +1,7 @@
 # RANDOM notes
 - join sops secrets into ?one? file?
+- molly_guard not working?
+- wezterm focus follow mouse
 - variable for `user home path`, `uid`, `gid`     ??? hm.config homedir
 - replace all 1111/charles references from modules/ with vars from user/host
 - check variables/commands in systemd services for replacing charles/1111

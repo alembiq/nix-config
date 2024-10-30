@@ -170,7 +170,8 @@ in
         "nixos" = {
           source = "zpool/nixos/etc";
           target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_nixos";
-          sendOptions = "wcpR";
+          sendOptions = "wp"; #raw, copy properties
+          recvOptions = "u";
           #TODO syncoid path and the key /var/lib/syncoid/id_ed25519 ? user backup
           sshKey = "/var/lib/syncoid/id_ed25519";
           extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
@@ -178,7 +179,8 @@ in
         "home" = {
           source = "zpool/home/charles";
           target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_charles";
-          sendOptions = "wcp";
+          sendOptions = "w"; #raw
+          recvOptions = "u";
           sshKey = "/var/lib/syncoid/id_ed25519";
           extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
         };
@@ -223,7 +225,7 @@ in
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen; # _latest, _zen, _hardened, _rt, _rt_latest, etc.
+    # FIXME kernelPackages = pkgs.linuxPackages_zen; # _latest, _zen, _hardened, _rt, _rt_latest, etc.
     loader = {
       systemd-boot = {
         enable = true;
