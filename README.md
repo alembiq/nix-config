@@ -12,6 +12,7 @@
 - cosmic ???
 - hyprland go suspend after first login when laptop closed
 - nixpkgs-wayland.packages.${system}.wayprompt not working with sops-nix
+- greetd does not contain BASH
 ## MOVE
 - move `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg` > programs.gpg.homedir = "${hm.config.xdg.dataHome}/gnupg";
 - move mailbox `accounts.email.maildirBasePath` to `.local/shared/mail/` + zfs (disko)
@@ -21,16 +22,16 @@
 - move ~/log ~/.msmtp.queue/
 - move ~/.mbsyncrc (`hm.accounts.email.accounts` configuration to `.config/isync/mbsyncrc`)
 - move ~/.waveterm ~/.mozilla ~/.vscode-oss`
-### VERDANDI
+# VERDANDI
 - SWAP for hibernate vs encrypted SWAP
-### BADB
+# BADB
 - fixed default wifi
-### OCTOPI
+# OCTOPI
 - rpi image builder
 - merge properly ;)
-### BROKKR
+# BROKKR
 - create
-### EIR
+# EIR
 - create
 
 

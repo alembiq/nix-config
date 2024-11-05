@@ -22,6 +22,7 @@ in
 # 	wget http://www.labdv.com/aacs/KEYDB.cfg
 # )
 {
+
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./disk-config.nix
@@ -31,6 +32,8 @@ in
     ../../modules/nixos/bluetooth.nix
     # ../modules/nixos/remotebuilder.nix
     ../../users/charles.nix
+    ../../users/charles-mail.nix
+    ../../users/charles-ssh.nix
     ../../users/backup.nix
     ../../modules/nixos/hyprland.nix
     ../../modules/nixos/sway.nix
@@ -170,7 +173,7 @@ in
         "nixos" = {
           source = "zpool/nixos/etc";
           target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_nixos";
-          sendOptions = "wp"; #raw, copy properties
+          sendOptions = "wp"; # raw, copy properties
           recvOptions = "u";
           #TODO syncoid path and the key /var/lib/syncoid/id_ed25519 ? user backup
           sshKey = "/var/lib/syncoid/id_ed25519";
@@ -179,7 +182,7 @@ in
         "home" = {
           source = "zpool/home/charles";
           target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_charles";
-          sendOptions = "w"; #raw
+          sendOptions = "w"; # raw
           recvOptions = "u";
           sshKey = "/var/lib/syncoid/id_ed25519";
           extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];

@@ -19,6 +19,8 @@
     # ../../modules/nixos/bluetooth.nix
     ../../modules/nixos/audio.nix
     ../../users/charles.nix
+    ../../users/charles-mail.nix
+    ../../users/charles-ssh.nix
     ../../users/backup.nix
     ../../modules/nixos/sway.nix
     ../../modules/nixos/stylix.nix
