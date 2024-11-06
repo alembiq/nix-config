@@ -106,7 +106,7 @@
       "verdandi.svornosti verdandi.svornosti-jump" = {
         hostname = "10.0.42.101";
       };
-      "nextcloud nextcloud.svornosti nextcloud.svornosti-jump cloud.ochman.info" = {
+      "nextcloud nextcloud.svornosti nextcloud.svornosti-jump" = {
         hostname = "10.0.42.203";
       };
       "jellyfin jellyfin.svornosti jellyfin.svornosti-jump" = {

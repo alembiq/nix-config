@@ -21,7 +21,7 @@
     btrfs-progs
     lm_sensors
     easyeffects
-    pavucontrol # alternatives qpwgraph ncpamixer helvum
+    pwvucontrol # alternatives qpwgraph ncpamixer helvum pavucontol
   ];
 
   programs = {

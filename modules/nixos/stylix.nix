@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 {
   stylix = {
-    # FIXME stylix ignoring targers; vscode, pinentry, pavucontrol, easyeffects
+    # FIXME stylix ignoring targers; vscode, pinentry, easyeffects
     base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml"; # https://raw.githubusercontent.com/ada-lovecraft/base16-nord-scheme/master/nord.yaml
     polarity = "dark";
     autoEnable = true;
