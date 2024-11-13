@@ -70,7 +70,6 @@ in
           overskride
           deluge
           # makemkv handbrake libaacs libbluray libdvdcss
-          warp-terminal
           waveterm
           krita
         ];
@@ -228,7 +227,7 @@ in
   };
 
   boot = {
-    # FIXME kernelPackages = pkgs.linuxPackages_zen; # _latest, _zen, _hardened, _rt, _rt_latest, etc.
+    # FIXME 2024-11 kernelPackages = pkgs.linuxPackages_zen; # _latest, _zen, _hardened, _rt, _rt_latest, etc.
     loader = {
       systemd-boot = {
         enable = true;

@@ -263,7 +263,7 @@
       windowrulev2 = workspace 10 silent, class:^(obsidian)$
       windowrulev2 = opacity 0.90 0.85,class:^(obsidian)$
       windowrulev2 = opacity 0.90 0.75,class:^(blueman-manager)$
-      windowrulev2 = opacity 0.90 0.75,class:^(org.pulseaudio.pavucontrol)$
+      windowrulev2 = opacity 0.90 0.75,class:^(org.pulseaudio.pwvucontrol)$
       windowrulev2 = opacity 0.90 0.75,class:^(org.kde.polkit-kde-authentication-agent-1)$
       windowrulev2 = opacity 0.90 0.75,class:^(org.freedesktop.impl.portal.desktop.hyprland)$
       windowrulev2 = opacity 0.90 0.75,class:^(org.wezfurlong.wezterm)$

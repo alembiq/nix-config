@@ -126,7 +126,7 @@
         format = "{icon} {volume}%";
         format-muted = "";
         on-click = "${pkgs.easyeffects}/bin/easyeffects";
-        on-click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
+        on-click-right = "${pkgs.pwvucontrol}/bin/pwvucontrol";
         tooltip = "{node_name}";
         format-icons = [
           " "
@@ -165,7 +165,7 @@
           ];
         };
         on-click-right = "${pkgs.easyeffects}/bin/easyeffects";
-        on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+        on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
       };
       "group/connectivity" = {
         orientation = "horizontal";
