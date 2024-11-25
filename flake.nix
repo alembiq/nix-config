@@ -17,7 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
-      url = "github:Mic92/sops-nix/yubikey-support";
+      url = "github:Mic92/sops-nix";
     };
     wezterm = {
       url = "github:wez/wezterm/?dir=nix";

@@ -65,17 +65,6 @@
       # "hekate hekate.svornosti" = {
       #     hostname = "10.0.42.102";
       # };
-      # "arm-ripper.svornosti" = {
-      #   hostname = "kubera-lan.svornosti";
-      #   localForwards = [
-      #     {
-      #       bind.port = 8888;
-      #       host.address = "172.17.0.2";
-      #       host.port = 8080;
-      #     }
-      #   ];
-      # };
-
       "fw.svornosti omnia-svornosti" = {
         user = "root";
         identityFile = "~/.ssh/YUBI-KK2024.pub";
@@ -95,6 +84,20 @@
       "kubera.svornosti kubera.svornosti-jump" = {
         # kubera
         hostname = "10.0.42.250";
+      };
+      "arm-ripper.svornosti" = {
+        hostname = "10.0.42.250";
+        extraOptions = {
+                  "RemoteCommand" = "docker exec -it arm-rippers bash";
+                  "RequestTTY" = "yes";
+                };
+        localForwards = [
+          {
+            bind.port = 8888;
+            host.address = "172.17.0.2";
+            host.port = 8080;
+          }
+        ];
       };
       "octopi.svornosti octopi.svornosti-jump" = {
         hostname = "10.0.42.232";
