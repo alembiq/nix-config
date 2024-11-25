@@ -150,7 +150,7 @@
         userName = "karel@ochman.info";
         gpg = {
           key = "B924 244C A7E6 6DB4 7386 7B7C FE39 AAD9 091A 1CD7";
-          signByDefault = true;
+          signByDefault = false;
         };
         imap = {
           host = "nextmail.alembiq.net";

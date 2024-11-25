@@ -65,7 +65,7 @@ in
         packages = with pkgs; [
           prusa-slicer
           openscad-unstable
-          calibre
+        # FIXME 202401118  calibre
           poppler_utils # pdf tools
           overskride
           deluge
@@ -82,6 +82,13 @@ in
   #TODO fingerprint
   #TODO NFC
   #TODO hibernate
+
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=yes
+    AllowHibernation=yes
+    AllowHybridSleep=yes
+    AllowSuspendThenHibernate=yes
+  '';
 
   services = {
     thermald = {
@@ -250,6 +257,7 @@ in
     };
     kernelModules = [ "kvm-intel" ];
     kernelParams = [
+    #   "resume=/dev/disk/by-partlabel/disk-nvme-plainSwap"
       "mitigations=off"
       "i915.enable_psr=0"
       "i915.enable_fbc=1"

@@ -150,12 +150,6 @@
   # To prevent getting stuck at shutdown
   systemd.extraConfig = "DefaultTimeoutStopSec=30s";
 
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=yes
-    AllowHibernation=yes
-    AllowHybridSleep=yes
-    AllowSuspendThenHibernate=yes
-  '';
 
   fileSystems."/mnt/media" = {
     device = "//10.0.42.208/media";

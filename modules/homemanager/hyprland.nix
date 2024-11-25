@@ -185,10 +185,10 @@
           "size" = 3;
           "passes" = 1;
         };
-        "drop_shadow" = false;
-        "shadow_range" = 4;
-        "shadow_render_power" = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
+        # "drop_shadow" = false;
+        # "shadow_range" = 4;
+        # "shadow_render_power" = 3;
+        # "col.shadow" = "rgba(1a1a1aee)";
       };
       "animations" = {
         "enabled" = "yes";

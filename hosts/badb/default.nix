@@ -60,6 +60,13 @@
     }; # END of home-manager.users.charles
   }; # END of home-manager
 
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=yes
+    AllowHibernation=yes
+    AllowHybridSleep=yes
+    AllowSuspendThenHibernate=yes
+  '';
+
   services = {
     # zram-generator = {
     #     enable = true;

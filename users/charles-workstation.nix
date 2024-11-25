@@ -15,6 +15,7 @@ in
     beeper # https://help.beeper.com/en_US/troubleshooting/beeper-on-linux-crashing
     obsidian
     morgen
+    discord
     element-desktop
     netscanner
     nmap
@@ -30,6 +31,7 @@ in
     xfce.tumbler
     rpi-imager
     okular
+    unzip
     xdg-utils
     nwg-displays
   ];
