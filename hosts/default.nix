@@ -136,28 +136,28 @@
   fonts = {
     packages = with pkgs; [
       fira-code
-      fira-code-nerdfont
+      nerd-fonts.fira-code
       noto-fonts-emoji
     ];
     # enableDefaultPackages = false;
 
-    fontconfig = {
-      defaultFonts = {
-        monospace = [
-          "FiraCode Nerd Font Mono"
-          "Noto Color Emoji"
-        ];
-        sansSerif = [
-          "DejaVu Sans Nerd Font"
-          "Noto Color Emoji"
-        ];
-        serif = [
-          "DejaVu Serif Nerd Font"
-          "Noto Color Emoji"
-        ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-    };
+    # fontconfig = {
+    #   defaultFonts = {
+    #     monospace = [
+    #       "FiraCode Nerd Font Mono"
+    #       "Noto Color Emoji"
+    #     ];
+    #     sansSerif = [
+    #       "DejaVu Sans Nerd Font"
+    #       "Noto Color Emoji"
+    #     ];
+    #     serif = [
+    #       "DejaVu Serif Nerd Font"
+    #       "Noto Color Emoji"
+    #     ];
+    #     emoji = [ "Noto Color Emoji" ];
+    #   };
+    # };
 
   };
 

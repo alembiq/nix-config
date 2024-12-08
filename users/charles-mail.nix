@@ -100,7 +100,7 @@
             folder-hook . "set sort=date ; set sort_aux=thread"
           '';
         };
-        realName = "Karel Křemel";
+        realName = "Karel | ALEMBIQ.net";
         address = "charles@alembiq.net";
         userName = "charles@alembiq.net";
         gpg = {
@@ -121,7 +121,7 @@
         signature = {
           text = ''
 
-            Karel Křemel
+            Karel
             ALEMBIQ.net
 
             charles@alembiq.net
@@ -140,7 +140,7 @@
         neomutt = {
           enable = true;
           extraConfig = ''
-            mailboxes /home/charles/Maildir/karel@ochman.info/Inbox /home/charles/Maildir/karel@ochman.info/Drafts  /home/charles/Maildir/karel@ochman.info/ACCESS /home/charles/Maildir/karel@ochman.info/MONEY /home/charles/Maildir/karel@ochman.info/WORK /home/charles/Maildir/karel@ochman.info/Goverment /home/charles/Maildir/karel@ochman.info/Sent /home/charles/Maildir/karel@ochman.info/Junk /home/charles/Maildir/karel@ochman.info/Trash
+            mailboxes /home/charles/Maildir/karel@ochman.info/Inbox /home/charles/Maildir/karel@ochman.info/Drafts  /home/charles/Maildir/karel@ochman.info/ACCESS /home/charles/Maildir/karel@ochman.info/MONEY /home/charles/Maildir/karel@ochman.info/MONEY/Strnadova /home/charles/Maildir/karel@ochman.info/WORK /home/charles/Maildir/karel@ochman.info/Goverment /home/charles/Maildir/karel@ochman.info/Sent /home/charles/Maildir/karel@ochman.info/Junk /home/charles/Maildir/karel@ochman.info/Trash
             named-mailboxes @ochman.info +Inbox
             folder-hook . "set sort=date ; set sort_aux=thread"
           '';

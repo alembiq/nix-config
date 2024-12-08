@@ -233,8 +233,10 @@ in
     cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
   };
 
+  security.protectKernelImage = false;  #hibernate
+
   boot = {
-    # FIXME 2024-11 kernelPackages = pkgs.linuxPackages_zen; # _latest, _zen, _hardened, _rt, _rt_latest, etc.
+    # FIXME 2024-11 kernelPackages = pkgs.linuxPackages_zen; # https://nixos.wiki/wiki/Linux_kernel#List_available_kernels
     loader = {
       systemd-boot = {
         enable = true;
@@ -257,15 +259,19 @@ in
     };
     kernelModules = [ "kvm-intel" ];
     kernelParams = [
-    #   "resume=/dev/disk/by-partlabel/disk-nvme-plainSwap"
+      "resume=/dev/disk/by-partlabel/disk-nvme-plainSwap"
       "mitigations=off"
       "i915.enable_psr=0"
       "i915.enable_fbc=1"
-      "i915.fastboot=0"
+      "i915.fastboot=1" #FIXME TEST
       "i915.enable_dc=0"
       "i915.enable_guc=3"
-    ]; # fastboot=0
+    ];
     extraModulePackages = [ ];
+    zfs = {
+        forceImportRoot = false;
+        allowHibernation = true;
+    };
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

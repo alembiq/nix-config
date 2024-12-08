@@ -34,7 +34,7 @@
       };
       monospace = {
         name = "FiraCode Nerd Font Mono"; # TODO try cascadia-code
-        package = pkgs.fira-code-nerdfont;
+        package = pkgs.nerd-fonts.fira-code;
       };
 
       serif = {

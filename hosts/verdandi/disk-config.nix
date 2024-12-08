@@ -24,11 +24,12 @@
                 pool = "zpool";
               };
             };
-            plainSwap = {
+            plainSwap = { #TODO LUKS encrypt partition for hibernation
               size = "20G";
               content = {
                 type = "swap";
-                resumeDevice = true; # resume from hiberation from this device
+                resumeDevice = true; # TODO use for hibernation ONLY
+                discardPolicy = "both";
               };
             };
             encryptedSwap = {
@@ -36,6 +37,7 @@
               content = {
                 type = "swap";
                 randomEncryption = true;
+                priority = 100;
               };
             };
           };
