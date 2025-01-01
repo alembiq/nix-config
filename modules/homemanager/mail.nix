@@ -78,7 +78,7 @@
 
   services.mbsync = {
     enable = true;
-    configFile = "${config.xdg.configHome}/isync/mbsyncrc"; # FIXME it's read but not written to
+    # configFile = "${config.xdg.configHome}/isync/mbsyncrc"; # FIXME it's read but not written to
     postExec = "${pkgs.notmuch}/bin/notmuch new";
     verbose = false;
   };
@@ -324,7 +324,7 @@
           ];
         }
         {
-          action = "<shell-escape>${pkgs.isync}/bin/mbsync -c ${config.xdg.configHome}/isync/mbsyncrc -a<enter>";
+          action = "<shell-escape>${pkgs.isync}/bin/mbsync -aC<enter>";#-c ${config.xdg.configHome}/isync/mbsyncrc
           key = "O";
           map = [ "index" ];
         }

@@ -39,7 +39,7 @@
       Service = {
         Type = "simple";
         EnvironmentFile = "/home/charles/.local/nextcloud";
-        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /InstantUpload /home/charles/pictures https://cloud.ochman.info";
+        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Images /home/charles/pictures https://cloud.ochman.info";
         TimeoutStopSec = "180";
         KillMode = "process";
         KillSignal = "SIGINT";

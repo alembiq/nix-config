@@ -34,6 +34,7 @@ in
     unzip
     xdg-utils
     nwg-displays
+    yt-dlp
   ];
 
   xdg.mimeApps = {

@@ -20,7 +20,6 @@
 - move ~/.viminfo ~/.mysql_history
 - move ~/.composer ~/.docker
 - move ~/log ~/.msmtp.queue/
-- move ~/.mbsyncrc (`hm.accounts.email.accounts` configuration to `.config/isync/mbsyncrc`)
 - move ~/.waveterm ~/.mozilla ~/.vscode-oss`
 # VERDANDI
 - SWAP for hibernate vs encrypted SWAP

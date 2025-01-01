@@ -115,7 +115,7 @@
       "jellyfin jellyfin.svornosti jellyfin.svornosti-jump" = {
         hostname = "10.0.42.202";
       };
-      "jellyfin.* nextcloud.* cloud.ochman.info " = {
+      "jellyfin jellyfin.* nextcloud nextcloud.*" = {
         identityFile = "~/.ssh/YUBI-KK2024.pub";
         user = "ansible";
         forwardAgent = true;
