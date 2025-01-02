@@ -236,7 +236,7 @@ in
   security.protectKernelImage = false;  #hibernate
 
   boot = {
-    # FIXME 2024-11 kernelPackages = pkgs.linuxPackages_zen; # https://nixos.wiki/wiki/Linux_kernel#List_available_kernels
+    kernelPackages = pkgs.linuxPackages_zen; # https://nixos.wiki/wiki/Linux_kernel#List_available_kernels
     loader = {
       systemd-boot = {
         enable = true;
