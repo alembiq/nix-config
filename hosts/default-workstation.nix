@@ -150,7 +150,6 @@
   # To prevent getting stuck at shutdown
   systemd.extraConfig = "DefaultTimeoutStopSec=30s";
 
-
   fileSystems."/mnt/media" = {
     device = "//10.0.42.208/media";
     fsType = "cifs";

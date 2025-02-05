@@ -123,7 +123,8 @@ in
       menu = menu;
       modifier = modifier;
       keybindings = {
-        "${modifier}+Shift+e" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway?' -b 'Yes, exit sway' 'swaymsg exit' -b 'Poweroff' 'systemctl poweroff' -b 'Reboot' 'systemctl reboot'";
+        "${modifier}+Shift+e" =
+          "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway?' -b 'Yes, exit sway' 'swaymsg exit' -b 'Poweroff' 'systemctl poweroff' -b 'Reboot' 'systemctl reboot'";
         "${modifier}+l" = "exec swaylock-effects'";
         "${modifier}+Shift+r" = "reload";
         "${modifier}+Shift+q" = "kill";

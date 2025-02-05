@@ -24,7 +24,8 @@
                 pool = "zpool";
               };
             };
-            plainSwap = { #TODO LUKS encrypt partition for hibernation
+            plainSwap = {
+              # TODO LUKS encrypt partition for hibernation
               size = "20G";
               content = {
                 type = "swap";

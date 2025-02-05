@@ -35,6 +35,7 @@ in
     xdg-utils
     nwg-displays
     yt-dlp
+    shared-mime-info #TEST
   ];
 
   xdg.mimeApps = {
@@ -43,18 +44,28 @@ in
       "application/vnd.oasis.opendocument.text" = "writer.desktop";
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "writer.desktop";
       "application/pdf" = "okularApplication_pdf.desktop";
-      "x-scheme-handler/element" = "element-desktop.desktop";
-      "text/html" = "firefox.desktop";
+      "application/xhtml+xml" = "firefox.desktop";
+      "application/vnd.oasis.opendocument.spreadsheet" = "onlyoffice-desktopeditors.desktop";
+      "text/html" = "firefox.desktop"; # browser
       "text/plain" = " codium.desktop";
       "image/png" = "imv.desktop";
       "image/jpeg" = "imv.desktop";
+      "default-web-browser" = "firefox.desktop";
+      "default-url-scheme-handler" = "firefox.desktop";
+      "x-scheme-handler/element" = "element-desktop.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
       "x-scheme-handler/https" = "firefox.desktop";
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/unknown" = "firefox.desktop";
-      "application/xhtml+xml" = "firefox.desktop";
       "x-scheme-handler/morgen" = "morgen.desktop";
-      "application/vnd.oasis.opendocument.spreadsheet" = " onlyoffice-desktopeditors.desktop";
+      "scheme-handler/http" = "firefox.desktop";
+      "scheme-handler/https" = "firefox.desktop";
+#FIXME links not opening in firefox
+    #   "x-scheme-handler/unknown" = "firefox.desktop";
+    #   "default-url-scheme-handler/http" = "firefox.desktop";
+    #   "default-url-scheme-handler/https" = "firefox.desktop";
+
+
     };
   }; # END of home-manager.users.charles.xdg
 

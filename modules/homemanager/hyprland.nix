@@ -172,7 +172,7 @@
         "layout" = "dwindle";
         "allow_tearing" = false;
         "border_size" = 2;
-#FIXME 20250101
+        #FIXME 20250101
         # "col.active_border" = "0xff'' + config.lib.stylix.colors.base08 + ''";
         # "col.inactive_border" = "0x33'' + config.lib.stylix.colors.base00 + ''";
         "resize_on_border" = true;

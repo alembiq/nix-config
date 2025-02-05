@@ -324,7 +324,7 @@
           ];
         }
         {
-          action = "<shell-escape>${pkgs.isync}/bin/mbsync -aC<enter>";#-c ${config.xdg.configHome}/isync/mbsyncrc
+          action = "<shell-escape>${pkgs.isync}/bin/mbsync -aC<enter>"; # -c ${config.xdg.configHome}/isync/mbsyncrc
           key = "O";
           map = [ "index" ];
         }

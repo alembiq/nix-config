@@ -105,7 +105,8 @@
 
         "gitroot" = ''cd "$(git rev-parse --show-toplevel)"'';
         "yubikey-reload" = ''${pkgs.gnupg}/bin/gpg-connect-agent "scd serialno" "learn --force" /bye'';
-        "gpg-agent-wipe" = ''ssh_keys=$(${pkgs.gnupg}/bin/gpg-connect-agent 'keyinfo --ssh-list' /bye | awk '{print $3}') && for key in $ssh_keys; do ${pkgs.gnupg}/bin/gpg-connect-agent "delete_key --force $key" /bye; done'';
+        "gpg-agent-wipe" =
+          ''ssh_keys=$(${pkgs.gnupg}/bin/gpg-connect-agent 'keyinfo --ssh-list' /bye | awk '{print $3}') && for key in $ssh_keys; do ${pkgs.gnupg}/bin/gpg-connect-agent "delete_key --force $key" /bye; done'';
         "gpg-agent-restart" = "${pkgs.gnupg}/bin/gpg-connect-agent killagent /bye";
 
         # "docker-cleanup" = "echo "cleaning sys images"; docker system prune -a -f; echo "cleaning volumes"; docker volume prune -f"

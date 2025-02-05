@@ -65,7 +65,7 @@ in
         packages = with pkgs; [
           prusa-slicer
           openscad-unstable
-        # FIXME 202401118  calibre
+          # FIXME 202401118  calibre
           poppler_utils # pdf tools
           overskride
           deluge
@@ -233,10 +233,10 @@ in
     cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
   };
 
-  security.protectKernelImage = false;  #hibernate
+  security.protectKernelImage = false; # hibernate
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen; # https://nixos.wiki/wiki/Linux_kernel#List_available_kernels
+    kernelPackages = pkgs.linuxPackages; #_zen; # https://nixos.wiki/wiki/Linux_kernel#List_available_kernels
     loader = {
       systemd-boot = {
         enable = true;
@@ -263,14 +263,14 @@ in
       "mitigations=off"
       "i915.enable_psr=0"
       "i915.enable_fbc=1"
-      "i915.fastboot=1" #FIXME TEST
+      "i915.fastboot=1" # FIXME TEST
       "i915.enable_dc=0"
       "i915.enable_guc=3"
     ];
     extraModulePackages = [ ];
     zfs = {
-        forceImportRoot = false;
-        allowHibernation = true;
+      forceImportRoot = false;
+      allowHibernation = true;
     };
   };
 

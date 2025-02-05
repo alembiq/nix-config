@@ -41,6 +41,12 @@ in
   home-manager = {
     users.charles = {
       imports = [ ./default.nix ];
+      home.activation."mimeapps-remove" = {
+        before = [ "checkLinkTargets" ];
+        after = [ ];
+        data = "rm -f /home/charles/.config/mimeapps.list";
+        };
+
       xdg.userDirs = {
         enable = true;
         documents = "$HOME/documents";

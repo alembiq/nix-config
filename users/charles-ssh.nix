@@ -88,9 +88,9 @@
       "arm-ripper.svornosti" = {
         hostname = "10.0.42.250";
         extraOptions = {
-                  "RemoteCommand" = "docker exec -it arm-rippers bash";
-                  "RequestTTY" = "yes";
-                };
+          "RemoteCommand" = "docker exec -it arm-rippers bash";
+          "RequestTTY" = "yes";
+        };
         localForwards = [
           {
             bind.port = 8888;
@@ -127,11 +127,12 @@
       "10.0.4?.* *.svornosti-jump" = {
         proxyJump = "omnia-svornosti";
       };
-      "verdandi* badb* fileserver hekate* kubera* octopi* pine* gitlab.svornosti gitlab gitlab.alembiq.net" = {
-        identityFile = "~/.ssh/YUBI-KK2024.pub";
-        user = "charles";
-        forwardAgent = true;
-      };
+      "verdandi* badb* fileserver hekate* kubera* octopi* pine* gitlab.svornosti gitlab gitlab.alembiq.net" =
+        {
+          identityFile = "~/.ssh/YUBI-KK2024.pub";
+          user = "charles";
+          forwardAgent = true;
+        };
       #  ____  ____  _   _  ___
       # | __ )|  _ \| \ | |/ _ \
       # |  _ \| |_) |  \| | | | |
