@@ -102,7 +102,7 @@
       "octopi.svornosti octopi.svornosti-jump" = {
         hostname = "10.0.42.232";
       };
-      "pikvm.svornosti pivkm.svornosti-jump" = {
+      "pikvm.svornosti pikvm.svornosti-jump" = {
         hostname = "10.0.42.249";
         user = "root";
       };

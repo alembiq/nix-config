@@ -79,6 +79,14 @@ in
           publicKeys = [
             # https://discourse.nixos.org/t/gpg-smartcard-for-ssh/33689
             {
+              source = ../secrets/KK-4A72D7FD235E50F93F6801A005F6EFFABE002CB2-2025-02-10.asc;
+              trust = "ultimate";
+            }
+            {
+              source = ../secrets/KO-B924244CA7E66DB473867B7CFE39AAD9091A1CD7-2025-02-10.asc;
+              trust = "ultimate";
+            }
+            {
               source = ../secrets/KK-4A72D7FD235E50F93F6801A005F6EFFABE002CB2-2024-01-26.asc;
               trust = "ultimate";
             }

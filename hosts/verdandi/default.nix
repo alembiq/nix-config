@@ -65,7 +65,7 @@ in
         packages = with pkgs; [
           prusa-slicer
           openscad-unstable
-          # FIXME 202401118  calibre
+          calibre
           poppler_utils # pdf tools
           overskride
           deluge

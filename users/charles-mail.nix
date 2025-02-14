@@ -73,7 +73,7 @@
         };
         msmtp.enable = true;
         notmuch.enable = true;
-        primary = true;
+        primary = false;
         signature = {
           text = ''
 
@@ -162,7 +162,7 @@
         };
         msmtp.enable = true;
         notmuch.enable = true;
-        primary = false;
+        primary = true;
         signature = {
           text = ''
 

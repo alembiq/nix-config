@@ -3,8 +3,8 @@ keys:
   - &users
     - &YKK2024 4A72D7FD235E50F93F6801A005F6EFFABE002CB2
     - &YKO2024 B924244CA7E66DB473867B7CFE39AAD9091A1CD7
-    - &YKK2023 D25EEBEF376E7A1FFC2BBA00DAB8D3784DF29978
-    - &YKO2023 9A15295E39561003E02DE539576DCF9C4F332B1B
+#    - &YKK2023 D25EEBEF376E7A1FFC2BBA00DAB8D3784DF29978
+#    - &YKO2023 9A15295E39561003E02DE539576DCF9C4F332B1B
   - &hosts
     - &verdandi age1ewjn55r6fa6a9rmzzd85xdela6xs4khaa0nsuzfwfly4q32cjcaqd2232g
     - &badb age1a92gyywyscz88c295czl7f5qxgqpaj03at6yjt6vd94hkf8tl3xsuuhuwm
@@ -14,8 +14,8 @@ creation_rules:
     - pgp:
       - *YKK2024
       - *YKO2024
-      - *YKK2023
-      - *YKO2023
+#      - *YKK2023
+#      - *YKO2023
       age:
       - *badb
       - *verdandi
@@ -24,5 +24,5 @@ creation_rules:
     - pgp:
       - *YKK2024
       - *YKO2024
-      - *YKK2023
-      - *YKO2023
+#      - *YKK2023
+#      - *YKO2023

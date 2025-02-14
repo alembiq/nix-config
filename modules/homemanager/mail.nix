@@ -135,14 +135,11 @@
 
         color progress black cyan
 
-
-
         # Tagged mail is highlighted:
         color index_author default color5 "~T"
         color index_subject default color5 "~T"
 
         color sidebar_new color3 default
-
 
         color signature         red                 default
 
@@ -164,8 +161,6 @@
         color header color5 default "^Subject"
         color header color4 default "^(CC|BCC)"
         color header color4 default ".*"
-
-
 
         color body brightred default "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
         color body brightblue default "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
@@ -193,11 +188,11 @@
         # color body color2 default "^## \.*" 				# Subheadings as bold cyan
         # color body color2 default "^### \.*" 				# Subsubheadings as bold green
         # color body color5 default "^(\t| )*(-|\\*) \.*" 			# List items as yellow
-        # color body color1 default "(BAD signature)"
-        # color body color2 default "(Good signature)"
-        # color body color2 default "^gpg: Good signature .*"
-        # color body color2 default "^gpg: "
-        # color body color1 default "^gpg: BAD signature from.*"
+        color body color1 default "(BAD signature)"
+        color body color2 default "(Good signature)"
+        color body color2 default "^gpg: Good signature .*"
+        color body color2 default "^gpg: "
+        color body color1 default "^gpg: BAD signature from.*"
         mono body bold "^gpg: Good signature"
         mono body bold "^gpg: BAD signature from.*"
       '';
@@ -210,6 +205,15 @@
           "pager"
         ];
       }
+      {
+        action = "noop";
+        key = "\\Cb"; # urlview noop
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+
       {
         action = "noop";
         key = "\\Cu"; # urlscan
