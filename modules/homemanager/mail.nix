@@ -62,7 +62,7 @@
     text/calendar; ${pkgs.vcal}/bin/vcal %s; copiousoutput;
 
     #PDFs
-    application/pdf; ${pkgs.okular}/bin/okular %s pdf
+    application/pdf; ${pkgs.libsForQt5.okular}/bin/okular %s pdf
 
     #Images
     image/png; ${pkgs.imv}/bin/imv %s

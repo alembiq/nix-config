@@ -4,9 +4,12 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium.fhs;
-    enableUpdateCheck = false;
-    enableExtensionUpdateCheck = false;
     mutableExtensionsDir = false;
+    profiles.default = {
+
+ enableUpdateCheck = false;
+    enableExtensionUpdateCheck = false;
+
     extensions =
       with pkgs.vscode-extensions;
       [
@@ -339,5 +342,6 @@
         "command" = "namespaceResolver.import";
       }
     ];
+    };
   }; # END of programs.vscode
 }

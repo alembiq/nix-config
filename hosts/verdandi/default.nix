@@ -91,6 +91,7 @@ in
   '';
 
   services = {
+    kmscon.enable = true;
     thermald = {
       enable = true;
       ignoreCpuidCheck = true;

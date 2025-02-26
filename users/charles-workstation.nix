@@ -17,6 +17,7 @@ in
     morgen
     discord
     element-desktop
+    dig
     netscanner
     nmap
     arp-scan
@@ -30,7 +31,7 @@ in
     xfce.thunar-volman
     xfce.tumbler
     rpi-imager
-    okular
+    libsForQt5.okular
     unzip
     xdg-utils
     nwg-displays

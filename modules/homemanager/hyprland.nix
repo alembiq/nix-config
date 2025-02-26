@@ -31,7 +31,7 @@
 
     ];
   };
-  programs.wpaperd = lib.mkForce {
+  services.wpaperd = lib.mkForce {
     enable = true;
     settings = {
       any = {
