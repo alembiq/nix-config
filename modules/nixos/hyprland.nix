@@ -10,8 +10,8 @@
     gnome.gnome-keyring.enable = true;
   };
   programs.wshowkeys.enable = true;
-#   programs.dconf.enable = true;
-#   programs.hyprland.withUWSM = true;
+  #   programs.dconf.enable = true;
+  #   programs.hyprland.withUWSM = true;
   xdg = {
     mime.enable = true;
     icons.enable = true;

@@ -237,7 +237,7 @@ in
   security.protectKernelImage = false; # hibernate
 
   boot = {
-    kernelPackages = pkgs.linuxPackages; #_zen; # https://nixos.wiki/wiki/Linux_kernel#List_available_kernels
+    kernelPackages = pkgs.linuxPackages; # _zen; # https://nixos.wiki/wiki/Linux_kernel#List_available_kernels
     loader = {
       systemd-boot = {
         enable = true;

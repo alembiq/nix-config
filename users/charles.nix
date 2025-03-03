@@ -45,7 +45,7 @@ in
         before = [ "checkLinkTargets" ];
         after = [ ];
         data = "rm -f /home/charles/.config/mimeapps.list";
-        };
+      };
 
       xdg.userDirs = {
         enable = true;
