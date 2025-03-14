@@ -49,7 +49,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     package = pkgs.hyprland;
-    xwayland.enable = true;
+    # xwayland.enable = true;
     systemd.enable = true;
     systemd.variables = [ "--all" ];
     settings = {
@@ -173,8 +173,8 @@
         "allow_tearing" = false;
         "border_size" = 2;
         #FIXME 20250101
-        # "col.active_border" = "0xff'' + config.lib.stylix.colors.base08 + ''";
-        # "col.inactive_border" = "0x33'' + config.lib.stylix.colors.base00 + ''";
+        "col.active_border" = "0xff" + config.lib.stylix.colors.base08 ;
+        "col.inactive_border" = "0x33" + config.lib.stylix.colors.base00 ;
         "resize_on_border" = true;
         "gaps_in" = 2;
         "gaps_out" = 4;
@@ -186,10 +186,6 @@
           "size" = 3;
           "passes" = 1;
         };
-        # "drop_shadow" = false;
-        # "shadow_range" = 4;
-        # "shadow_render_power" = 3;
-        # "col.shadow" = "rgba(1a1a1aee)";
       };
       "animations" = {
         "enabled" = "yes";

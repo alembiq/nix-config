@@ -42,14 +42,14 @@ in
       client.placeholder       #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base05}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base00}
       client.background        #${config.lib.stylix.colors.base07}
       # SCRATCHPAD
-      exec_always --no-startup-id xfce4-terminal --title=scratchpadTerminal
-      exec_always --no-startup-id xfce4-terminal --title=scratchpadMutt
-      for_window [title="scratchpadTerminal"] move scratchpad
-      for_window [title="scratchpadTerminal"] floating enable, border pixel 5, resize set 1250 730
-      bindsym Mod4+u [title="scratchpadTerminal"] scratchpad show; [title="scratchpadTerminal"] move position center
-      for_window [title="scratchpadMutt"] move scratchpad
-      for_window [title="scratchpadMutt"] floating enable, border pixel 5, resize set 1250 730
-      bindsym Mod4+m [title="scratchpadMutt"] scratchpad show; [title="scratchpadMutt"] move position center
+    #   exec_always --no-startup-id xfce4-terminal --title=scratchpadTerminal
+    #   exec_always --no-startup-id xfce4-terminal --title=scratchpadMutt
+    #   for_window [title="scratchpadTerminal"] move scratchpad
+    #   for_window [title="scratchpadTerminal"] floating enable, border pixel 5, resize set 1250 730
+    #   bindsym Mod4+u [title="scratchpadTerminal"] scratchpad show; [title="scratchpadTerminal"] move position center
+    #   for_window [title="scratchpadMutt"] move scratchpad
+    #   for_window [title="scratchpadMutt"] floating enable, border pixel 5, resize set 1250 730
+    #   bindsym Mod4+m [title="scratchpadMutt"] scratchpad show; [title="scratchpadMutt"] move position center
       # CLAMSHELL
       bindswitch --reload --locked lid:on output eDP-1 disable
       bindswitch --reload --locked lid:off output eDP-1 enable
@@ -91,13 +91,13 @@ in
       startup = [
         { command = "${pkgs.waybar}/bin/waybar"; }
         { command = "${pkgs.swaynotificationcenter}/bin/swaync"; }
-        { command = "${pkgs.firefox}/bin/firefox"; }
+        # { command = "${pkgs.firefox}/bin/firefox"; }
         {
           command = "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1";
         }
-        {
-          command = "sleep 5 && ${pkgs.element-desktop}/bin/element-desktop";
-        }
+        # {
+        #   command = "sleep 5 && ${pkgs.element-desktop}/bin/element-desktop";
+        # }
         #FIXME inherit ALLOW_UNFREE { command = "sleep 5 && ${pkgs.beeper}/bin/beeper"; }
         #FIXME inherit ALLOW_UNFREE { command = "sleep 8 && ${pkgs.obsidian}/bin/obsidian --disable-gpu"; } # https://github.com/NixOS/nixpkgs/issues/270699
         #FIXME inherit ALLOW_UNFREE { command = "sleep 8 && ${pkgs.morgen}/bin/morgen"; }

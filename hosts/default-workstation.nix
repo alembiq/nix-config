@@ -6,6 +6,7 @@
 }:
 
 {
+
   environment.systemPackages = with pkgs; [
     opensc
     pcsctools
@@ -59,7 +60,7 @@
         CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
         CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MAX_PERF_ON_AC = 90;
         CPU_MIN_PERF_ON_BAT = 0;
         CPU_MAX_PERF_ON_BAT = 50;
 
@@ -74,30 +75,13 @@
       yubikey-personalization
       libu2f-host
     ];
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = builtins.concatStringsSep " " [
-            "${pkgs.greetd.tuigreet}/bin/tuigreet"
-            "--asterisks"
-            "--remember"
-            "--time"
-            "--sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
-            "--time-format '%I:%M %p | %a • %h | %F'"
-            "--cmd Hyprland"
-          ];
-        };
-        user = "charles";
-      };
-    };
     xserver = {
       enable = true;
     };
   };
 
-  powerManagement.enable = true;
-  powerManagement.powertop.enable = true;
+# FIXME 2025  powerManagement.enable = true;
+# FIXME 2025  powerManagement.powertop.enable = true;
 
   hardware = {
     gpgSmartcards.enable = true;

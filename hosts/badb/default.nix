@@ -14,7 +14,7 @@
     ../default.nix
     ../default-workstation.nix
     # ../modules/nixos/remotebuilder.nix
-
+    ../../modules/nixos/greetd.nix
     ../../modules/nixos/audio.nix
     # ../../modules/nixos/bluetooth.nix
     ../../modules/nixos/audio.nix

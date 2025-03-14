@@ -2,6 +2,7 @@
 {
   programs.firefox = {
     enable = true;
+    # package = pkgs.firefox-esr;
     policies = {
       ExtensionSettings =
         with builtins;
@@ -16,19 +17,17 @@
         in
         listToAttrs [
           # about:support
-          (extension "Sideberry" "{3c078156-979c-498b-8990-85f7987dd929}")
+          (extension "Sideberry" "{3c078156-979c-498b-8990-85f7987dd929}") #TODO FF 136 vertical tabs
           (extension "art-project" "jid1-2owcJCGUIo2yBA@jetpack")
           (extension "auto-tab-discard" "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}")
           (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
-          # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")
-          (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
-          (extension "darkreader" "addon@darkreader.org")
+        #   (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
+        #   (extension "darkreader" "addon@darkreader.org")
           (extension "grammarly-1" "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack")
           (extension "i-dont-care-about-cookies" "jid1-KKzOGWgsW3Ao4Q@jetpack")
           # (extension "tiled-tab-groups" "{dcdaadfa-21f1-4853-9b34-aad681fff6f3}")
           (extension "ublock-origin" "uBlock0@raymondhill.net")
           # (extension "youtube-shorts-block" "{34daeb50-c2d2-4f14-886a-7160b24d66a4}")
-          # (extension "languagetool" "languagetool-webextension@languagetool.org")
         ];
       DisableTelemetry = true;
       DisableFirefoxStudies = true;

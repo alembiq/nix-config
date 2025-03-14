@@ -25,6 +25,7 @@ in
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    ../../modules/nixos/greetd.nix
     ./disk-config.nix
     ../default.nix
     ../default-workstation.nix
@@ -39,6 +40,7 @@ in
     ../../modules/nixos/sway.nix
     ../../modules/nixos/stylix.nix
     ../../modules/nixos/docker.nix
+    ../../modules/nixos/plasma6.nix
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
   ];
 

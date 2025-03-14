@@ -109,11 +109,11 @@
           ''ssh_keys=$(${pkgs.gnupg}/bin/gpg-connect-agent 'keyinfo --ssh-list' /bye | awk '{print $3}') && for key in $ssh_keys; do ${pkgs.gnupg}/bin/gpg-connect-agent "delete_key --force $key" /bye; done'';
         "gpg-agent-restart" = "${pkgs.gnupg}/bin/gpg-connect-agent killagent /bye";
 
-        # "docker-cleanup" = "echo "cleaning sys images"; docker system prune -a -f; echo "cleaning volumes"; docker volume prune -f"
-        # "docker-cleanup-volumes" = "docker volume prune -f"
-        # "docker-cleanup-images" = "docker system prune -a -f"
-        # "docker-killall" = "for i in $(docker ps|cut -d\  -f1|grep -v CON); do docker kill ${i} ; done"
-        # "docker-update-images" = "docker image ls --format='{{.Repository}}:{{.Tag}}' | xargs -I {} docker pull {}";
+        "docker-cleanup" = "echo 'cleaning sys images'; docker system prune -a -f; echo 'cleaning volumes'; docker volume prune -f";
+        "docker-cleanup-volumes" = "docker volume prune -f";
+        "docker-cleanup-images" = "docker system prune -a -f";
+        # "docker-killall" = "for i in $(docker ps|cut -d\  -f1|grep -v CON); do docker kill ${i} ; done";
+        "docker-update-images" = "docker image ls --format='{{.Repository}}:{{.Tag}}' | xargs -I {} docker pull {}";
 
       };
     };
@@ -140,26 +140,6 @@
       nerd-fonts.fira-code
       noto-fonts-emoji
     ];
-    # enableDefaultPackages = false;
-
-    # fontconfig = {
-    #   defaultFonts = {
-    #     monospace = [
-    #       "FiraCode Nerd Font Mono"
-    #       "Noto Color Emoji"
-    #     ];
-    #     sansSerif = [
-    #       "DejaVu Sans Nerd Font"
-    #       "Noto Color Emoji"
-    #     ];
-    #     serif = [
-    #       "DejaVu Serif Nerd Font"
-    #       "Noto Color Emoji"
-    #     ];
-    #     emoji = [ "Noto Color Emoji" ];
-    #   };
-    # };
-
   };
 
   system.activationScripts = {
@@ -225,10 +205,10 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
-    # optimise = {
-    #   automatic = true;
-    #   dates = [ "03:45" ];
-    # };
+    optimise = {
+      automatic = true;
+      dates = [ "03:45" ];
+    };
     gc = {
       automatic = true;
       dates = "daily";
