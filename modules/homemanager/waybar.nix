@@ -251,15 +251,28 @@
         orientation = "horizontal";
         modules = [
           "cpu"
+          "temperature"
           "memory"
           "backlight"
           "battery"
           "custom/quit"
-        ]; # "cpu" "memory" "temperature"
+        ];
       };
       "cpu" = {
         format = "  {usage}%";
         interval = 5;
+      };
+      "temperature" = {
+        thermal-zone = 2;
+        hwmon-path = [
+            "/sys/class/hwmon/hwmon2/temp1_input"
+            "/sys/class/thermal/thermal_zone0/temp"
+        ];
+        warning-treshold = 80;
+        critical-threshold = 90;
+        format-warning = " {temperatureC}°C ";
+        format-critical = " {temperatureC}°C ";
+        format = " {temperatureC}°C ";
       };
       "memory" = {
         format = "   {}%";
