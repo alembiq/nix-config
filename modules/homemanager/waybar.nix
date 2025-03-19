@@ -35,16 +35,19 @@
         color: #${config.lib.stylix.colors.base0B};
     }
 
-    #appmenu, #workspaces, #tray, #window, #quit, #clock,
-    #audio, #connectivity, #gui, #hardware {
+    #custom-appmenu, #workspaces, #tray, #window, #clock,
+    #audio, #connectivity, #gui, #hardware, #custom-quit {
         margin: 0pt 3pt 0pt 3pt;
         padding: 0pt 6pt 0pt 6pt;
         border-radius: 10pt;
-        background: #${config.lib.stylix.colors.base00};
-    }
-    #workspaces, #clock, #hardware {
         background: #${config.lib.stylix.colors.base01};
         color: #${config.lib.stylix.colors.base04};
+    }
+    #temperature, #cpu, #memory, #backlight, #battery, #custom-quit {
+        margin: 0pt 3pt 0pt 3pt;
+    }
+    #hardware.div {
+        margin: 0pt 3pt 0pt 3pt;
     }
     #battery.warning {
         color: #${config.lib.stylix.colors.base09};
@@ -259,7 +262,7 @@
         ];
       };
       "cpu" = {
-        format = "  {usage}%";
+        format = " {usage}%";
         interval = 5;
       };
       "temperature" = {
@@ -270,35 +273,35 @@
         ];
         warning-treshold = 80;
         critical-threshold = 90;
-        format-warning = " {temperatureC}°C ";
-        format-critical = " {temperatureC}°C ";
-        format = " {temperatureC}°C ";
+        format-warning = "{temperatureC}°C";
+        format-critical = "{temperatureC}°C";
+        format = "{temperatureC}°C";
       };
       "memory" = {
-        format = "   {}%";
+        format = "  {}%";
         tooltip-format = "RAM: {used:0.1f}GiB/{total:0.1f}GiB ({percentage}%) SWAP: {swapUsed:0.1f}GiB/{swapTotal:0.1f}GiB ({swapPercentage}%)";
         interval = 5;
       };
       "backlight" = {
         format = "{icon}";
-        format-alt = " {icon} {percent}%";
+        format-alt = "{icon} {percent}%";
         format-alt-click = "click-right";
         format-icons = [
-          "  "
-          "  "
-          "  "
-          "  "
-          "  "
-          "  "
-          "  "
-          "  "
-          " 🪩 "
+          " "
+          " "
+          " "
+          " "
+          " "
+          " "
+          " "
+          " "
+          "🪩 "
         ];
         on-scroll-up = "${pkgs.light}/bin/light -A 5";
         on-scroll-down = "${pkgs.light}/bin/light -U 5";
       };
       "battery" = {
-        format = "<span font='Font Awesome 6 Free 11'>{icon}</span>  {capacity}% - {time}";
+        format = "<span font='Font Awesome 6 Free 11'>{icon}</span>{capacity}% - {time}";
         format-icons = [
           ""
           ""
@@ -317,7 +320,7 @@
         tooltip = false;
       };
       "custom/quit" = {
-        format = "   ";
+        format = " ";
         tooltip = false;
         on-click = "${pkgs.wlogout}/bin/wlogout";
       };

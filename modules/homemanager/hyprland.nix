@@ -96,7 +96,7 @@
         ", XF86AudioPause, exec, playerctl pause"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
-        "SUPER, L, exec, ${pkgs.grim}/bin/grim ~/.local/screenlock.png && loginctl lock-session" # FIXME CTRLALT+L
+        "SUPER, L, exec, ${pkgs.grim}/bin/grim ~/.local/screenlock.png && loginctl lock-session"
       ];
       bindel = [
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -q s +10%"
@@ -173,8 +173,8 @@
         "allow_tearing" = false;
         "border_size" = 2;
         #FIXME 20250101
-        "col.active_border" = "0xff" + config.lib.stylix.colors.base08 ;
-        "col.inactive_border" = "0x33" + config.lib.stylix.colors.base00 ;
+        "col.active_border" = "0xff" + config.lib.stylix.colors.base06 ;
+        "col.inactive_border" = "0x33" + config.lib.stylix.colors.base03 ;
         "resize_on_border" = true;
         "gaps_in" = 2;
         "gaps_out" = 4;
