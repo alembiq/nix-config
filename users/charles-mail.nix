@@ -14,11 +14,11 @@
             named-mailboxes Junk "+[Gmail]/Spam"
             named-mailboxes Sent "+[Gmail]/Sent\ Mail"
             named-mailboxes Trash "+[Gmail]/Bin"
-            folder-hook . "set sort=date ; set sort_aux=thread"
             set record = "+[Gmail]/Sent\ Mail"
             set postponed = "+[Gmail]/Drafts"
             set trash = "+[Gmail]/Bin"
           '';
+            # folder-hook . "set sort=date ; set sort_aux=thread"
         };
         flavor = "gmail.com";
         realName = "Karel Křemel";
@@ -53,8 +53,8 @@
           extraConfig = ''
             mailboxes /home/charles/Maildir/karelkremel@karelkremel.com/Inbox /home/charles/Maildir/karelkremel@karelkremel.com/Drafts /home/charles/Maildir/karelkremel@karelkremel.com/ACCESS /home/charles/Maildir/karelkremel@karelkremel.com/MONEY /home/charles/Maildir/karelkremel@karelkremel.com/WORK /home/charles/Maildir/karelkremel@karelkremel.com/Archive /home/charles/Maildir/karelkremel@karelkremel.com/ASATRU-eu /home/charles/Maildir/karelkremel@karelkremel.com/Heathenry /home/charles/Maildir/karelkremel@karelkremel.com/Larp /home/charles/Maildir/karelkremel@karelkremel.com/Photography /home/charles/Maildir/karelkremel@karelkremel.com/Junk /home/charles/Maildir/karelkremel@karelkremel.com/Sent /home/charles/Maildir/karelkremel@karelkremel.com/Trash
             named-mailboxes @karelkremel.com +Inbox
-            folder-hook . "set sort=date ; set sort_aux=thread"
           '';
+            # folder-hook . "set sort=date ; set sort_aux=thread"
         };
         realName = "Karel Křemel";
         address = "karelkremel@karelkremel.com";
@@ -97,8 +97,8 @@
           extraConfig = ''
             mailboxes /home/charles/Maildir/charles@alembiq.net/Inbox /home/charles/Maildir/charles@alembiq.net/Drafts /home/charles/Maildir/charles@alembiq.net/ACCESS /home/charles/Maildir/charles@alembiq.net/MONEY /home/charles/Maildir/charles@alembiq.net/WORK /home/charles/Maildir/charles@alembiq.net/GIT /home/charles/Maildir/charles@alembiq.net/MUD-dev /home/charles/Maildir/charles@alembiq.net/Photography /home/charles/Maildir/charles@alembiq.net/vpsFree /home/charles/Maildir/charles@alembiq.net/Sent /home/charles/Maildir/charles@alembiq.net/Junk /home/charles/Maildir/charles@alembiq.net/Trash
             named-mailboxes @alembiq.net +Inbox
-            folder-hook . "set sort=date ; set sort_aux=thread"
           '';
+            # folder-hook . "set sort=date ; set sort_aux=thread"
         };
         realName = "Karel | ALEMBIQ.net";
         address = "charles@alembiq.net";
@@ -142,8 +142,8 @@
           extraConfig = ''
             mailboxes /home/charles/Maildir/karel@ochman.info/Inbox /home/charles/Maildir/karel@ochman.info/Drafts  /home/charles/Maildir/karel@ochman.info/ACCESS /home/charles/Maildir/karel@ochman.info/MONEY /home/charles/Maildir/karel@ochman.info/MONEY/Strnadova /home/charles/Maildir/karel@ochman.info/WORK /home/charles/Maildir/karel@ochman.info/Goverment /home/charles/Maildir/karel@ochman.info/Sent /home/charles/Maildir/karel@ochman.info/Junk /home/charles/Maildir/karel@ochman.info/Trash
             named-mailboxes @ochman.info +Inbox
-            folder-hook . "set sort=date ; set sort_aux=thread"
           '';
+            # folder-hook . "set sort=date ; set sort_aux=thread"
         };
         realName = "Karel Ochman";
         address = "karel@ochman.info";
@@ -184,8 +184,8 @@
           extraConfig = ''
             mailboxes /home/charles/Maildir/karel.kremel@snempohanskychobci.org/Inbox /home/charles/Maildir/karel.kremel@snempohanskychobci.org/INBOX@INFO /home/charles/Maildir/karel.kremel@snempohanskychobci.org/Drafts /home/charles/Maildir/karel.kremel@snempohanskychobci.org/ACCESS /home/charles/Maildir/karel.kremel@snempohanskychobci.org/Sent /home/charles/Maildir/karel.kremel@snempohanskychobci.org/SENT@INFO /home/charles/Maildir/karel.kremel@snempohanskychobci.org/Junk /home/charles/Maildir/karel.kremel@snempohanskychobci.org/JUNK@INFO /home/charles/Maildir/karel.kremel@snempohanskychobci.org/Trash
             named-mailboxes @snempohanskychobci.org +Inbox
-            folder-hook . "set sort=date ; set sort_aux=thread"
           '';
+            # folder-hook . "set sort=date ; set sort_aux=thread"
         };
         realName = "Karel Křemel | Sněm pohanských obcí";
         address = "karel.kremel@snempohanskychobci.org";

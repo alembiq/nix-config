@@ -477,7 +477,8 @@
       sleep_time = "1";
       smart_wrap = "yes";
       smtp_authenticators = "gssapi:login";
-      sort = "threads sort_aux=last-date";
+      sort = "threads";
+      sort_aux = "last-date-received";
       sort_browser = "reverse-date";
       status_format = ''"%f [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?]---(%s/%S)-%>-(%P)---"'';
       status_on_top = "yes";
