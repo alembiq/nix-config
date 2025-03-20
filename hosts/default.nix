@@ -23,7 +23,6 @@
     mbuffer
     lzop
     zstd
-    molly-guard
   ];
 
   sops = {
@@ -159,6 +158,18 @@
   '';
 
   services = {
+    boulette = {
+      enable = true; # Will enable and install `boulette` to your path.
+        enableZsh = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `zsh` interactive shell sessions.
+        enableBash = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `bash` interactive shell sessions.
+        enableFish = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `fish` interactive shell sessions.
+        enableSudoWrapper = true; # Optional
+        commands = ["shutdown" "reboot"]; # Optional
+        challengeType = "hostname"; # Optional: Defaults to hostname. One of "ask" "hostname", or "numbers".
+        sshOnly = true; # Boolean, default is`true`. Optional: Boulette confirmation prompts will be triggerd inside ssh session only. Only effects the enable{zsh,bash,fish} options.
+    };
+
+
     fwupd.enable = true;
     openssh = {
       enable = true;

@@ -32,6 +32,7 @@
         home-manager.follows = "home-manager";
       };
     };
+    boulette.url = "github:pipelight/boulette";
     #hyprland.url = "github:hyprwm/Hyprland";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
@@ -56,6 +57,7 @@
         inputs.sops-nix.nixosModules.sops
         inputs.stylix.nixosModules.stylix
         inputs.disko.nixosModules.default
+        inputs.boulette.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
         {
           nixpkgs.overlays = [
