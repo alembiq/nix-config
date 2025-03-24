@@ -68,6 +68,7 @@
   '';
 
   services = {
+    power-profiles-daemon.enable = false;
     # zram-generator = {
     #     enable = true;
     #     settings.zram0 = {

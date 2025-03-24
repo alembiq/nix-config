@@ -166,7 +166,6 @@ in
       datasets."zpool/home/charles/pictures" = {
         useTemplate = [ "rotate" ];
       };
-
     };
     syncoid = {
       # FIXME do pull insted of push

@@ -29,7 +29,7 @@
               size = "20G";
               content = {
                 type = "swap";
-                resumeDevice = true; # TODO use for hibernation ONLY
+                resumeDevice = true;
                 discardPolicy = "both";
               };
             };
@@ -67,7 +67,7 @@
           };
           "home" = {
             type = "zfs_fs";
-            mountpoint = "/homes";
+            mountpoint = "/homes"; #FIXME /home
           };
           "home/charles" = {
             type = "zfs_fs";

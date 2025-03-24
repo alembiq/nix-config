@@ -6,6 +6,7 @@ charles:
         ochman: ENC[AES256_GCM,data:PrOSRa9pTuK5foKKdsdqJKfQaV0=,iv:zg+HXnpJzchd4XqI5MFB9IGKg60ckqpilwRgd2I6FLs=,tag:Dfc2fuCQ2nBFpjEHetJVqQ==,type:str]
         snempohanskychobci: ENC[AES256_GCM,data:F6fDvEnnK0cjtgrX8zxPMiHbaSk=,iv:GLxMfoOttCqBm35pCxhF90gafghMcIr8aXm/lKu/t0U=,tag:ddoQNoPe77hoQ3MoZpeAcQ==,type:str]
     nextcloud: ENC[AES256_GCM,data:eKSPmEIVqrcgvQ3D0unrCjjsoIhjJWTKexSJdRm5IJpKZnuuxUQXpJxdTctRrWVoaaoAMGx2BoQ42QH5TORY5E58OA==,iv:qlOwdy5o+mwVEckzfzFYU+IftEwTKkF2rF2jk3viloo=,tag:bpTBhrq1wXFmBIFKlXeVoQ==,type:str]
+    cloud.ochman: ENC[AES256_GCM,data:fxUXTp4voO9OSwPZM+WYiUKMlBDrbRY34c/LNcrgXGFsFXyGbIKxb0Tn6Wtvh74o7hjIZX2Y03/rgXTsJPqzGwdaFA==,iv:fMEL6WZCU3NmlkQ4xdNCLBCSUgE+ucMuESswpFTTSMM=,tag:3uomVt6CcQw9TiatcBYrCw==,type:str]
     svornosti:
         fileserver:
             samba: ENC[AES256_GCM,data:TKOKd8uBPzAYzzMi1g0mdSJTzfy5t6c5XUYl8ULtHrOZ1azjlQ==,iv:zz1Ovz5W/vpSIghP996VN04p4xP8NW/Nh3MgfmFM8QE=,tag:1xbCWF/Y6YhKDzJEb4cnYw==,type:str]
@@ -15,8 +16,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-09-16T07:32:51Z"
-    mac: ENC[AES256_GCM,data:Iuc8Dxi0XZoNrIJpemKR9LEpH/6IYlh5vu0IMqZrQurOD2lPpwbulFRYRl5/7h/fWMxPNVxwUD50cse7g6iZNUD2gfb8gm2t4bvcAL0gB8G+/N7zoMoy8Brx7s//cDHTY2Q0mVbhI581FwD0zLaEYn15XDBm0qtYw/X5uy/GLGU=,iv:gZIWbBsrWaBePYtQPsRvJAbunQthuJs1xQ+U2wrbSJc=,tag:r3yWq3O/03qctu8Ko0+QDw==,type:str]
+    lastmodified: "2025-03-20T11:23:13Z"
+    mac: ENC[AES256_GCM,data:P07sBsIW6Kftg7GJGeUj59yd8t2MpWerobIDTXWIRyeRFuhA5IhOWloKCMJZsvxhKnBD9KdJkOyM+ePvG2+X7umpHnj0lxMcrShdQ0lpg7H7bpVspnaP5S2gsb0DzkwT9jEm2Sz6yypEGcKGUIRvcoajOhmyNfTIfNr5td52f68=,iv:p6pl8mwVRlnw0U+lb/0lWWr1FpEXuqP7ESD4NndAYQs=,tag:SREPFObQIXOoe7U0MLCcKg==,type:str]
     pgp:
         - created_at: "2024-10-09T13:10:41Z"
           enc: |-
@@ -63,4 +64,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 9A15295E39561003E02DE539576DCF9C4F332B1B
     unencrypted_suffix: _unencrypted
-    version: 3.8.1
+    version: 3.9.4

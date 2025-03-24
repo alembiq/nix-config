@@ -1,7 +1,13 @@
+
+# sudo nix --experimental-features "nix-command flakes" run 'github:nix-community/disko/latest#disko-install' -- --flake .#badb --disk main /dev/sda
+# https://gist.githubusercontent.com/blurgyy/0d559e6bb9f20de46f61938539b9cd74/raw/ada03aba4da9df8bc01c8dae2f467b11b13383a7/nixos-iso-bootstrap.sh
+
+
+
 {
   disko.devices = {
     disk = {
-      x = {
+      main = {
         type = "disk";
         device = "/dev/sda";
         content = {
@@ -17,14 +23,6 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
-            encryptedSwap = {
-              size = "4G";
-              content = {
-                type = "swap";
-                randomEncryption = true;
-                priority = 100; # prefer to encrypt as long as we have space for it
-              };
-            };
             plainSwap = {
               size = "4G";
               content = {
@@ -33,11 +31,19 @@
                 resumeDevice = true; # resume from hiberation from this device
               };
             };
+            encryptedSwap = {
+              size = "4G";
+              content = {
+                type = "swap";
+                randomEncryption = true;
+                priority = 100; # prefer to encrypt as long as we have space for it
+              };
+            };
             zfs = {
-              size = "20G";
+              size = "100%";
               content = {
                 type = "zfs";
-                pool = "zroot";
+                pool = "badb";
               };
             };
           };

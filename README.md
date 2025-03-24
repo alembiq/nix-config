@@ -1,10 +1,10 @@
 # RANDOM notes
 - join sops secrets into ?one? file?
-- molly_guard not working?
 - wezterm focus follow mouse
 - variable for `user home path`, `uid`, `gid`     ??? hm.config homedir
 - replace all 1111/charles references from modules/ with vars from user/host
-- check variables/commands in systemd services for replacing charles/1111
+- check variables/commands in systemd services for replacing charles/1111      {config.users.users.charles.uid}
+- sops output file in variable ${config.sops.secrets.secret_api_key.path}
 - sending mail (msmtp) notification
 - incomming mail (mbsync/notmuch) notification
 - mbsync Notice: SSLType is deprecated. Use TLSType instead.

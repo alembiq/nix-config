@@ -37,7 +37,7 @@
   services = {
     gvfs.enable = true;
     auto-cpufreq = {
-      enable = true;
+      enable = false; #FIXME 20250324 psutil<7.0.0,>=6.0.0 not satisfied by version 7.0.0
       settings = {
         battery = {
           governor = "powersave";

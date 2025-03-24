@@ -51,8 +51,8 @@
       [storage nextcloud_contacts_remote]
       type = "carddav"
       url = "https://cloud.ochman.info/remote.php/dav/addressbooks/users/charles/"
-      username.fetch = ["shell", "source ~/.local/nextcloud ; echo $USERNAME"]
-      password.fetch = ["shell", "source ~/.local/nextcloud ; echo $PASSWORD"]
+      username.fetch = ["shell", "source ~/.local/cloud.ochman ; echo $USERNAME"]
+      password.fetch = ["shell", "source ~/.local/cloud.ochman ; echo $PASSWORD"]
     '';
 
   xdg.configFile."neomutt/mailcap".text = ''

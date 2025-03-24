@@ -76,7 +76,7 @@
         "hyprland/window"
       ]; # "custom/yubikey"
       "custom/appmenu" = {
-        format = " 󱄅 ";
+        format = "󱄅 ";
         on-click = "${pkgs.wofi}/bin/wofi --show drun | xargs swaymsg exec --";
         tooltip = false;
       };

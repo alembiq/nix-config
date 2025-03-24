@@ -62,7 +62,7 @@
         {
           nixpkgs.overlays = [
             inputs.hyprpanel.overlay
-            inputs.nixpkgs-wayland.overlay
+            #FIXME 20250320 inputs.nixpkgs-wayland.overlay
           ];
           _module.args = {
             inherit inputs;

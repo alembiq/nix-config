@@ -33,8 +33,8 @@ in
       ];
     openssh = {
       authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRfpy5Q0luwq8g01/slcTAK+Pzf6m9br0qIsyw1MQ+B charles@verdandi-2023-03-17"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIq+f5IMK/uHgfdXmydOyKa5WxT/8ogqAOX3Mk0qkd4Q cardno:18_296_868" # YUBI KK 2024
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIq+f5IMK/uHgfdXmydOyKa5WxT/8ogqAOX3Mk0qkd4Q cardno:19_937_800"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvCcxXJeASfL4+KHXO7XTia2dXVVwxvCv7rEqyfNF0o cardno:23_773_992"
       ];
     };
   }; # END users.users.charles
@@ -118,6 +118,10 @@ in
         file.".ssh/YUBI-KO2024.pub" = {
           text = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvCcxXJeASfL4+KHXO7XTia2dXVVwxvCv7rEqyfNF0o cardno:23_773_992";
           onChange = "chmod 400 ~/.ssh/YUBI-KO2024.pub";
+        };
+        file.".ssh/YUBI-KK2025.pub" = {
+          text = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIq+f5IMK/uHgfdXmydOyKa5WxT/8ogqAOX3Mk0qkd4Q cardno:19_937_800";
+          onChange = "chmod 400 ~/.ssh/YUBI-KK2025.pub";
         };
         packages = with pkgs; [
           #   pinentry-qt

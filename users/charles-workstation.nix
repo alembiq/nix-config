@@ -78,6 +78,9 @@ in
     #FIXME sops not initiated in CLI
     defaultSopsFile = ../users/charles.yaml;
     secrets = {
+      "charles/cloud.ochman" = {
+        path = "/home/charles/.local/cloud.ochman";
+      };
       "charles/email/gmail" = {
         path = "/home/charles/.local/gmail";
       };
@@ -93,9 +96,9 @@ in
       "charles/email/snempohanskychobci" = {
         path = "/home/charles/.local/snempohanskychobci";
       };
-      "charles/nextcloud" = {
-        path = "/home/charles/.local/nextcloud";
-      };
+    #   "charles/nextcloud" = {
+    #     path = "~/.local/cloud.ochman";
+    #   };
       "charles/svornosti/fileserver/samba" = {
         path = "/home/charles/.local/fileserver-samba";
       };

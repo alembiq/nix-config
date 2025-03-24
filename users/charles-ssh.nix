@@ -75,7 +75,8 @@
         hostname = "10.0.42.254";
       };
       "badb badb.svornosti badb.svornosti-jump" = {
-        hostname = "10.0.42.111";
+        user = "root";
+        hostname = "10.0.42.107";
       };
       "gitlab gitlab.svornosti gitlab.svornosti-jump" = {
         # gitlab.alembiq.net
