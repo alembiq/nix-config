@@ -10,17 +10,20 @@
         ignore_dbus_inhibit = false;
       };
       listener = [
+
         {
-          timeout = 300;
-          on-timeout = "loginctl lock-session";
+            timeout = 270;
+            on-timeout = "${pkgs.light}/bin/light -S 25";
+            on-resume = "${pkgs.light}/bin/light -I";
         }
         {
           timeout = 300;
-          on-timeout = "pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+          on-timeout = "loginctl lock-session && pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         }
         {
-          timeout = 380;
+          timeout = 330;
           on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+          on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
         }
         {
           timeout = 600;
