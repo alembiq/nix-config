@@ -1,7 +1,8 @@
-# RANDOM notes
+# TO DO & FIX
+- tune up SSH configs (probably draw inheritance structure)
 - join sops secrets into ?one? file?
 - wezterm focus follow mouse
-- variable for `user home path`, `uid`, `gid`     ??? hm.config homedir
+- variable for `user home path`, `uid`, `gid`     ??? hm.config homedir ```${toString config.users.users.charles.uid}   ${toString config.users.groups.users.gid}```
 - replace all 1111/charles references from modules/ with vars from user/host
 - check variables/commands in systemd services for replacing charles/1111      {config.users.users.charles.uid}
 - sops output file in variable ${config.sops.secrets.secret_api_key.path}
@@ -13,6 +14,7 @@
 - hyprland go suspend after first login when laptop closed
 - nixpkgs-wayland.packages.${system}.wayprompt not working with sops-nix
 - greetd does not contain BASH
+- list updated packages also when doing nixos-rebuild boot
 ## MOVE
 - move `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg` > programs.gpg.homedir = "${hm.config.xdg.dataHome}/gnupg";
 - move mailbox `accounts.email.maildirBasePath` to `.local/shared/mail/` + zfs (disko)
@@ -21,18 +23,31 @@
 - move ~/.composer ~/.docker
 - move ~/log ~/.msmtp.queue/
 - move ~/.waveterm ~/.mozilla ~/.vscode-oss`
+- separate HOME-MANAGER but include in HOST
 # VERDANDI
 - SWAP for hibernate vs encrypted SWAP
 # BADB
 - fixed default wifi
+- sops-nix & yubikey
+- GUI vs TUI
 # OCTOPI
 - rpi image builder
-- merge properly ;)
+- merge into new repository/configuration
 # BROKKR
-- create
+- remote build (vpsfree)
 # EIR
 - create
-
+# FORGE
+- gitlab-runner (docker & hugo)
+- jellyfin (transcoding)
+- sops-nix
+- remote user (ernedar)
+- systemd-boot (resolution, font)
+# HOMEMANAGER
+- mail
+- secrets (sops-nix)
+- GPG
+- SSH
 
 
 ```

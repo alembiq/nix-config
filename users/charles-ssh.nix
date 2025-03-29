@@ -38,13 +38,13 @@
           # RemoteForward = "/run/user/1111/gnupg/S.gpg-agent.ssh /run/user/1111/gnupg/S.gpg-agent.ssh";
         };
       };
-      "forge.*" = {
-        identityFile = "~/.ssh/YUBI-KK2024.pub";
+      "forge forge.*" = {
+        identityFile = "~/.ssh/YUBI-KK2025.pub";
         user = "root";
         forwardAgent = true;
       };
-      "forge.svornosti" = {
-        hostname = "10.0.42.153";
+      "forge.*" = {
+        hostname = "10.0.42.26";
       };
       "github.com" = {
         identityFile = "~/.ssh/YUBI-KK2024.pub";
@@ -62,9 +62,6 @@
       # \___ \\ \ / / | | | |_) |  \| | | | \___ \ | |  | |
       #  ___) |\ V /| |_| |  _ <| |\  | |_| |___) || |  | |
       # |____/  \_/  \___/|_| \_\_| \_|\___/|____/ |_| |___|
-      # "hekate hekate.svornosti" = {
-      #     hostname = "10.0.42.102";
-      # };
       "fw.svornosti omnia-svornosti" = {
         user = "root";
         identityFile = "~/.ssh/YUBI-KK2024.pub";
@@ -74,16 +71,18 @@
       "fw.svornosti" = {
         hostname = "10.0.42.254";
       };
-      "badb badb.svornosti badb.svornosti-jump" = {
+      "badb badb.*" = {
         user = "root";
+        forwardAgent = true;
+      };
+      "badb.*" = {
         hostname = "10.0.42.107";
       };
-      "gitlab gitlab.svornosti gitlab.svornosti-jump" = {
-        # gitlab.alembiq.net
+
+      "gitlab gitlab.*" = {
         hostname = "10.0.42.204";
       };
       "kubera.svornosti kubera.svornosti-jump" = {
-        # kubera
         hostname = "10.0.42.250";
       };
       "arm-ripper.svornosti" = {
@@ -100,20 +99,20 @@
           }
         ];
       };
-      "octopi.svornosti octopi.svornosti-jump" = {
+      "octopi.*" = {
         hostname = "10.0.42.232";
       };
-      "pikvm.svornosti pikvm.svornosti-jump" = {
+      "pikvm.*" = {
         hostname = "10.0.42.249";
         user = "root";
       };
-      "verdandi.svornosti verdandi.svornosti-jump" = {
+      "verdandi.*" = {
         hostname = "10.0.42.101";
       };
-      "nextcloud nextcloud.svornosti nextcloud.svornosti-jump" = {
+      "nextcloud nextcloud.*" = {
         hostname = "10.0.42.203";
       };
-      "jellyfin jellyfin.svornosti jellyfin.svornosti-jump" = {
+      "jellyfin jellyfin.*" = {
         hostname = "10.0.42.202";
       };
       "jellyfin jellyfin.* nextcloud nextcloud.*" = {
@@ -128,7 +127,7 @@
       "10.0.4?.* *.svornosti-jump" = {
         proxyJump = "omnia-svornosti";
       };
-      "verdandi* badb* fileserver hekate* kubera* octopi* pine* gitlab.svornosti gitlab gitlab.alembiq.net" =
+      "verdandi.* kubera.* octopi.* gitlab.svornosti gitlab gitlab.alembiq.net " = #  badb.*
         {
           identityFile = "~/.ssh/YUBI-KK2024.pub";
           user = "charles";

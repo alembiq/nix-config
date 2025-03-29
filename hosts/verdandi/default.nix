@@ -78,7 +78,38 @@ in
         stateVersion = "23.11";
       }; # END of home-manager.users.charles.home
     }; # END of home-manager.users.charles
+
+
   }; # END of home-manager
+
+
+  systemd.mounts = [{
+    type = "nfs";
+    mountConfig = {
+      Options = "noatime";
+    };
+    what = "10.0.42.26:/mnt/forge";
+    where = "/mnt/forge-nfs";
+  }];
+  systemd.automounts = [{
+    wantedBy = [ "multi-user.target" ];
+    automountConfig = {
+      TimeoutIdleSec = "600";
+    };
+    where = "/mnt/forge-nfs";
+  }];
+  services.rpcbind.enable = true;
+
+  fileSystems."/mnt/forge-smb" = {
+    device = "//10.0.42.26/forge";
+    fsType = "cifs";
+    options = let
+      # this line prevents hanging on network split
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,file_mode=0640,dir_mode=0750";
+
+    in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=${toString config.users.users.charles.uid},gid=${toString config.users.groups.users.gid}"];
+  };
+#,uid=${toString config.users.users.charles.uid},gid=${toString config.users.groups.charles.gid}"];
 
   #TODO new kernel
   #TODO fingerprint
@@ -270,6 +301,7 @@ in
       "i915.enable_guc=3"
     ];
     extraModulePackages = [ ];
+    supportedFilesystems = [ "nfs" ];
     zfs = {
       forceImportRoot = false;
       allowHibernation = true;
