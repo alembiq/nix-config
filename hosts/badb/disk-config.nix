@@ -1,8 +1,5 @@
-
 # sudo nix --experimental-features "nix-command flakes" run 'github:nix-community/disko/latest#disko-install' -- --flake .#badb --disk main /dev/sda
 # https://gist.githubusercontent.com/blurgyy/0d559e6bb9f20de46f61938539b9cd74/raw/ada03aba4da9df8bc01c8dae2f467b11b13383a7/nixos-iso-bootstrap.sh
-
-
 
 {
   disko.devices = {

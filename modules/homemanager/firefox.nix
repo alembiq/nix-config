@@ -17,12 +17,12 @@
         in
         listToAttrs [
           # about:support
-          (extension "Sideberry" "{3c078156-979c-498b-8990-85f7987dd929}") #TODO FF 136 vertical tabs
+          (extension "Sideberry" "{3c078156-979c-498b-8990-85f7987dd929}") # TODO FF 136 vertical tabs
           (extension "art-project" "jid1-2owcJCGUIo2yBA@jetpack")
           (extension "auto-tab-discard" "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}")
           (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
-        #   (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
-        #   (extension "darkreader" "addon@darkreader.org")
+          #   (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
+          #   (extension "darkreader" "addon@darkreader.org")
           (extension "grammarly-1" "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack")
           (extension "i-dont-care-about-cookies" "jid1-KKzOGWgsW3Ao4Q@jetpack")
           # (extension "tiled-tab-groups" "{dcdaadfa-21f1-4853-9b34-aad681fff6f3}")

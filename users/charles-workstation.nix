@@ -96,9 +96,9 @@ in
       "charles/email/snempohanskychobci" = {
         path = "/home/charles/.local/snempohanskychobci";
       };
-    #   "charles/nextcloud" = {
-    #     path = "~/.local/cloud.ochman";
-    #   };
+      #   "charles/nextcloud" = {
+      #     path = "~/.local/cloud.ochman";
+      #   };
       "charles/svornosti/fileserver/samba" = {
         path = "/home/charles/.local/fileserver-samba";
       };

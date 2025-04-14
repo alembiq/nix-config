@@ -35,34 +35,34 @@ in
   wayland.windowManager.sway = {
     enable = true;
     extraConfig = ''
-      client.focused           #${config.lib.stylix.colors.base05}  #${config.lib.stylix.colors.base0D}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base0D}  #${config.lib.stylix.colors.base0D}
-      client.focused_inactive  #${config.lib.stylix.colors.base01}  #${config.lib.stylix.colors.base01}  #${config.lib.stylix.colors.base05}  #${config.lib.stylix.colors.base03}  #${config.lib.stylix.colors.base01}
-      client.unfocused         #${config.lib.stylix.colors.base01}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base05}  #${config.lib.stylix.colors.base01}  #${config.lib.stylix.colors.base01}
-      client.urgent            #${config.lib.stylix.colors.base08}  #${config.lib.stylix.colors.base08}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base08}  #${config.lib.stylix.colors.base08}
-      client.placeholder       #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base05}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base00}
-      client.background        #${config.lib.stylix.colors.base07}
-      # SCRATCHPAD
-    #   exec_always --no-startup-id xfce4-terminal --title=scratchpadTerminal
-    #   exec_always --no-startup-id xfce4-terminal --title=scratchpadMutt
-    #   for_window [title="scratchpadTerminal"] move scratchpad
-    #   for_window [title="scratchpadTerminal"] floating enable, border pixel 5, resize set 1250 730
-    #   bindsym Mod4+u [title="scratchpadTerminal"] scratchpad show; [title="scratchpadTerminal"] move position center
-    #   for_window [title="scratchpadMutt"] move scratchpad
-    #   for_window [title="scratchpadMutt"] floating enable, border pixel 5, resize set 1250 730
-    #   bindsym Mod4+m [title="scratchpadMutt"] scratchpad show; [title="scratchpadMutt"] move position center
-      # CLAMSHELL
-      bindswitch --reload --locked lid:on output eDP-1 disable
-      bindswitch --reload --locked lid:off output eDP-1 enable
-      exec_always ${
-        pkgs.writeShellScript "sway-lid-switch-toggle-output" # bash
-          ''
-            if grep -q open /proc/acpi/button/lid/LID/state; then
-                swaymsg output eDP-1 enable
-            else
-                swaymsg output eDP-1 disable
-            fi
-          ''
-      }
+        client.focused           #${config.lib.stylix.colors.base05}  #${config.lib.stylix.colors.base0D}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base0D}  #${config.lib.stylix.colors.base0D}
+        client.focused_inactive  #${config.lib.stylix.colors.base01}  #${config.lib.stylix.colors.base01}  #${config.lib.stylix.colors.base05}  #${config.lib.stylix.colors.base03}  #${config.lib.stylix.colors.base01}
+        client.unfocused         #${config.lib.stylix.colors.base01}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base05}  #${config.lib.stylix.colors.base01}  #${config.lib.stylix.colors.base01}
+        client.urgent            #${config.lib.stylix.colors.base08}  #${config.lib.stylix.colors.base08}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base08}  #${config.lib.stylix.colors.base08}
+        client.placeholder       #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base05}  #${config.lib.stylix.colors.base00}  #${config.lib.stylix.colors.base00}
+        client.background        #${config.lib.stylix.colors.base07}
+        # SCRATCHPAD
+      #   exec_always --no-startup-id xfce4-terminal --title=scratchpadTerminal
+      #   exec_always --no-startup-id xfce4-terminal --title=scratchpadMutt
+      #   for_window [title="scratchpadTerminal"] move scratchpad
+      #   for_window [title="scratchpadTerminal"] floating enable, border pixel 5, resize set 1250 730
+      #   bindsym Mod4+u [title="scratchpadTerminal"] scratchpad show; [title="scratchpadTerminal"] move position center
+      #   for_window [title="scratchpadMutt"] move scratchpad
+      #   for_window [title="scratchpadMutt"] floating enable, border pixel 5, resize set 1250 730
+      #   bindsym Mod4+m [title="scratchpadMutt"] scratchpad show; [title="scratchpadMutt"] move position center
+        # CLAMSHELL
+        bindswitch --reload --locked lid:on output eDP-1 disable
+        bindswitch --reload --locked lid:off output eDP-1 enable
+        exec_always ${
+          pkgs.writeShellScript "sway-lid-switch-toggle-output" # bash
+            ''
+              if grep -q open /proc/acpi/button/lid/LID/state; then
+                  swaymsg output eDP-1 enable
+              else
+                  swaymsg output eDP-1 disable
+              fi
+            ''
+        }
     '';
     config = {
       fonts = {

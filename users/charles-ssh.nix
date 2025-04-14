@@ -127,7 +127,7 @@
       "10.0.4?.* *.svornosti-jump" = {
         proxyJump = "omnia-svornosti";
       };
-      "verdandi.* kubera.* octopi.* gitlab.svornosti gitlab gitlab.alembiq.net " = #  badb.*
+      "verdandi.* kubera.* octopi.* gitlab.svornosti gitlab gitlab.alembiq.net " = # badb.*
         {
           identityFile = "~/.ssh/YUBI-KK2024.pub";
           user = "charles";

@@ -268,8 +268,8 @@
       "temperature" = {
         thermal-zone = 2;
         hwmon-path = [
-            "/sys/class/hwmon/hwmon2/temp1_input"
-            "/sys/class/thermal/thermal_zone0/temp"
+          "/sys/class/hwmon/hwmon2/temp1_input"
+          "/sys/class/thermal/thermal_zone0/temp"
         ];
         warning-treshold = 80;
         critical-threshold = 90;
@@ -303,11 +303,11 @@
       "battery" = {
         format = "<span font='Font Awesome 6 Free 11'>{icon}</span>{capacity}% - {time}";
         format-icons = [
-          ""
-          ""
-          ""
-          ""
-          ""
+          " "
+          " "
+          " "
+          " "
+          " "
         ];
         format-time = "{H}h{M}m";
         format-charging = "<span font='Font Awesome 6 Free'></span>  <span font='Font Awesome 6 Free 11'>{icon}</span>  {capacity}% - {time}";

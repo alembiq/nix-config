@@ -15,19 +15,20 @@
         [
           bbenoist.nix
           gruntfuggly.todo-tree
-          bungcip.better-toml
           redhat.vscode-yaml
-          # eamodio.gitlens
-          #FIXME inherit ALLOW_UNFREE devsense.composer-php-vscode
-          #FIXME inherit ALLOW_UNFREE devsense.phptools-vscode
+          eamodio.gitlens
+          devsense.composer-php-vscode
+          devsense.phptools-vscode
           arcticicestudio.nord-visual-studio-code
           naumovs.color-highlight
           vscode-icons-team.vscode-icons
           rust-lang.rust-analyzer
           ms-azuretools.vscode-docker
-          #TODO test bmewburn.vscode-intelephense-client
-          #TODO test tamasfe.even-better-toml
-          #TODO test ms-vscode-remote.remote-ssh
+          #TODO not present  budparr.language-hugo-vscode
+          bmewburn.vscode-intelephense-client
+          # REPLACED bungcip.better-toml
+          tamasfe.even-better-toml
+          ms-vscode-remote.remote-ssh
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
@@ -104,6 +105,13 @@
         "html.format.preserveNewLines" = true;
         "html.format.wrapAttributes" = "preserve-aligned";
         "html.format.wrapLineLength" = 240;
+        "[markdown]" = {
+          "editor.quickSuggestions" = {
+            "comments" = "on";
+            "strings" = "on";
+            "other" = "on";
+          };
+        };
         # "[php]" = {
         #     "editor.formatOnSave" = true;
         #     "editor.defaultFormatter" = "junstyle.php-cs-fixer";

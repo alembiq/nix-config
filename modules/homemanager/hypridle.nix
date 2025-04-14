@@ -12,9 +12,9 @@
       listener = [
 
         {
-            timeout = 270;
-            on-timeout = "${pkgs.light}/bin/light -S 25";
-            on-resume = "${pkgs.light}/bin/light -I";
+          timeout = 270;
+          on-timeout = "${pkgs.light}/bin/light -S 25";
+          on-resume = "${pkgs.light}/bin/light -I";
         }
         {
           timeout = 300;

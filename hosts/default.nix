@@ -108,11 +108,13 @@
           ''ssh_keys=$(${pkgs.gnupg}/bin/gpg-connect-agent 'keyinfo --ssh-list' /bye | awk '{print $3}') && for key in $ssh_keys; do ${pkgs.gnupg}/bin/gpg-connect-agent "delete_key --force $key" /bye; done'';
         "gpg-agent-restart" = "${pkgs.gnupg}/bin/gpg-connect-agent killagent /bye";
 
-        "docker-cleanup" = "echo 'cleaning sys images'; docker system prune -a -f; echo 'cleaning volumes'; docker volume prune -f";
+        "docker-cleanup" =
+          "echo 'cleaning sys images'; docker system prune -a -f; echo 'cleaning volumes'; docker volume prune -f";
         "docker-cleanup-volumes" = "docker volume prune -f";
         "docker-cleanup-images" = "docker system prune -a -f";
         # "docker-killall" = "for i in $(docker ps|cut -d\  -f1|grep -v CON); do docker kill ${i} ; done";
-        "docker-update-images" = "docker image ls --format='{{.Repository}}:{{.Tag}}' | xargs -I {} docker pull {}";
+        "docker-update-images" =
+          "docker image ls --format='{{.Repository}}:{{.Tag}}' | xargs -I {} docker pull {}";
 
       };
     };
@@ -160,15 +162,17 @@
   services = {
     boulette = {
       enable = true; # Will enable and install `boulette` to your path.
-        enableZsh = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `zsh` interactive shell sessions.
-        enableBash = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `bash` interactive shell sessions.
-        enableFish = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `fish` interactive shell sessions.
-        enableSudoWrapper = true; # Optional
-        commands = ["shutdown" "reboot"]; # Optional
-        challengeType = "hostname"; # Optional: Defaults to hostname. One of "ask" "hostname", or "numbers".
-        sshOnly = true; # Boolean, default is`true`. Optional: Boulette confirmation prompts will be triggerd inside ssh session only. Only effects the enable{zsh,bash,fish} options.
+      enableZsh = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `zsh` interactive shell sessions.
+      enableBash = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `bash` interactive shell sessions.
+      enableFish = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `fish` interactive shell sessions.
+      enableSudoWrapper = true; # Optional
+      commands = [
+        "shutdown"
+        "reboot"
+      ]; # Optional
+      challengeType = "hostname"; # Optional: Defaults to hostname. One of "ask" "hostname", or "numbers".
+      sshOnly = true; # Boolean, default is`true`. Optional: Boulette confirmation prompts will be triggerd inside ssh session only. Only effects the enable{zsh,bash,fish} options.
     };
-
 
     fwupd.enable = true;
     openssh = {

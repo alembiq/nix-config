@@ -37,7 +37,7 @@
   services = {
     gvfs.enable = true;
     auto-cpufreq = {
-      enable = false; #FIXME 20250324 psutil<7.0.0,>=6.0.0 not satisfied by version 7.0.0
+      enable = false; # FIXME 20250324 psutil<7.0.0,>=6.0.0 not satisfied by version 7.0.0
       settings = {
         battery = {
           governor = "powersave";
@@ -80,8 +80,8 @@
     };
   };
 
-# FIXME 2025  powerManagement.enable = true;
-# FIXME 2025  powerManagement.powertop.enable = true;
+  # FIXME 2025  powerManagement.enable = true;
+  # FIXME 2025  powerManagement.powertop.enable = true;
 
   hardware = {
     gpgSmartcards.enable = true;
