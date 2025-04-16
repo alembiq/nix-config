@@ -196,7 +196,7 @@
       };
       "bluetooth" = {
         format = "  {status} ";
-        format-connected = " {num_connections}";
+        format-connected = "  {num_connections}";
         tooltip-format = ''
           {controller_alias}	{controller_address}
 
@@ -264,6 +264,7 @@
       "cpu" = {
         format = " {usage}%";
         interval = 5;
+        "on-click" = "${pkgs.resources}/bin/resources";
       };
       "temperature" = {
         thermal-zone = 2;
@@ -281,6 +282,7 @@
         format = "  {}%";
         tooltip-format = "RAM: {used:0.1f}GiB/{total:0.1f}GiB ({percentage}%) SWAP: {swapUsed:0.1f}GiB/{swapTotal:0.1f}GiB ({swapPercentage}%)";
         interval = 5;
+        "on-click" = "${pkgs.resources}/bin/resources";
       };
       "backlight" = {
         format = "{icon}";

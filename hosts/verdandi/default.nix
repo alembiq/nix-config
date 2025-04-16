@@ -179,6 +179,9 @@ in
       datasets."zpool/nixos/etc" = {
         useTemplate = [ "backup" ];
       };
+      datasets."zpool/home/charles/workspace" = {
+        useTemplate = [ "backup" ];
+      };
       datasets."zpool/nixos" = {
         useTemplate = [ "day" ];
       };

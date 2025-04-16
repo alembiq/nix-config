@@ -192,6 +192,7 @@
         };
         "todo-tree.tree.showCountsInTree" = true;
         "todo-tree.regex.regex" = "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)";
+        "vsicons.dontShowNewVersionMessage" = true;
         "window.newWindowDimensions" = "inherit";
         "workbench.colorTheme" = "Nord";
         "workbench.editor.enablePreviewFromQuickOpen" = false;
