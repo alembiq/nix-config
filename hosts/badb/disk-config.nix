@@ -69,7 +69,7 @@
           };
           "home" = {
             type = "zfs_fs";
-            mountpoint = "/homes";
+            mountpoint = "/home";
           };
           "home/charles" = {
             type = "zfs_fs";

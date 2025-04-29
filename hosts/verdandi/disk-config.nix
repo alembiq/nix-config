@@ -67,7 +67,7 @@
           };
           "home" = {
             type = "zfs_fs";
-            mountpoint = "/homes"; # FIXME /home
+            mountpoint = "/home"; 
           };
           "home/charles" = {
             type = "zfs_fs";

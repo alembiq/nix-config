@@ -51,6 +51,71 @@
     profiles.charles = {
       isDefault = true;
       bookmarks = { };
+      search = {
+        default = "umd14";
+        engines = {
+          "Nix Packages" = {
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@np" ];
+          };
+          "NixOS Wiki" = {
+            urls = [ { template = "https://wiki.nixos.org/index.php?search={searchTerms}"; } ];
+            icon = "https://wiki.nixos.org/favicon.png";
+            updateInterval = 24 * 60 * 60 * 1000; # every day
+            definedAliases = [ "@nw" ];
+          };
+          "umd14" = {
+            urls = [
+              {
+                template = "https://www.google.com/search";
+                params = [
+                  {
+                    name = "udm";
+                    value = "14";
+                  }
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+          };
+          "Perplexity" = {
+            urls = [
+              {
+                template = "https://www.perplexity.ai/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+          };
+          "google".metaData.hidden = true;
+          "amazondotcom-us".metaData.hidden = true;
+          "bing".metaData.hidden = true;
+          "ebay".metaData.hidden = true;
+        };
+        force = true;
+      };
       settings = {
         "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
@@ -68,7 +133,7 @@
           Value = "false";
           Status = "locked";
         };
-        "browser.search.suggest.enabled" = {
+        browser.search.suggest.enabled = {
           Value = "false";
           Status = "locked";
         };
