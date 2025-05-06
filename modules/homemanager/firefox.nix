@@ -17,15 +17,13 @@
         in
         listToAttrs [
           # about:support
-          (extension "Sideberry" "{3c078156-979c-498b-8990-85f7987dd929}") # TODO FF 136 vertical tabs
           (extension "art-project" "jid1-2owcJCGUIo2yBA@jetpack")
           (extension "auto-tab-discard" "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}")
           (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
-          #   (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
+          (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
           #   (extension "darkreader" "addon@darkreader.org")
           (extension "grammarly-1" "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack")
           (extension "i-dont-care-about-cookies" "jid1-KKzOGWgsW3Ao4Q@jetpack")
-          # (extension "tiled-tab-groups" "{dcdaadfa-21f1-4853-9b34-aad681fff6f3}")
           (extension "ublock-origin" "uBlock0@raymondhill.net")
           # (extension "youtube-shorts-block" "{34daeb50-c2d2-4f14-886a-7160b24d66a4}")
         ];
@@ -54,30 +52,19 @@
       search = {
         default = "umd14";
         engines = {
-          "Nix Packages" = {
+          "Perplexity" = {
             urls = [
               {
-                template = "https://search.nixos.org/packages";
+                template = "https://www.perplexity.ai/search";
                 params = [
                   {
-                    name = "type";
-                    value = "packages";
-                  }
-                  {
-                    name = "query";
+                    name = "q";
                     value = "{searchTerms}";
                   }
                 ];
               }
             ];
-            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-            definedAliases = [ "@np" ];
-          };
-          "NixOS Wiki" = {
-            urls = [ { template = "https://wiki.nixos.org/index.php?search={searchTerms}"; } ];
-            icon = "https://wiki.nixos.org/favicon.png";
-            updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = [ "@nw" ];
+            icon = "https://www.perplexity.ai/favicon.ico";
           };
           "umd14" = {
             urls = [
@@ -95,19 +82,32 @@
                 ];
               }
             ];
+            icon = "https://udm14.org/favicon.ico";
           };
-          "Perplexity" = {
+          "Nix Packages" = {
             urls = [
               {
-                template = "https://www.perplexity.ai/search";
+                template = "https://search.nixos.org/packages";
                 params = [
                   {
-                    name = "q";
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
                     value = "{searchTerms}";
                   }
                 ];
               }
             ];
+            icon = "https://nixos.org/favicon.ico";
+            definedAliases = [ "@np" ];
+          };
+          "NixOS Wiki" = {
+            urls = [ { template = "https://wiki.nixos.org/index.php?search={searchTerms}"; } ];
+            icon = "https://wiki.nixos.org/favicon.png";
+            updateInterval = 24 * 60 * 60 * 1000; # every day
+            definedAliases = [ "@nw" ];
           };
           "google".metaData.hidden = true;
           "amazondotcom-us".metaData.hidden = true;
@@ -163,6 +163,8 @@
         "privacy.trackingprotection.socialtracking.enabled" = true;
         "privacy.partition.network_state.ocsp_cache" = true;
         "signon.rememberSignons" = false;
+        "sidebar.verticalTabs" = true;
+        "browser.tabs.groups.enabled" = true;
         "services.sync.engine.addresses" = false;
         "services.sync.engine.passwords" = false;
         "toolkit.telemetry.archive.enabled" = false;

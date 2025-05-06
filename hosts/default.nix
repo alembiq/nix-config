@@ -42,7 +42,7 @@
       agent = {
         enable = true;
         enableSSHSupport = true;
-        pinentryPackage = lib.mkForce pkgs.pinentry-gnome3; # nixpkgs-wayland.packages.${system}.wayprompt ;# pkgs.pinentry-qt; # pkgs.pinentry-curses;
+        pinentryPackage = lib.mkForce pkgs.pinentry-all; # nixpkgs-wayland.packages.${system}.wayprompt ;# pkgs.pinentry-qt; # pkgs.pinentry-curses;
       };
     };
     mtr.enable = true;

@@ -90,7 +90,7 @@
       };
     in
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree; # -rfc-style;
       nixosConfigurations = {
         verdandi = nixpkgs.lib.nixosSystem {
           inherit specialArgs pkgs;

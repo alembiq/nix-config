@@ -12,7 +12,7 @@
       };
       Service = {
         Type = "simple";
-        EnvironmentFile = "~/.local/cloud.ochman";
+        EnvironmentFile = "/home/charles/.local/cloud.ochman";
         ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Documents /home/charles/documents https://cloud.ochman.info";
         TimeoutStopSec = "300";
         KillMode = "process";
@@ -38,7 +38,7 @@
       };
       Service = {
         Type = "simple";
-        EnvironmentFile = "~/.local/cloud.ochman";
+        EnvironmentFile = "/home/charles/.local/cloud.ochman";
         ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Images /home/charles/pictures https://cloud.ochman.info";
         TimeoutStopSec = "180";
         KillMode = "process";
@@ -64,7 +64,7 @@
       };
       Service = {
         Type = "simple";
-        EnvironmentFile = "~/.local/cloud.ochman";
+        EnvironmentFile = "/home/charles/.local/cloud.ochman";
         ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Audio /home/charles/audio https://cloud.ochman.info";
         TimeoutStopSec = "300";
         KillMode = "process";
@@ -90,7 +90,7 @@
       };
       Service = {
         Type = "simple";
-        EnvironmentFile = "~/.local/cloud.ochman";
+        EnvironmentFile = "/home/charles/.local/cloud.ochman";
         ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Games /home/charles/games https://cloud.ochman.info";
         TimeoutStopSec = "360";
         KillMode = "process";

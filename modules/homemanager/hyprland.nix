@@ -251,8 +251,8 @@
       windowrulev2 = workspace 9 silent, class:^(Element)$
       windowrulev2 = opacity 0.90 0.85,class:^(Element)$
 
-      windowrulev2 = workspace 9 silent, class:^(Beeper)$
-      windowrulev2 = opacity 0.90 0.85,class:^(Beeper)$
+      windowrulev2 = workspace 9 silent, class:^(BeeperTexts)$
+      windowrulev2 = opacity 0.90 0.85,class:^(BeeperTexts)$
 
       windowrulev2 = workspace 8 silent, class:^(Morgen)$
       windowrulev2 = opacity 0.90 0.75,class:^(Morgen)$
