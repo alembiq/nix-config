@@ -130,6 +130,29 @@ in
   '';
 
   services = {
+
+    #  thinkfan = {
+    #    enable = lib.mkDefault true;
+    #    levels = [
+    #      [
+    #        0
+    #        0
+    #        61
+    #      ]
+    #      [
+    #        "level auto"
+    #        60
+    #        32767
+    #      ]
+    #    ];
+    #      sensors = [
+    #        {
+    #          type = "tpacpi";
+    #          query = "/proc/acpi/ibm/thermal";
+    #          indices = [ 0 ];
+    #        }];
+    #  };
+
     kmscon.enable = true;
     thermald = {
       enable = true;
@@ -307,7 +330,10 @@ in
         "thinkpad_acpi"
       ];
     };
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [
+      "kvm-intel"
+      "thinkpad_acpi"
+    ];
     kernelParams = [
       "resume=/dev/disk/by-partlabel/disk-nvme-plainSwap"
       "mitigations=off"
@@ -316,6 +342,7 @@ in
       "i915.fastboot=1"
       "i915.enable_dc=0"
       "i915.enable_guc=3"
+      #      "thinkpad_acpi.fan_control=1"
     ];
     extraModulePackages = [ ];
     supportedFilesystems = [ "nfs" ];

@@ -259,25 +259,37 @@
           "backlight"
           "battery"
           "custom/quit"
+          "power-profiles-daemon"
         ];
       };
+
+      "power-profiles-daemon" = {
+        format = "{icon}   {profile}";
+        tooltip-format = "Power profile: {profile}\nDriver: {driver}";
+        tooltip = true;
+        format-icons = {
+          default = "";
+          performance = "";
+          balanced = "";
+          power-saver = "";
+        };
+      };
+
       "cpu" = {
         format = " {usage}%";
         interval = 5;
         "on-click" = "${pkgs.resources}/bin/resources";
       };
+
       "temperature" = {
-        thermal-zone = 2;
-        hwmon-path = [
-          "/sys/class/hwmon/hwmon2/temp1_input"
-          "/sys/class/thermal/thermal_zone0/temp"
-        ];
-        warning-treshold = 80;
+        hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
         critical-threshold = 90;
-        format-warning = "{temperatureC}°C";
-        format-critical = "{temperatureC}°C";
-        format = "{temperatureC}°C";
+        warning-threshold = 80;
+        format = "🌡 {temperatureC}°C";
+        format-warning = "🔥 {temperatureC}°C";
+        format-critical = "💀 {temperatureC}°C";
       };
+
       "memory" = {
         format = "  {}%";
         tooltip-format = "RAM: {used:0.1f}GiB/{total:0.1f}GiB ({percentage}%) SWAP: {swapUsed:0.1f}GiB/{swapTotal:0.1f}GiB ({swapPercentage}%)";
