@@ -25,7 +25,6 @@
           (extension "grammarly-1" "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack")
           (extension "i-dont-care-about-cookies" "jid1-KKzOGWgsW3Ao4Q@jetpack")
           (extension "ublock-origin" "uBlock0@raymondhill.net")
-          # (extension "youtube-shorts-block" "{34daeb50-c2d2-4f14-886a-7160b24d66a4}")
         ];
       DisableTelemetry = true;
       DisableFirefoxStudies = true;

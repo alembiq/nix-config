@@ -257,9 +257,9 @@
           "temperature"
           "memory"
           "backlight"
+          "power-profiles-daemon"
           "battery"
           "custom/quit"
-          "power-profiles-daemon"
         ];
       };
 

@@ -74,12 +74,33 @@ in
           # makemkv handbrake libaacs libbluray libdvdcss
           waveterm
           krita
+	  tlp
         ];
         stateVersion = "23.11";
       }; # END of home-manager.users.charles.home
     }; # END of home-manager.users.charles
 
   }; # END of home-manager
+
+    services.tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 90;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 50;
+
+        START_CHARGE_THRESH_BAT0 = 40;
+        STOP_CHARGE_THRESH_BAT0 = 80;
+      };
+    };
+
 
   systemd.mounts = [
     {
@@ -131,33 +152,7 @@ in
 
   services = {
 
-    #  thinkfan = {
-    #    enable = lib.mkDefault true;
-    #    levels = [
-    #      [
-    #        0
-    #        0
-    #        61
-    #      ]
-    #      [
-    #        "level auto"
-    #        60
-    #        32767
-    #      ]
-    #    ];
-    #      sensors = [
-    #        {
-    #          type = "tpacpi";
-    #          query = "/proc/acpi/ibm/thermal";
-    #          indices = [ 0 ];
-    #        }];
-    #  };
-
     kmscon.enable = true;
-    thermald = {
-      enable = true;
-      ignoreCpuidCheck = true;
-    };
     deluge.config = ''
       {
                   download_location = "/srv/torrents/";
@@ -344,7 +339,7 @@ in
       "i915.enable_guc=3"
       #      "thinkpad_acpi.fan_control=1"
     ];
-    extraModulePackages = [ ];
+    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
     supportedFilesystems = [ "nfs" ];
     zfs = {
       forceImportRoot = false;
