@@ -48,8 +48,8 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
-    # xwayland.enable = true;
+  package = null;
+  portalPackage = null;  # https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#using-the-home-manager-module-with-nixos
     systemd.enable = true;
     systemd.variables = [ "--all" ];
     settings = {

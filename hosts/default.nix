@@ -45,7 +45,6 @@
         pinentryPackage = lib.mkForce pkgs.pinentry-all; # nixpkgs-wayland.packages.${system}.wayprompt ;# pkgs.pinentry-qt; # pkgs.pinentry-curses;
       };
     };
-    mtr.enable = true;
     bash = {
       completion.enable = true;
       interactiveShellInit = ''
@@ -209,6 +208,9 @@
       experimental-features = [
         "nix-command"
         "flakes"
+      ];
+      trusted-users = [
+        "@wheel"
       ];
       auto-optimise-store = true;
       substituters = [

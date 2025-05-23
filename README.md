@@ -10,7 +10,6 @@
 - incomming mail (mbsync/notmuch) notification
 - mbsync Notice: SSLType is deprecated. Use TLSType instead.
 - notmuch compact
-- cosmic ???
 - hyprland go suspend after first login when laptop closed
 - nixpkgs-wayland.packages.${system}.wayprompt not working with sops-nix
 - greetd does not contain BASH

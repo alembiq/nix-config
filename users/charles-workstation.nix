@@ -9,6 +9,7 @@ let
 in
 {
   nixpkgs.config.allowUnfree = true;
+
   home.packages = with pkgs; [
     spotify-player
     element-desktop
@@ -26,9 +27,6 @@ in
     wlprop
     ungoogled-chromium
     libreoffice # onlyoffice-bin has problems with clipboard under wayland
-    xfce.thunar
-    xfce.thunar-archive-plugin
-    xfce.thunar-volman
     xfce.tumbler
     rpi-imager
     libsForQt5.okular

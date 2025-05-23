@@ -23,6 +23,10 @@ in
 # )
 {
 
+hardware.system76.power-daemon.enable = true;
+hardware.nfc-nci.enable = true; # test with pcsc_scan
+services.desktopManager.cosmic.enable = true;
+
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ../../modules/nixos/greetd.nix
@@ -66,15 +70,14 @@ in
       home = {
         packages = with pkgs; [
           prusa-slicer
-          openscad-unstable
+          openscad #FIXME 20250523 -unstable
           calibre
           poppler_utils # pdf tools
-          overskride
+          overskride # bluetooth UI
           deluge
           # makemkv handbrake libaacs libbluray libdvdcss
           waveterm
           krita
-	  tlp
         ];
         stateVersion = "23.11";
       }; # END of home-manager.users.charles.home
@@ -101,26 +104,27 @@ in
       };
     };
 
+  services.thermald.enable = true;
 
-  systemd.mounts = [
-    {
-      type = "nfs";
-      mountConfig = {
-        Options = "noatime";
-      };
-      what = "10.0.42.26:/mnt/forge";
-      where = "/mnt/forge-nfs";
-    }
-  ];
-  systemd.automounts = [
-    {
-      wantedBy = [ "multi-user.target" ];
-      automountConfig = {
-        TimeoutIdleSec = "600";
-      };
-      where = "/mnt/forge-nfs";
-    }
-  ];
+#  systemd.mounts = [
+#    {
+#      type = "nfs";
+#      mountConfig = {
+#        Options = "noatime";
+#      };
+#      what = "10.0.42.26:/mnt/forge";
+#      where = "/mnt/forge-nfs";
+#    }
+#  ];
+#  systemd.automounts = [
+#    {
+#      wantedBy = [ "multi-user.target" ];
+#      automountConfig = {
+#        TimeoutIdleSec = "600";
+#      };
+#      where = "/mnt/forge-nfs";
+#    }
+#  ];
   services.rpcbind.enable = true;
 
   fileSystems."/mnt/forge-smb" = {
@@ -152,7 +156,7 @@ in
 
   services = {
 
-    kmscon.enable = true;
+# 20250520    kmscon.enable = true;
     deluge.config = ''
       {
                   download_location = "/srv/torrents/";
@@ -278,6 +282,7 @@ in
 
   #TODO 4G modem
   systemd.services.ModemManager.enable = true;
+  networking.modemmanager.enable = true;
   environment = {
     systemPackages = with pkgs; [
       modemmanager
