@@ -144,7 +144,6 @@ services.desktopManager.cosmic.enable = true;
 
   #TODO new kernel
   #TODO fingerprint
-  #TODO NFC
   #TODO hibernate
 
   systemd.sleep.extraConfig = ''
