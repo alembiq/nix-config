@@ -257,7 +257,7 @@
           "temperature"
           "memory"
           "backlight"
-          "power-profiles-daemon"
+          # FIXME if services.power-profiles-daemon.enable = true;          "power-profiles-daemon"
           "battery"
           "custom/quit"
         ];

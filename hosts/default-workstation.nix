@@ -32,42 +32,20 @@
       enable = true;
       package = pkgs.appimage-run;
     };
-  thunar.enable = true;
+    thunar.enable = true;
   };
 
   services = {
-# 20250520    gvfs.enable = true;
-    auto-cpufreq = {
-      enable = true;
-      settings = {
-        battery = {
-          governor = "powersave";
-          turbo = "never";
-        };
-        charger = {
-          governor = "performance";
-          turbo = "auto";
-        };
-      };
-    };
-    system76-scheduler.settings.cfsProfiles.enable = true;
-
     udisks2 = {
-	enable = true;
-	package = pkgs.udisks;
-};
+      enable = true;
+      package = pkgs.udisks;
+    };
     pcscd.enable = true;
     udev.packages = with pkgs; [
       yubikey-personalization
       libu2f-host
     ];
-#    xserver = {
-#      enable = true;
-#    };
   };
-
-  # FIXME 2025  powerManagement.enable = true;
-  # FIXME 2025  powerManagement.powertop.enable = true;
 
   hardware = {
     gpgSmartcards.enable = true;
@@ -106,16 +84,16 @@
     };
   };
 
-#  systemd.services.greetd.serviceConfig = { #FIXME 20250520 source?
-#    Type = "idle";
-#    StandardInput = "tty";
-#    StandardOutput = "tty";
-#    StandardError = "journal"; # Without this errors will spam on screen
-    # Without these bootlogs will spam on screen
- #   TTYReset = true;
-#    TTYVHangup = true;
-#    TTYVTDisallocate = true;
-#  };
+  #  systemd.services.greetd.serviceConfig = { #FIXME 20250520 source?
+  #    Type = "idle";
+  #    StandardInput = "tty";
+  #    StandardOutput = "tty";
+  #    StandardError = "journal"; # Without this errors will spam on screen
+  # Without these bootlogs will spam on screen
+  #   TTYReset = true;
+  #    TTYVHangup = true;
+  #    TTYVTDisallocate = true;
+  #  };
 
   # To prevent getting stuck at shutdown
   systemd.extraConfig = "DefaultTimeoutStopSec=30s";

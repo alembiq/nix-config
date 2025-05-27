@@ -23,9 +23,9 @@ in
 # )
 {
 
-hardware.system76.power-daemon.enable = true;
-hardware.nfc-nci.enable = true; # test with pcsc_scan
-services.desktopManager.cosmic.enable = true;
+  # hardware.system76.power-daemon.enable = true;
+  hardware.nfc-nci.enable = true; # test with pcsc_scan
+  services.desktopManager.cosmic.enable = true;
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -70,13 +70,12 @@ services.desktopManager.cosmic.enable = true;
       home = {
         packages = with pkgs; [
           prusa-slicer
-          openscad #FIXME 20250523 -unstable
+          openscad # FIXME 20250523 -unstable
           calibre
           poppler_utils # pdf tools
           overskride # bluetooth UI
           deluge
           # makemkv handbrake libaacs libbluray libdvdcss
-          waveterm
           krita
         ];
         stateVersion = "23.11";
@@ -85,47 +84,90 @@ services.desktopManager.cosmic.enable = true;
 
   }; # END of home-manager
 
-    services.tlp = {
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
+    cpuFreqGovernor = "ondemand"; # power, performance, ondemand
+  };
+
+  #   hardware.system76.power-daemon.enable = true;
+  services = {
+    # system76-scheduler.settings.cfsProfiles.enable = true;
+    #   power-profiles-daemon.enable = true; # ppd, not default
+    # tlp = {
+    #   enable = true;
+    #   settings = {
+    #     # CPU_BOOST_ON_AC = 1;
+    #     # CPU_ENERGY_PERF_POLICY_ON_AC = "performance"; #balance_performance
+    #     # CPU_HWP_DYN_BOOST_ON_AC = 1;
+    #     # CPU_MIN_PERF_ON_AC = 0;
+    #     # CPU_MAX_PERF_ON_AC = 90;
+    #     # CPU_SCALING_GOVERNOR_ON_AC = "performance";
+    #     # PLATFORM_PROFILE_ON_AC = "performance"; # balance_performance
+    #     RUNTIME_PM_ON_AC = "on";
+
+    #     # CPU_BOOST_ON_BAT = 0;
+    #     # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+    #     # CPU_HWP_DYN_BOOST_ON_BAT = 0;
+    #     # CPU_MIN_PERF_ON_BAT = 0;
+    #     # CPU_MAX_PERF_ON_BAT = 50;
+    #     # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    #     # PLATFORM_PROFILE_ON_BAT = "low-power";
+    #     RUNTIME_PM_ON_BAT = "auto";
+
+    #     START_CHARGE_THRESH_BAT0 = 40;
+    #     STOP_CHARGE_THRESH_BAT0 = 80;
+    #   };
+    # };
+    thermald.enable = true;
+    auto-cpufreq = {
       enable = true;
       settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        charger = {
+          energy_performance_preference = "performance"; # performance (0), balance_performance (4), default (6), balance_power (8), or power (15)
+          governor = "performance"; # performance powersave
+          platform_profile = "performance"; # low-power balanced performance
+          scaling_min_freq =  400000;
+          scaling_max_freq = 3200000;
+          turbo = "auto";
+        };
+        battery = {
+          energy_performance_preference = "power";
+          governor = "powersave";
+          platform_profile = "low-power";
+          scaling_min_freq =  400000;
+          scaling_max_freq = 1800000;
+          turbo = "never";
 
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+            enable_thresholds = true;
+            start_threshold = 60;
+            stop_threshold = 80;
 
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 90;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 50;
-
-        START_CHARGE_THRESH_BAT0 = 40;
-        STOP_CHARGE_THRESH_BAT0 = 80;
+        };
       };
     };
+    rpcbind.enable = true;
+  };
 
-  services.thermald.enable = true;
-
-#  systemd.mounts = [
-#    {
-#      type = "nfs";
-#      mountConfig = {
-#        Options = "noatime";
-#      };
-#      what = "10.0.42.26:/mnt/forge";
-#      where = "/mnt/forge-nfs";
-#    }
-#  ];
-#  systemd.automounts = [
-#    {
-#      wantedBy = [ "multi-user.target" ];
-#      automountConfig = {
-#        TimeoutIdleSec = "600";
-#      };
-#      where = "/mnt/forge-nfs";
-#    }
-#  ];
-  services.rpcbind.enable = true;
+  #  systemd.mounts = [
+  #    {
+  #      type = "nfs";
+  #      mountConfig = {
+  #        Options = "noatime";
+  #      };
+  #      what = "10.0.42.26:/mnt/forge";
+  #      where = "/mnt/forge-nfs";
+  #    }
+  #  ];
+  #  systemd.automounts = [
+  #    {
+  #      wantedBy = [ "multi-user.target" ];
+  #      automountConfig = {
+  #        TimeoutIdleSec = "600";
+  #      };
+  #      where = "/mnt/forge-nfs";
+  #    }
+  #  ];
 
   fileSystems."/mnt/forge-smb" = {
     device = "//10.0.42.26/forge";
@@ -142,9 +184,7 @@ services.desktopManager.cosmic.enable = true;
   };
   #,uid=${toString config.users.users.charles.uid},gid=${toString config.users.groups.charles.gid}"];
 
-  #TODO new kernel
   #TODO fingerprint
-  #TODO hibernate
 
   systemd.sleep.extraConfig = ''
     AllowSuspend=yes
@@ -155,7 +195,7 @@ services.desktopManager.cosmic.enable = true;
 
   services = {
 
-# 20250520    kmscon.enable = true;
+    # 20250520    kmscon.enable = true;
     deluge.config = ''
       {
                   download_location = "/srv/torrents/";
@@ -303,12 +343,13 @@ services.desktopManager.cosmic.enable = true;
   #TODO paired BT deviced
   hardware = {
     cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
+    intel-gpu-tools.enable = true;
   };
 
-  security.protectKernelImage = false; # hibernate
+  #   security.protectKernelImage = false; # hibernate
 
   boot = {
-    kernelPackages = pkgs.linuxPackages; # _zen; # https://nixos.wiki/wiki/Linux_kernel#List_available_kernels
+    kernelPackages = pkgs.linuxPackages_zen; # _6_6;
     loader = {
       systemd-boot = {
         enable = true;
@@ -326,7 +367,6 @@ services.desktopManager.cosmic.enable = true;
         "usbhid"
         "uas"
         "sd_mod"
-        "thinkpad_acpi"
       ];
     };
     kernelModules = [
@@ -335,13 +375,12 @@ services.desktopManager.cosmic.enable = true;
     ];
     kernelParams = [
       "resume=/dev/disk/by-partlabel/disk-nvme-plainSwap"
-      "mitigations=off"
+      #      "mitigations=off"
       "i915.enable_psr=0"
       "i915.enable_fbc=1"
       "i915.fastboot=1"
       "i915.enable_dc=0"
       "i915.enable_guc=3"
-      #      "thinkpad_acpi.fan_control=1"
     ];
     extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
     supportedFilesystems = [ "nfs" ];
