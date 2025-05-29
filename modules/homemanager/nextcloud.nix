@@ -13,7 +13,7 @@
       Service = {
         Type = "simple";
         EnvironmentFile = "/home/charles/.local/cloud.ochman";
-        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Documents /home/charles/documents https://cloud.ochman.info";
+        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h --silent --user $USERNAME --password $PASSWORD --path /Documents /home/charles/documents https://cloud.ochman.info";
         TimeoutStopSec = "300";
         KillMode = "process";
         KillSignal = "SIGINT";
@@ -39,7 +39,7 @@
       Service = {
         Type = "simple";
         EnvironmentFile = "/home/charles/.local/cloud.ochman";
-        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Images /home/charles/pictures https://cloud.ochman.info";
+        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h --silent --user $USERNAME --password $PASSWORD --path /Images /home/charles/pictures https://cloud.ochman.info";
         TimeoutStopSec = "180";
         KillMode = "process";
         KillSignal = "SIGINT";
@@ -65,7 +65,7 @@
       Service = {
         Type = "simple";
         EnvironmentFile = "/home/charles/.local/cloud.ochman";
-        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Audio /home/charles/audio https://cloud.ochman.info";
+        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h --silent --user $USERNAME --password $PASSWORD --path /Audio /home/charles/audio https://cloud.ochman.info";
         TimeoutStopSec = "300";
         KillMode = "process";
         KillSignal = "SIGINT";
@@ -91,7 +91,7 @@
       Service = {
         Type = "simple";
         EnvironmentFile = "/home/charles/.local/cloud.ochman";
-        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h -s -u $USERNAME -p $PASSWORD --path /Games /home/charles/games https://cloud.ochman.info";
+        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive -h --silent --user $USERNAME --password $PASSWORD --path /Games /home/charles/games https://cloud.ochman.info";
         TimeoutStopSec = "360";
         KillMode = "process";
         KillSignal = "SIGINT";

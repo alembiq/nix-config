@@ -8,8 +8,6 @@
 - sops output file in variable ${config.sops.secrets.secret_api_key.path}
 - sending mail (msmtp) notification
 - incomming mail (mbsync/notmuch) notification
-- mbsync Notice: SSLType is deprecated. Use TLSType instead.
-- notmuch compact
 - hyprland go suspend after first login when laptop closed
 - nixpkgs-wayland.packages.${system}.wayprompt not working with sops-nix
 - greetd does not contain BASH

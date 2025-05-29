@@ -91,6 +91,32 @@
     enable = true;
   };
 
+  systemd.user.services.notmuch-compact = {
+    Unit = {
+      Description = "Compact notmuch mail database";
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.notmuch}/bin/notmuch compact";
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
+
+  systemd.user.timers.notmuch-compact = {
+    Unit = {
+      Description = "Weekly timer for notmuch compact";
+    };
+    Timer = {
+      OnCalendar = "weekly"; # or e.g., "Sun 03:00"
+      Persistent = true;
+    };
+    Install = {
+      WantedBy = [ "timers.target" ];
+    };
+  };
+
   programs.neomutt = {
     changeFolderWhenSourcingAccount = true;
     enable = true;
