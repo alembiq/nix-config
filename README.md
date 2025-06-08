@@ -8,6 +8,10 @@
 - sops output file in variable ${config.sops.secrets.secret_api_key.path}
 - sending mail (msmtp) notification
 - incomming mail (mbsync/notmuch) notification
+```
+    kvě 29 11:25:40 verdandi mbsync[1326288]: Channels: 5    Boxes: 64    Far: +0 *0 #0 -0    Near: +0 *0 #0 -0
+    kvě 29 11:25:40 verdandi notmuch[1326606]: No new mail.
+```
 - hyprland go suspend after first login when laptop closed
 - nixpkgs-wayland.packages.${system}.wayprompt not working with sops-nix
 - greetd does not contain BASH

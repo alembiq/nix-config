@@ -70,7 +70,7 @@ in
       home = {
         packages = with pkgs; [
           prusa-slicer
-          openscad # FIXME 20250523 -unstable
+          openscad-unstable
           calibre
           poppler_utils # pdf tools
           overskride # bluetooth UI
@@ -126,10 +126,15 @@ in
         charger = {
           energy_performance_preference = "performance"; # performance (0), balance_performance (4), default (6), balance_power (8), or power (15)
           governor = "performance"; # performance powersave
-          platform_profile = "performance"; # low-power balanced performance
+          platform_profile = "balance_power"; # low-power balanced performance
           scaling_min_freq = 400000;
           scaling_max_freq = 3200000;
           turbo = "auto";
+
+          enable_thresholds = true;
+          start_threshold = 60;
+          stop_threshold = 80;
+
         };
         battery = {
           energy_performance_preference = "power";
@@ -138,11 +143,6 @@ in
           scaling_min_freq = 400000;
           scaling_max_freq = 1800000;
           turbo = "never";
-
-          enable_thresholds = true;
-          start_threshold = 60;
-          stop_threshold = 80;
-
         };
       };
     };
