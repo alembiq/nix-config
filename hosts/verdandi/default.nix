@@ -94,9 +94,9 @@ in
   services = {
     # system76-scheduler.settings.cfsProfiles.enable = true;
     #   power-profiles-daemon.enable = true; # ppd, not default
-    # tlp = {
-    #   enable = true;
-    #   settings = {
+    tlp = {
+      enable = true;
+      settings = {
     #     # CPU_BOOST_ON_AC = 1;
     #     # CPU_ENERGY_PERF_POLICY_ON_AC = "performance"; #balance_performance
     #     # CPU_HWP_DYN_BOOST_ON_AC = 1;
@@ -115,10 +115,10 @@ in
     #     # PLATFORM_PROFILE_ON_BAT = "low-power";
     #     RUNTIME_PM_ON_BAT = "auto";
 
-    #     START_CHARGE_THRESH_BAT0 = 40;
-    #     STOP_CHARGE_THRESH_BAT0 = 80;
-    #   };
-    # };
+        START_CHARGE_THRESH_BAT0 = 40;
+        STOP_CHARGE_THRESH_BAT0 = 80;
+      };
+    };
     thermald.enable = true;
     auto-cpufreq = {
       enable = true;
