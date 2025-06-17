@@ -4,7 +4,7 @@
     enable = true;
     matchBlocks = {
       net = {
-        forwardAgent = true;
+        # forwardAgent = true;
         remoteForwards = [
           {
             bind.address = "/%d/.gnupg-sockets/S.gpg-agent";
@@ -127,8 +127,7 @@
       "10.0.4?.* *.svornosti-jump" = {
         proxyJump = "omnia-svornosti";
       };
-      "verdandi.* kubera.* octopi.* gitlab.svornosti gitlab gitlab.alembiq.net " = # badb.*
-        {
+      "verdandi verdandi.* kubera kubera.* octopi octopi.* gitlab gitlab.svornosti gitlab.alembiq.net" = {  # waiting for user charles on badb badb.* "
           identityFile = "~/.ssh/YUBI-KK2024.pub";
           user = "charles";
           forwardAgent = true;

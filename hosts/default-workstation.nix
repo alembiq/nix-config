@@ -7,12 +7,15 @@
 
 {
 
+services.logind.lidSwitchExternalPower = "ignore";
+
+
   environment.systemPackages = with pkgs; [
     opensc
     pcsctools
     libu2f-host
     yubikey-personalization
-    yubikey-personalization-gui
+yubioath-flutter #    yubikey-personalization-gui
     yubikey-manager
     yubikey-touch-detector
     git
