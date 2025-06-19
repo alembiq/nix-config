@@ -15,6 +15,7 @@
       wlogout
       hypridle
       hyprlock
+      hyprpaper
       swaylock-effects
       wayland-protocols
       wayland-utils
@@ -31,18 +32,20 @@
 
     ];
   };
-  services.wpaperd = lib.mkForce {
+
+  services.hyprpaper = {
     enable = true;
     settings = {
-      any = {
-        path = "/home/charles/pictures/wallpapers";
-        duration = "30s";
-        mode = "center";
-        sorting = "random";
-      };
-      eDP-1 = {
-        path = "/home/charles/pictures/wallpapers/52204128092_76bb16feb4_k.jpg";
-      };
+      ipc = "on";
+      splash = false;
+      preload = [
+        "~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
+        "~/pictures/wallpapers/talibart-15.jpg"
+      ];
+      wallpaper = [
+        "DP-6,~/pictures/wallpapers/talibart-15.jpg"
+        "eDP-1,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
+      ];
     };
   };
 
@@ -69,7 +72,6 @@
         "systemctl --user start sops-nix"
         "${pkgs.udiskie}/bin/udiskie --no-automount --smart-tray &"
         "${pkgs.swaynotificationcenter}/bin/swaync"
-        "${pkgs.wpaperd}/bin/wpaperd"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "${pkgs.dbus}/bin/dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY"
         "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -244,26 +246,26 @@
 
       #get window details with `hyprctl clients`
       # windowrulev2 = float, title:^(File Operation Progress)(.*)$
-      windowrulev2 = opacity 1 0.85,class:^(firefox)$
-      windowrule   = opacity 0.90 0.75, title:(.*)(VSCodium)$
-      windowrulev2 = opacity 0.90 0.75,class:^(wofi)$
+#      windowrulev2 = opacity 1 0.85,class:^(firefox)$
+#      windowrule   = opacity 0.90 0.75, title:(.*)(VSCodium)$
+#      windowrulev2 = opacity 0.90 0.75,class:^(wofi)$
 
       windowrulev2 = workspace 9 silent, class:^(Element)$
-      windowrulev2 = opacity 0.90 0.85,class:^(Element)$
+#      windowrulev2 = opacity 0.90 0.85,class:^(Element)$
 
       windowrulev2 = workspace 9 silent, class:^(BeeperTexts)$
-      windowrulev2 = opacity 0.90 0.85,class:^(BeeperTexts)$
+#      windowrulev2 = opacity 0.90 0.85,class:^(BeeperTexts)$
 
       windowrulev2 = workspace 8 silent, class:^(Morgen)$
-      windowrulev2 = opacity 0.90 0.75,class:^(Morgen)$
+#      windowrulev2 = opacity 0.90 0.75,class:^(Morgen)$
 
       windowrulev2 = workspace 10 silent, class:^(obsidian)$
-      windowrulev2 = opacity 0.90 0.85,class:^(obsidian)$
-      windowrulev2 = opacity 0.90 0.75,class:^(blueman-manager)$
-      windowrulev2 = opacity 0.90 0.75,class:^(org.pulseaudio.pwvucontrol)$
-      windowrulev2 = opacity 0.90 0.75,class:^(org.kde.polkit-kde-authentication-agent-1)$
-      windowrulev2 = opacity 0.90 0.75,class:^(org.freedesktop.impl.portal.desktop.hyprland)$
-      windowrulev2 = opacity 0.90 0.75,class:^(org.wezfurlong.wezterm)$
+#      windowrulev2 = opacity 0.90 0.85,class:^(obsidian)$
+#      windowrulev2 = opacity 0.90 0.75,class:^(blueman-manager)$
+#      windowrulev2 = opacity 0.90 0.75,class:^(org.pulseaudio.pwvucontrol)$
+#      windowrulev2 = opacity 0.90 0.75,class:^(org.kde.polkit-kde-authentication-agent-1)$
+#      windowrulev2 = opacity 0.90 0.75,class:^(org.freedesktop.impl.portal.desktop.hyprland)$
+#      windowrulev2 = opacity 0.90 0.75,class:^(org.wezfurlong.wezterm)$
       windowrulev2 = move onscreen cursor, class:^(org.wezfurlong.wezterm)$
     '';
   };
