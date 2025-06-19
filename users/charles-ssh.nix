@@ -4,7 +4,6 @@
     enable = true;
     matchBlocks = {
       net = {
-        # forwardAgent = true;
         remoteForwards = [
           {
             bind.address = "/%d/.gnupg-sockets/S.gpg-agent";
@@ -35,17 +34,9 @@
         extraOptions = {
           StreamLocalBindUnlink = "true";
           RemoteForward = "/run/user/1111/gnupg/S.gpg-agent /run/user/1111/gnupg/S.gpg-agent.extra";
-          # RemoteForward = "/run/user/1111/gnupg/S.gpg-agent.ssh /run/user/1111/gnupg/S.gpg-agent.ssh";
         };
       };
-      "forge forge.*" = {
-        identityFile = "~/.ssh/YUBI-KK2025.pub";
-        user = "root";
-        forwardAgent = true;
-      };
-      "forge.*" = {
-        hostname = "10.0.42.26";
-      };
+
       "github.com" = {
         identityFile = "~/.ssh/YUBI-KK2024.pub";
         user = "alembiq";
@@ -152,6 +143,25 @@
       "10.0.5?.* *.brno-jump" = {
         proxyJump = "omnia-brno";
       };
+    #   ___ _____ _   _ _____ ____
+    #  / _ \_   _| | | | ____|  _ \
+    # | | | || | | |_| |  _| | |_) |
+    # | |_| || | |  _  | |___|  _ <
+    #  \___/ |_| |_| |_|_____|_| \_\
+     "lancre" = {
+        hostname = "lancre.tail52316.ts.net";
+        user = "charles";
+        identityFile = "~/.ssh/YUBI-KK2025.pub";
+        forwardAgent = true;
+      };
+      "forge" = {
+        hostname = "forge.tail752f90.ts.net";
+        identityFile = "~/.ssh/YUBI-KK2025.pub";
+        user = "root";
+        forwardAgent = true;
+      };
+
+
       #   ____ _____ _   _ _____ ____      _    _
       #  / ___| ____| \ | | ____|  _ \    / \  | |
       # | |  _|  _| |  \| |  _| | |_) |  / _ \ | |

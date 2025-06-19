@@ -43,7 +43,7 @@ in
     ../../modules/nixos/hyprland.nix
     ../../modules/nixos/sway.nix
     ../../modules/nixos/stylix.nix
-    ../../modules/nixos/docker.nix
+#    ../../modules/nixos/docker.nix
     ../../modules/nixos/plasma6.nix
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
   ];
@@ -70,7 +70,7 @@ in
       home = {
         packages = with pkgs; [
           prusa-slicer
-          openscad-unstable
+          openscad # FIXME 20250619-unstable
           calibre
           poppler_utils # pdf tools
           overskride # bluetooth UI
