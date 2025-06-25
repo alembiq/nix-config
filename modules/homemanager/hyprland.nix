@@ -6,7 +6,23 @@
   config,
   ...
 }:
-{
+let
+  wallpaperScript = pkgs.writeShellScriptBin "random-wallpaper" ''
+    #!/bin/bash
+    WALLPAPER_DIRECTORY=~/pictures/wallpapers
+    WALLPAPER=$(find "$WALLPAPER_DIRECTORY" -type f | shuf -n 1)
+    hyprctl hyprpaper preload "$WALLPAPER"
+    hyprctl hyprpaper wallpaper "DP-5,$WALLPAPER"
+    sleep 1
+    hyprctl hyprpaper unload unused
+  '';
+  resumeScript = pkgs.writeShellScript "hyprland-resume" ''
+    #!/bin/bash
+    sleep 2
+    export HYPRLAND_INSTANCE_SIGNATURE=$(ls -1 /tmp/hypr/ | head -n 1)
+    hyprctl dispatch dpms on
+  '';
+in {
   home = {
     packages = with pkgs; [
       #   slurp grim
@@ -29,23 +45,17 @@
       imv
       libva # TODO evaluate
       dconf # TODO evaluate dconf2nix
+      wallpaperScript
 
     ];
   };
 
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      ipc = "on";
-      splash = false;
-      preload = [
-        "~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
-        "~/pictures/wallpapers/talibart-15.jpg"
-      ];
-      wallpaper = [
-        "DP-6,~/pictures/wallpapers/talibart-15.jpg"
-        "eDP-1,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
-      ];
+
+  systemd.user.services.dpms-resume-fix = {
+    Unit.Description = "Fix DPMS after suspend";
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
     };
   };
 
@@ -65,11 +75,11 @@
         "QT_QPA_PLATFORMTHEME,qt6ct"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+        "SDL_VIDEODRIVER,wayland"
         "MOZ_ENABLE_WAYLAND,1"
         "GDK_SCALE,1"
       ];
       exec-once = [
-        "systemctl --user start sops-nix"
         "${pkgs.udiskie}/bin/udiskie --no-automount --smart-tray &"
         "${pkgs.swaynotificationcenter}/bin/swaync"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -80,6 +90,8 @@
         "${pkgs.waybar}/bin/waybar #systemctl --user restart waybar"
         "${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-kde-authentication-agent-1"
         "hyprctl setcursor Nordzy-cursors 32"
+        "${wallpaperScript}"
+        "systemctl --user start sops-nix"
       ];
       monitor = [
         "eDP-1,1920x1080,320x1440,1"
@@ -245,27 +257,35 @@
       # # keybinds further down will be global again...
 
       #get window details with `hyprctl clients`
-      # windowrulev2 = float, title:^(File Operation Progress)(.*)$
-#      windowrulev2 = opacity 1 0.85,class:^(firefox)$
-#      windowrule   = opacity 0.90 0.75, title:(.*)(VSCodium)$
-#      windowrulev2 = opacity 0.90 0.75,class:^(wofi)$
+      workspace = special:special, opacity 0.85 0.85
+      workspace = special:special, size 80% 80%
+      workspace = special:special, gapsout:150
+
+
+      # firefox Picture-in-Picture
+      windowrulev2 = float,class:^(firefox)$,title:^(Picture-in-Picture)$
+      windowrulev2 = pin,class:^(firefox)$,title:^(Picture-in-Picture)$
+      windowrulev2 = float,class:^(firefox)$,title:^(Firefox — Sharing Indicator)$
+
+      # common modals
+      windowrule = float,title:^(Open)$
+      windowrule = float,title:^(Choose Files)$
+      windowrule = float,title:^(Save As)$
+      windowrule = float,title:^(Confirm to replace files)$
+      windowrule = float,title:^(File Operation Progress)$
+
+      windowrulev2 = float,title:^(Pipewire Volume Control)$
+      windowrulev2 = move 15% 35%,title:^(Pipewire Volume Control)$
+      windowrulev2 = size 800 600,title:^(Pipewire Volume Control)$
+
+      windowrulev2 = float,title:^(Resources)$
+      windowrulev2 = move 55% 35%,title:^(Resources)$
+      windowrulev2 = size 800 600,title:^(Resources)$
 
       windowrulev2 = workspace 9 silent, class:^(Element)$
-#      windowrulev2 = opacity 0.90 0.85,class:^(Element)$
-
       windowrulev2 = workspace 9 silent, class:^(BeeperTexts)$
-#      windowrulev2 = opacity 0.90 0.85,class:^(BeeperTexts)$
-
       windowrulev2 = workspace 8 silent, class:^(Morgen)$
-#      windowrulev2 = opacity 0.90 0.75,class:^(Morgen)$
-
       windowrulev2 = workspace 10 silent, class:^(obsidian)$
-#      windowrulev2 = opacity 0.90 0.85,class:^(obsidian)$
-#      windowrulev2 = opacity 0.90 0.75,class:^(blueman-manager)$
-#      windowrulev2 = opacity 0.90 0.75,class:^(org.pulseaudio.pwvucontrol)$
-#      windowrulev2 = opacity 0.90 0.75,class:^(org.kde.polkit-kde-authentication-agent-1)$
-#      windowrulev2 = opacity 0.90 0.75,class:^(org.freedesktop.impl.portal.desktop.hyprland)$
-#      windowrulev2 = opacity 0.90 0.75,class:^(org.wezfurlong.wezterm)$
       windowrulev2 = move onscreen cursor, class:^(org.wezfurlong.wezterm)$
     '';
   };

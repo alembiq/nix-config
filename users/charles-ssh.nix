@@ -70,7 +70,7 @@
         hostname = "10.0.42.107";
       };
 
-      "gitlab gitlab.*" = {
+      "gitlab gitlab.svornosti" = {
         hostname = "10.0.42.204";
       };
       "kubera.svornosti kubera.svornosti-jump" = {

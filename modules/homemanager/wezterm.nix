@@ -27,7 +27,7 @@
         config.color_scheme = 'custom'
         config.check_for_updates = false
         config.warn_about_missing_glyphs=false
-        config.front_end = 'WebGpu'
+        config.front_end = 'OpenGL'
         config.quick_select_patterns = {
             -- FIXME select without the colon at the end
             "[a-z]+(?:-[a-z0-9]+)+-[a-z0-9]",
