@@ -19,11 +19,11 @@
           on-timeout = "loginctl lock-session && ${pkgs.light}/bin/light -O && pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
           on-resume = "${pkgs.light}/bin/light -I && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
         }
-#        {
-#          timeout = 330;
-#          on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-#          on-resume = "${pkgs.light}/bin/light -I && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-#        }
+        #        {
+        #          timeout = 330;
+        #          on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+        #          on-resume = "${pkgs.light}/bin/light -I && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+        #        }
         {
           timeout = 330;
           on-timeout = "if [ $(cat /sys/class/power_supply/AC/online) != 1 ]; then && ${pkgs.light}/bin/light -O && ${pkgs.systemd}/bin/systemctl suspend; fi ";

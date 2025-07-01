@@ -43,7 +43,7 @@ in
     ../../modules/nixos/hyprland.nix
     ../../modules/nixos/sway.nix
     ../../modules/nixos/stylix.nix
-#    ../../modules/nixos/docker.nix
+    #    ../../modules/nixos/docker.nix
     ../../modules/nixos/plasma6.nix
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
   ];
@@ -77,13 +77,12 @@ in
           deluge
           # makemkv handbrake libaacs libbluray libdvdcss
           krita
+          dconf
         ];
         stateVersion = "23.11";
       }; # END of home-manager.users.charles.home
     }; # END of home-manager.users.charles
-
   }; # END of home-manager
-
   powerManagement = {
     enable = true;
     powertop.enable = true;
@@ -97,23 +96,23 @@ in
     tlp = {
       enable = true;
       settings = {
-    #     # CPU_BOOST_ON_AC = 1;
-    #     # CPU_ENERGY_PERF_POLICY_ON_AC = "performance"; #balance_performance
-    #     # CPU_HWP_DYN_BOOST_ON_AC = 1;
-    #     # CPU_MIN_PERF_ON_AC = 0;
-    #     # CPU_MAX_PERF_ON_AC = 90;
-    #     # CPU_SCALING_GOVERNOR_ON_AC = "performance";
-    #     # PLATFORM_PROFILE_ON_AC = "performance"; # balance_performance
-    #     RUNTIME_PM_ON_AC = "on";
+        #     # CPU_BOOST_ON_AC = 1;
+        #     # CPU_ENERGY_PERF_POLICY_ON_AC = "performance"; #balance_performance
+        #     # CPU_HWP_DYN_BOOST_ON_AC = 1;
+        #     # CPU_MIN_PERF_ON_AC = 0;
+        #     # CPU_MAX_PERF_ON_AC = 90;
+        #     # CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        #     # PLATFORM_PROFILE_ON_AC = "performance"; # balance_performance
+        #     RUNTIME_PM_ON_AC = "on";
 
-    #     # CPU_BOOST_ON_BAT = 0;
-    #     # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-    #     # CPU_HWP_DYN_BOOST_ON_BAT = 0;
-    #     # CPU_MIN_PERF_ON_BAT = 0;
-    #     # CPU_MAX_PERF_ON_BAT = 50;
-    #     # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-    #     # PLATFORM_PROFILE_ON_BAT = "low-power";
-    #     RUNTIME_PM_ON_BAT = "auto";
+        #     # CPU_BOOST_ON_BAT = 0;
+        #     # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        #     # CPU_HWP_DYN_BOOST_ON_BAT = 0;
+        #     # CPU_MIN_PERF_ON_BAT = 0;
+        #     # CPU_MAX_PERF_ON_BAT = 50;
+        #     # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        #     # PLATFORM_PROFILE_ON_BAT = "low-power";
+        #     RUNTIME_PM_ON_BAT = "auto";
 
         START_CHARGE_THRESH_BAT0 = 40;
         STOP_CHARGE_THRESH_BAT0 = 80;
@@ -349,7 +348,7 @@ in
   #   security.protectKernelImage = false; # hibernate
 
   boot = {
-#FIXME 20250615    kernelPackages = pkgs.linuxPackages_zen; # _6_6;
+    #FIXME 20250615    kernelPackages = pkgs.linuxPackages_zen; # _6_6;
     loader = {
       systemd-boot = {
         enable = true;

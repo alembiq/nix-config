@@ -61,9 +61,9 @@
       '';
       loginShellInit = "echo $USER login...";
       logout = ''
-	history -a 
-        printf '\e]0;\a'
-	'';
+        	history -a 
+                printf '\e]0;\a'
+        	'';
       promptInit = ''
         [[ $PS1 && -f /run/current-system/sw/share/bash-completion/completions/git-prompt.sh ]] && . /run/current-system/sw/share/bash-completion/completions/git-prompt.sh
         if [ "$TERM" != "dumb" ] ; then

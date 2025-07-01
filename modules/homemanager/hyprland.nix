@@ -22,7 +22,8 @@ let
     export HYPRLAND_INSTANCE_SIGNATURE=$(ls -1 /tmp/hypr/ | head -n 1)
     hyprctl dispatch dpms on
   '';
-in {
+in
+{
   home = {
     packages = with pkgs; [
       #   slurp grim
@@ -50,6 +51,19 @@ in {
     ];
   };
 
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      ipc = "on";
+      splash = false;
+      preload = [
+        "~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
+      ];
+      wallpaper = [
+        "eDP-1,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
+      ];
+    };
+  };
 
   systemd.user.services.dpms-resume-fix = {
     Unit.Description = "Fix DPMS after suspend";

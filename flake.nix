@@ -59,6 +59,7 @@
         inputs.disko.nixosModules.default
         inputs.boulette.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
+        # inputs.stylix.homeModules.stylix
         {
           nixpkgs.overlays = [
             inputs.hyprpanel.overlay

@@ -118,11 +118,12 @@
       "10.0.4?.* *.svornosti-jump" = {
         proxyJump = "omnia-svornosti";
       };
-      "verdandi verdandi.* kubera kubera.* octopi octopi.* gitlab gitlab.svornosti gitlab.alembiq.net" = {  # waiting for user charles on badb badb.* "
-          identityFile = "~/.ssh/YUBI-KK2024.pub";
-          user = "charles";
-          forwardAgent = true;
-        };
+      "verdandi verdandi.* kubera kubera.* octopi octopi.* gitlab gitlab.svornosti gitlab.alembiq.net" = {
+        # waiting for user charles on badb badb.* "
+        identityFile = "~/.ssh/YUBI-KK2024.pub";
+        user = "charles";
+        forwardAgent = true;
+      };
       #  ____  ____  _   _  ___
       # | __ )|  _ \| \ | |/ _ \
       # |  _ \| |_) |  \| | | | |
@@ -132,6 +133,13 @@
         user = "root";
         identityFile = "~/.ssh/YUBI-KK2024.pub";
         forwardAgent = true;
+        localForwards = [
+          {
+            bind.port = 8080;
+            host.address = "10.0.52.253";
+            host.port = 80;
+          }
+        ];
       };
       "fw.brno" = {
         hostname = "10.0.52.254";
@@ -143,12 +151,12 @@
       "10.0.5?.* *.brno-jump" = {
         proxyJump = "omnia-brno";
       };
-    #   ___ _____ _   _ _____ ____
-    #  / _ \_   _| | | | ____|  _ \
-    # | | | || | | |_| |  _| | |_) |
-    # | |_| || | |  _  | |___|  _ <
-    #  \___/ |_| |_| |_|_____|_| \_\
-     "lancre" = {
+      #   ___ _____ _   _ _____ ____
+      #  / _ \_   _| | | | ____|  _ \
+      # | | | || | | |_| |  _| | |_) |
+      # | |_| || | |  _  | |___|  _ <
+      #  \___/ |_| |_| |_|_____|_| \_\
+      "lancre" = {
         hostname = "lancre.tail52316.ts.net";
         user = "charles";
         identityFile = "~/.ssh/YUBI-KK2025.pub";
@@ -160,7 +168,6 @@
         user = "root";
         forwardAgent = true;
       };
-
 
       #   ____ _____ _   _ _____ ____      _    _
       #  / ___| ____| \ | | ____|  _ \    / \  | |
