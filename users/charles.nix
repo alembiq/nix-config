@@ -54,7 +54,6 @@ in
         music = "$HOME/audio";
         download = "$HOME/downloads";
       };
-      stylix.targets.kde.enable = false; # FIXME https://github.com/danth/stylix/issues/340 remove when fixed
       programs = {
         git = {
           enable = true;
@@ -68,7 +67,7 @@ in
             push.autoSetupRemote = true;
           };
           aliases = {
-            # back = "reset --soft HEAD~";
+            back = "reset --soft HEAD~";
             undo = "reset HEAD~1 --mixed";
             graph = "log --pretty=format:'%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]' --decorate --date=short --graph";
             conflicts = "diff --name-only --diff-filter=U";
@@ -124,10 +123,8 @@ in
           onChange = "chmod 400 ~/.ssh/YUBI-KK2025.pub";
         };
         packages = with pkgs; [
-          #   pinentry-qt
-          # pinentry-curses
-          #   pinentry-gtk2
-          pinentry-gnome3
+          #   pinentry-gnome3
+          pinentry-all
           list-mailboxes
           list-empty-mailboxes
           htop

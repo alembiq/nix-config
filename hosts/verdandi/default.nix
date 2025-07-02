@@ -3,6 +3,7 @@
   lib,
   pkgs,
   modulesPath,
+  stylix,
   nixos-hardware,
   ...
 }:
@@ -65,6 +66,7 @@ in
         ../../modules/homemanager/sway.nix
         ../../modules/homemanager/wofi.nix
         ../../users/charles-workstation.nix
+        stylix.homeModules.stylix
       ];
 
       home = {

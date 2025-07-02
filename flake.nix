@@ -26,14 +26,13 @@
       url = "github:nix-community/disko";
     };
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nix-community/stylix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
       };
     };
     boulette.url = "github:pipelight/boulette";
-    #hyprland.url = "github:hyprwm/Hyprland";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     hyprland-plugins = {
@@ -46,6 +45,7 @@
       self,
       nixpkgs,
       nixpkgs-stable,
+      stylix,
       ...
     }:
     let
@@ -59,12 +59,11 @@
         inputs.disko.nixosModules.default
         inputs.boulette.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
-        # inputs.stylix.homeModules.stylix
         {
-          nixpkgs.overlays = [
-            inputs.hyprpanel.overlay
-            #FIXME 20250320 inputs.nixpkgs-wayland.overlay
-          ];
+          #   nixpkgs.overlays = [
+          #     inputs.hyprpanel.overlay
+          #     #FIXME 20250320 inputs.nixpkgs-wayland.overlay
+          #   ];
           _module.args = {
             inherit inputs;
           };

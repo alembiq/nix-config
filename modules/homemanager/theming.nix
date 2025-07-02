@@ -5,6 +5,8 @@
   ...
 }:
 {
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml"; # https://raw.githubusercontent.com/ada-lovecraft/base16-nord-scheme/master/nord.yaml
+
   gtk = lib.mkForce {
     enable = true;
     theme = {
