@@ -142,6 +142,7 @@
     packages = with pkgs; [
       fira-code
       nerd-fonts.fira-code
+      dejavu_fonts
       noto-fonts-emoji
     ];
   };

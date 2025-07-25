@@ -29,7 +29,7 @@
       url = "github:nix-community/stylix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
+        # home-manager.follows = "home-manager";
       };
     };
     boulette.url = "github:pipelight/boulette";
