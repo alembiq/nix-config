@@ -166,17 +166,17 @@
         force = true;
       };
       settings = {
-      "font.name.serif.x-western" = "DejaVu Serif";
-      "font.name.sans-serif.x-western" = "DejaVu Sans";
-      "font.name.monospace.x-western" = "Fira Code";
+        "font.name.serif.x-western" = "DejaVu Serif";
+        "font.name.sans-serif.x-western" = "DejaVu Sans";
+        "font.name.monospace.x-western" = "Fira Code";
 
         "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
-	"widget.dmabuf.force-enabled" = true;
+        "widget.dmabuf.force-enabled" = true;
         "experiments.activeExperiment" = false;
         "experiments.enabled" = false;
         "experiments.supported" = false;
-	"network.allow-experiments" = false;
+        "network.allow-experiments" = false;
         "browser.newtabpage.activity-stream.feeds.telemetry" = false;
         "browser.newtabpage.activity-stream.telemetry" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;

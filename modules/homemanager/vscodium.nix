@@ -17,9 +17,9 @@
           gruntfuggly.todo-tree
           redhat.vscode-yaml
           eamodio.gitlens
-#https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vscode-extension*php*
-#FIXME 20250724 missing from unstable           devsense.composer-php-vscode
-#FIXME 20250724 missing from unstable          devsense.phptools-vscode
+          #https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vscode-extension*php*
+          #FIXME 20250724 missing from unstable           devsense.composer-php-vscode
+          #FIXME 20250724 missing from unstable          devsense.phptools-vscode
           arcticicestudio.nord-visual-studio-code
           naumovs.color-highlight
           vscode-icons-team.vscode-icons

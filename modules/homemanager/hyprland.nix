@@ -61,6 +61,7 @@ in
       ];
       wallpaper = [
         "eDP-1,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
+        "DP-5,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
       ];
     };
   };
@@ -104,7 +105,7 @@ in
         "${pkgs.waybar}/bin/waybar #systemctl --user restart waybar"
         "${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-kde-authentication-agent-1"
         "hyprctl setcursor Nordzy-cursors 32"
-        "${wallpaperScript}"
+        "${wallpaperScript}/bin/random-wallpaper"
         "systemctl --user start sops-nix"
       ];
       monitor = [
@@ -132,67 +133,66 @@ in
         ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       ];
-      bind =
-        [
-          ",switch:off:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,1920x1080,320x1440,1'"
-          ",switch:on:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,disabled'"
+      bind = [
+        ",switch:off:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,1920x1080,320x1440,1'"
+        ",switch:on:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,disabled'"
 
-          "$mod, RETURN, exec, wezterm" # terminal
-          "$mod SHIFT, Q, killactive,"
-          "CTRLALT, DELETE, exec, wlogout"
-          ", XF86Lock, exec, wlogout"
-          "$mod, F, fullscreen,"
-          "$mod SHIFT, SPACE, togglefloating"
-          "$mod, D, exec, pkill wofi || wofi --show drun"
-          ", Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m region -o $HOME/downloads"
-          "ALT, Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m window -o $HOME/downloads"
-          "$mod, Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m output -o $HOME/downloads"
+        "$mod, RETURN, exec, wezterm" # terminal
+        "$mod SHIFT, Q, killactive,"
+        "CTRLALT, DELETE, exec, wlogout"
+        ", XF86Lock, exec, wlogout"
+        "$mod, F, fullscreen,"
+        "$mod SHIFT, SPACE, togglefloating"
+        "$mod, D, exec, pkill wofi || wofi --show drun"
+        ", Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m region -o $HOME/downloads"
+        "ALT, Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m window -o $HOME/downloads"
+        "$mod, Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m output -o $HOME/downloads"
 
-          "ALT, SHIFT, exec, hyprctl --batch 'switchxkblayout at-translated-set-2-keyboard next ; ergo-k860-keyboard next'"
+        "ALT, SHIFT, exec, hyprctl --batch 'switchxkblayout at-translated-set-2-keyboard next ; ergo-k860-keyboard next'"
 
-          # Move focus with mainMod + arrow keys
-          "$mod, left, movefocus, l"
-          "$mod, right, movefocus, r"
-          "$mod, up, movefocus, u"
-          "$mod, down, movefocus, d"
-          # Move window
-          "$mod SHIFT, left, movewindow,l"
-          "$mod SHIFT, right, movewindow,r"
-          "$mod SHIFT, up, movewindow,u"
-          "$mod SHIFT, down, movewindow,d"
-          "$mod, Y, togglesplit"
-          # Resize window
-          "$mod CTRL,right,resizeactive,20 0"
-          "$mod CTRL,left,resizeactive,-20 0"
-          "$mod CTRL,up,resizeactive,0 -20"
-          "$mod CTRL,down,resizeactive,0 20"
-          # Example special workspace (scratchpad)
-          "$mod, U, togglespecialworkspace, magic"
-          "$mod SHIFT, U, movetoworkspace, special:magic"
-          # Scroll through existing workspaces
-          "CTRL ALT, left, workspace, e-1"
-          "CTRL ALT, right, workspace, e+1"
-        ]
-        ++ (
-          # workspaces
-          # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-          builtins.concatLists (
-            builtins.genList (
-              x:
-              let
-                ws =
-                  let
-                    c = (x + 1) / 10;
-                  in
-                  builtins.toString (x + 1 - (c * 10));
-              in
-              [
-                "$mod, ${ws}, workspace, ${toString (x + 1)}"
-                "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
-              ]
-            ) 10
-          )
-        );
+        # Move focus with mainMod + arrow keys
+        "$mod, left, movefocus, l"
+        "$mod, right, movefocus, r"
+        "$mod, up, movefocus, u"
+        "$mod, down, movefocus, d"
+        # Move window
+        "$mod SHIFT, left, movewindow,l"
+        "$mod SHIFT, right, movewindow,r"
+        "$mod SHIFT, up, movewindow,u"
+        "$mod SHIFT, down, movewindow,d"
+        "$mod, Y, togglesplit"
+        # Resize window
+        "$mod CTRL,right,resizeactive,20 0"
+        "$mod CTRL,left,resizeactive,-20 0"
+        "$mod CTRL,up,resizeactive,0 -20"
+        "$mod CTRL,down,resizeactive,0 20"
+        # Example special workspace (scratchpad)
+        "$mod, U, togglespecialworkspace, magic"
+        "$mod SHIFT, U, movetoworkspace, special:magic"
+        # Scroll through existing workspaces
+        "CTRL ALT, left, workspace, e-1"
+        "CTRL ALT, right, workspace, e+1"
+      ]
+      ++ (
+        # workspaces
+        # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
+        builtins.concatLists (
+          builtins.genList (
+            x:
+            let
+              ws =
+                let
+                  c = (x + 1) / 10;
+                in
+                builtins.toString (x + 1 - (c * 10));
+            in
+            [
+              "$mod, ${ws}, workspace, ${toString (x + 1)}"
+              "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
+            ]
+          ) 10
+        )
+      );
       "debug" = {
         "disable_logs" = false;
       };

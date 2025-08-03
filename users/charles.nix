@@ -17,20 +17,21 @@ in
     home = "/home/charles";
     uid = 1111;
     initialHashedPassword = "$6$v6PQnaaF2/FOFBtq$RGM/DUzJogCWKjdEJCxA0KFnLTBTxzIWDqgUUTAW2ZTAtxFrl4omDeXs3Nmu4KULBc1Lofn0Fh4IrnkDmuVbI/"; # mkpasswd -m SHA-512
-    extraGroups =
-      [ "wheel" ]
-      ++ ifTheyExist [
-        "input"
-        "audio"
-        "video"
-        "networkmanager"
-        "systemd-journal"
-        "disk"
-        "dialout"
-        "cdrom"
-        "docker"
-        "tty"
-      ];
+    extraGroups = [
+      "wheel"
+    ]
+    ++ ifTheyExist [
+      "input"
+      "audio"
+      "video"
+      "networkmanager"
+      "systemd-journal"
+      "disk"
+      "dialout"
+      "cdrom"
+      "docker"
+      "tty"
+    ];
     openssh = {
       authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIq+f5IMK/uHgfdXmydOyKa5WxT/8ogqAOX3Mk0qkd4Q cardno:19_937_800"

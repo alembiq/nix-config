@@ -6,13 +6,14 @@ in
   users.users.steiner = {
     isNormalUser = true;
     initialHashedPassword = "$6$v6PQnaaF2/FOFBtq$RGM/DUzJogCWKjdEJCxA0KFnLTBTxzIWDqgUUTAW2ZTAtxFrl4omDeXs3Nmu4KULBc1Lofn0Fh4IrnkDmuVbI/"; # FIXME update password
-    extraGroups =
-      [ "wheel" ]
-      ++ ifTheyExist [
-        "networkmanager"
-        "nixconfig"
-        "docker"
-      ];
+    extraGroups = [
+      "wheel"
+    ]
+    ++ ifTheyExist [
+      "networkmanager"
+      "nixconfig"
+      "docker"
+    ];
     openssh = {
       authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpwhetQlDF3BpFx1r9PhZxKNC0S4hKVSamZjqLwKDpr stein@lenovo"

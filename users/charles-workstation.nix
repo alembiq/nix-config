@@ -9,6 +9,9 @@ let
 in
 {
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "libsoup-2.74.3"
+  ];
 
   home.packages = with pkgs; [
     spotify-player
