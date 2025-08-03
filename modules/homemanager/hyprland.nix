@@ -200,7 +200,6 @@ in
         "layout" = "dwindle";
         "allow_tearing" = false;
         "border_size" = 2;
-        #FIXME 20250101
         "col.active_border" = "0xff" + config.lib.stylix.colors.base06;
         "col.inactive_border" = "0x33" + config.lib.stylix.colors.base03;
         "resize_on_border" = true;

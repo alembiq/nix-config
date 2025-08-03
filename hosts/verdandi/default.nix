@@ -72,7 +72,7 @@ in
       home = {
         packages = with pkgs; [
           prusa-slicer
-          openscad # FIXME 20250619-unstable
+          openscad-unstable
           calibre
           poppler_utils # pdf tools
           overskride # bluetooth UI
@@ -350,7 +350,7 @@ in
   #   security.protectKernelImage = false; # hibernate
 
   boot = {
-    #FIXME 20250615    kernelPackages = pkgs.linuxPackages_zen; # _6_6;
+    kernelPackages = pkgs.linuxPackages_zen; # _6_6;
     loader = {
       systemd-boot = {
         enable = true;

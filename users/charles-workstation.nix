@@ -62,11 +62,6 @@ in
       "x-scheme-handler/morgen" = "morgen.desktop";
       "scheme-handler/http" = "firefox.desktop";
       "scheme-handler/https" = "firefox.desktop";
-      #FIXME links not opening in firefox
-      #   "x-scheme-handler/unknown" = "firefox.desktop";
-      #   "default-url-scheme-handler/http" = "firefox.desktop";
-      #   "default-url-scheme-handler/https" = "firefox.desktop";
-
     };
   }; # END of home-manager.users.charles.xdg
 

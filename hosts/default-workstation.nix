@@ -86,17 +86,6 @@
     };
   };
 
-  #  systemd.services.greetd.serviceConfig = { #FIXME 20250520 source?
-  #    Type = "idle";
-  #    StandardInput = "tty";
-  #    StandardOutput = "tty";
-  #    StandardError = "journal"; # Without this errors will spam on screen
-  # Without these bootlogs will spam on screen
-  #   TTYReset = true;
-  #    TTYVHangup = true;
-  #    TTYVTDisallocate = true;
-  #  };
-
   # To prevent getting stuck at shutdown
   systemd.settings.Manager = {
     DefaultTimeoutStopSec = "30s";

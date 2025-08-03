@@ -98,9 +98,9 @@ in
         # {
         #   command = "sleep 5 && ${pkgs.element-desktop}/bin/element-desktop";
         # }
-        #FIXME inherit ALLOW_UNFREE { command = "sleep 5 && ${pkgs.beeper}/bin/beeper"; }
-        #FIXME inherit ALLOW_UNFREE { command = "sleep 8 && ${pkgs.obsidian}/bin/obsidian --disable-gpu"; } # https://github.com/NixOS/nixpkgs/issues/270699
-        #FIXME inherit ALLOW_UNFREE { command = "sleep 8 && ${pkgs.morgen}/bin/morgen"; }
+        { command = "sleep 5 && ${pkgs.beeper}/bin/beeper"; }
+        { command = "sleep 8 && ${pkgs.obsidian}/bin/obsidian --disable-gpu"; } # https://github.com/NixOS/nixpkgs/issues/270699
+        { command = "sleep 8 && ${pkgs.morgen}/bin/morgen"; }
         { command = "sway-audio-idle-inhibit"; }
 
       ];
