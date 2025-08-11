@@ -13,7 +13,7 @@
       settings = {
         default_session = {
           command = builtins.concatStringsSep " " [
-            "${pkgs.greetd.tuigreet}/bin/tuigreet"
+            "${pkgs.tuigreet}/bin/tuigreet"
             "--asterisks"
             "--remember"
             "--time"
