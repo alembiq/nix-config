@@ -34,7 +34,6 @@
       enable = true;
       package = pkgs.appimage-run;
     };
-    thunar.enable = true;
   };
 
   services = {

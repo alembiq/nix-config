@@ -13,6 +13,7 @@ let
     WALLPAPER=$(find "$WALLPAPER_DIRECTORY" -type f | shuf -n 1)
     hyprctl hyprpaper preload "$WALLPAPER"
     hyprctl hyprpaper wallpaper "DP-5,$WALLPAPER"
+    hyprctl hyprpaper wallpaper "DP-6,$WALLPAPER"
     sleep 1
     hyprctl hyprpaper unload unused
   '';
@@ -39,6 +40,13 @@ in
       wofi
       wl-clip-persist
       wlroots
+      gnome-calculator
+      kdePackages.dolphin
+      kdePackages.kio-extras
+      kdePackages.kio-fuse
+      kdePackages.kio-admin
+      kdePackages.ark
+      hyprsunset
       waybar
       playerctl
       swaynotificationcenter
@@ -62,6 +70,7 @@ in
       wallpaper = [
         "eDP-1,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
         "DP-5,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
+        "DP-6,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
       ];
     };
   };
@@ -126,6 +135,8 @@ in
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
         "SUPER, L, exec, ${pkgs.grim}/bin/grim ~/.local/screenlock.png && loginctl lock-session"
+        # turn monitor on
+        "CTRLALT, L, exec, hyprctl dispatch dpms on"
       ];
       bindel = [
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -q s +10%"
@@ -172,6 +183,7 @@ in
         # Scroll through existing workspaces
         "CTRL ALT, left, workspace, e-1"
         "CTRL ALT, right, workspace, e+1"
+
       ]
       ++ (
         # workspaces
@@ -274,6 +286,7 @@ in
       workspace = special:special, size 80% 80%
       workspace = special:special, gapsout:150
 
+      windowrulev2 = suppressevent maximize, class:.*
 
       # firefox Picture-in-Picture
       windowrulev2 = float,class:^(firefox)$,title:^(Picture-in-Picture)$
