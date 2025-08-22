@@ -350,7 +350,7 @@ in
   #   security.protectKernelImage = false; # hibernate
 
   boot = {
-    kernelPackages = pkgs.linuxPackages; #FIXME 20250818 _zen; # _6_6;
+    kernelPackages = pkgs.linuxPackages; # FIXME 20250818 _zen; # _6_6;
     loader = {
       systemd-boot = {
         enable = true;
@@ -384,6 +384,9 @@ in
       "i915.enable_guc=3"
     ];
     extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+    extraModprobeConfig = ''
+      options thinkpad_acpi fan_control=1
+    '';
     supportedFilesystems = [ "nfs" ];
     zfs = {
       forceImportRoot = false;
