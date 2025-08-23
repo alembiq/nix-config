@@ -146,7 +146,7 @@ in
       ];
       bind = [
         ",switch:off:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,1920x1080,320x1440,1'"
-        ",switch:on:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,disabled'"
+        ",switch:on:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,disable'"
 
         "$mod, RETURN, exec, wezterm" # terminal
         "$mod SHIFT, Q, killactive,"

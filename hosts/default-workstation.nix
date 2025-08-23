@@ -72,8 +72,8 @@
       services = {
         login.u2fAuth = true;
         sudo.u2fAuth = true;
-        swaylock = { }; # to enable swaylock auth FIXME
-        hyprlock = { }; # to enable hyprlock auth FIXME
+        swaylock = { };
+        hyprlock = { };
         greetd = {
           #   enableGnomeKeyring = true;
           gnupg = {

@@ -1,4 +1,5 @@
 { pkgs, ... }:
+
 {
   services.hypridle = {
     enable = true;
@@ -12,21 +13,22 @@
         {
           timeout = 270;
           on-timeout = "${pkgs.light}/bin/light -S 25";
-          on-resume = "hyprctl dispatch dpms on && ${pkgs.light}/bin/light -I ";
+          on-resume = "${pkgs.light}/bin/light -I ";
+        }
+        {
+          # Only lock if not docked at home
+          timeout = 285;
+          on-timeout = "if ! ${pkgs.usbutils}/bin/lsusb -v -d 17ef:3082 2>/dev/null | grep -q 'iSerial.*101C4333A'; then loginctl lock-session && ${pkgs.light}/bin/light -O && pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock; fi";
+          on-resume = "${pkgs.light}/bin/light -I ";
         }
         {
           timeout = 300;
-          on-timeout = "loginctl lock-session && ${pkgs.light}/bin/light -O && pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-          on-resume = "hyprctl dispatch dpms on && ${pkgs.light}/bin/light -I ";
+          on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+          on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on && ${pkgs.light}/bin/light -I ";
         }
-        #        {
-        #          timeout = 330;
-        #          on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-        #          on-resume = "${pkgs.light}/bin/light -I && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-        #        }
         {
-          timeout = 330;
-          on-timeout = "if [ $(cat /sys/class/power_supply/AC/online) != 1 ]; then && ${pkgs.light}/bin/light -O && ${pkgs.systemd}/bin/systemctl suspend; fi ";
+          timeout = 315;
+          on-timeout = "if [ $(cat /sys/class/power_supply/AC/online) != 1 ]; then ${pkgs.light}/bin/light -O && ${pkgs.systemd}/bin/systemctl suspend; fi ";
           on-resume = "hyprctl dispatch dpms on && ${pkgs.light}/bin/light -I ";
         }
       ];
