@@ -17,8 +17,8 @@
             "--asterisks"
             "--remember"
             "--time"
-            "--sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
-            # "--sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
+#            "--sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
+            "--sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
             "--time-format '%I:%M %p | %a • %h | %F'"
             "--cmd Hyprland"
           ];

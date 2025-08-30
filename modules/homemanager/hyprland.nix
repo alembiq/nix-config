@@ -112,7 +112,7 @@ in
         "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
         "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
         "${pkgs.waybar}/bin/waybar #systemctl --user restart waybar"
-        "${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-kde-authentication-agent-1"
+        "${pkgs.kdePackages.polkit-kde-agent-1}/bin/polkit-kde-authentication-agent-1"
         "hyprctl setcursor Nordzy-cursors 32"
         "${wallpaperScript}/bin/random-wallpaper"
         "systemctl --user start sops-nix"

@@ -21,7 +21,7 @@
       vcal
       vdirsyncer
       w3m
-      libsForQt5.pim-sieve-editor
+      kdePackages.pim-sieve-editor
     ];
   };
   #FIXME dynamic user / home-manager.users.charles.accounts.contact.basePath
@@ -62,7 +62,7 @@
     text/calendar; ${pkgs.vcal}/bin/vcal %s; copiousoutput;
 
     #PDFs
-    application/pdf; ${pkgs.libsForQt5.okular}/bin/okular %s pdf
+    application/pdf; ${pkgs.kdePackages.okular}/bin/okular %s pdf
 
     #Images
     image/png; ${pkgs.imv}/bin/imv %s

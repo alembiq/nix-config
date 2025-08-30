@@ -53,6 +53,11 @@
       # \___ \\ \ / / | | | |_) |  \| | | | \___ \ | |  | |
       #  ___) |\ V /| |_| |  _ <| |\  | |_| |___) || |  | |
       # |____/  \_/  \___/|_| \_\_| \_|\___/|____/ |_| |___|
+      "worldbuilding" = {
+        hostname = "gitlab.alembiq.net";
+        identityFile = "~/.ssh/worldbuilding@obsidian";
+        identitiesOnly = true;
+      };
       "fw.svornosti omnia-svornosti" = {
         user = "root";
         identityFile = "~/.ssh/YUBI-KK2024.pub";

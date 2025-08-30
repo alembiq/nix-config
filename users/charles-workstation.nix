@@ -32,7 +32,7 @@ in
     libreoffice # onlyoffice-bin has problems with clipboard under wayland
     xfce.tumbler
     rpi-imager
-    libsForQt5.okular
+    kdePackages.okular
     unzip
     xdg-utils
     nwg-displays

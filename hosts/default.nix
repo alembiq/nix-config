@@ -61,7 +61,7 @@
       '';
       loginShellInit = "echo $USER login...";
       logout = ''
-        	history -a 
+        	history -a
                 printf '\e]0;\a'
         	'';
       promptInit = ''
@@ -173,6 +173,7 @@
       commands = [
         "shutdown"
         "reboot"
+        "poweroff"
       ]; # Optional
       challengeType = "hostname"; # Optional: Defaults to hostname. One of "ask" "hostname", or "numbers".
       sshOnly = true; # Boolean, default is`true`. Optional: Boulette confirmation prompts will be triggerd inside ssh session only. Only effects the enable{zsh,bash,fish} options.
