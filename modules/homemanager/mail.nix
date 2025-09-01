@@ -85,6 +85,7 @@
   programs.mbsync.enable = true;
   programs.msmtp = {
     enable = true; # FIXME `.config/msmtp/msmtp` contains extra "account default: karelkremel"
+    extraConfig = '''';
   };
   programs.notmuch = {
     # TODO config https://notmuchmail.org/mutttips/

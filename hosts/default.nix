@@ -209,6 +209,7 @@
   nix = {
     extraOptions = ''
       warn-dirty = false
+      use-xdg-base-directories = true
     '';
     settings = {
       experimental-features = [

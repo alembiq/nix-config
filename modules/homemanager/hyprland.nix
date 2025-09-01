@@ -148,7 +148,8 @@ in
         ",switch:off:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,1920x1080,320x1440,1'"
         ",switch:on:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,disable'"
 
-        "$mod, RETURN, exec, wezterm" # terminal
+        "$mod, RETURN, exec, cosmic-term" # terminal
+        ", XF86Calculator, exec, ${pkgs.gnome-calculator}/bin/gnome-calculator"
         "$mod SHIFT, Q, killactive,"
         "CTRLALT, DELETE, exec, wlogout"
         ", XF86Lock, exec, wlogout"
@@ -308,6 +309,8 @@ in
       windowrulev2 = move 55% 35%,title:^(Resources)$
       windowrulev2 = size 800 600,title:^(Resources)$
 
+
+      windowrule = float,title:^(Calculator)$
       windowrulev2 = workspace 9 silent, class:^(Element)$
       windowrulev2 = workspace 9 silent, class:^(BeeperTexts)$
       windowrulev2 = workspace 8 silent, class:^(Morgen)$

@@ -50,6 +50,10 @@
         CARGO_HOME = "$HOME/.local/share/cargo";
         XCOMPOSECACHE = "$HOME/.cache/X11/xcompose";
         W3M_DIR = "$HOME/.local/share/w3m";
+        MYSQL_HISTFILE = "${config.xdg.dataHome}/mysql_history";
+        MSMTP_QUEUE_DIR = "${config.xdg.cacheHome}/msmtp";
+        DOCKER_CONFIG = "${config.xdg.configHome}/docker";
+
       };
     };
     gpg = {
@@ -117,5 +121,8 @@
     };
     ssh-agent.enable = false;
   }; # END of home-manager.users.<name>.services
+
+  home.file."${config.programs.gpg.homedir}/.keep".text = "";
+  home.file."${config.xdg.cacheHome}/msmtp/.keep".text = "";
 
 }

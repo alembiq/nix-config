@@ -116,7 +116,7 @@
         user = "ansible";
         forwardAgent = true;
       };
-      "10.0.4?.* *.svornosti *.svornosti-jump" = {
+      "10.0.4?.* *.svornosti *.svornosti-jump !worldbuilding" = {
         identityFile = "~/.ssh/YUBI-KK2024.pub";
         forwardAgent = true;
       };
