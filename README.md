@@ -1,68 +1,3 @@
- /home/charles/.pki
-
-  Disclaimer: XDG is supported, but directory may be created again by some
-  programs.
-
-  XDG is supported out-of-the-box, so we can simply move directory to
-  "$XDG_DATA_HOME"/pki.
-
-  Note: some apps (chromium, for example) hardcode path to "$HOME"/.pki, so
-  directory may appear again, see
-  https://bugzilla.mozilla.org/show_bug.cgi?id=818686#c11
-  https://bugzilla.mozilla.org/show_bug.cgi?id=818686#c11.
-
-
-
-[nix]: /home/charles/.nix-defexpr
-
-  New nix command line interface supports XDG Base Directory but Old Commands
-  will still create these directories.
-
-  To use the XDG spec with the old command line, add to  /etc/nix/nix.conf :
-
-   use-xdg-base-directories = true
-
-  You also have to manually move the the file to XDG_STATE_HOME:
-
-   mv "$HOME/.nix-defexpr" "$XDG_STATE_HOME/nix/defexpr"
-
-  See the Manual: https://nixos.org/manual/nix/stable/command-ref/conf-
-  file#conf-
-  use-xdg-base-directories
-
-[nix]: /home/charles/.nix-profile
-
-  New nix command line interface supports XDG Base Directory but Old Commands
-  will still create these directories.
-
-  To use the XDG spec with the old command line, add to  /etc/nix/nix.conf :
-
-   use-xdg-base-directories = true
-
-  You also have to manually move the the file to XDG_STATE_HOME:
-
-   mv "$HOME/.nix-profile" "$XDG_STATE_HOME/nix/profile"
-
-  See the Manual: https://nixos.org/manual/nix/stable/command-ref/conf-
-  file#conf-
-  use-xdg-base-directories
-
-[gnupg]: /home/charles/.gnupg
-
-  Export the following environment variables:
-
-    export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-
-  Note: from the archwiki:
-
-  │ If you use non-default GnuPG Home directory, you will need to edit all
-  │ socket files to use the values of gpgconf --list-dirs.
-  │ If you set your SSH_AUTH_SOCK manually, keep in mind that your socket
-  │ location may be different if you are using a custom GNUPGHOME
-
-
-
-
 # TO DO & FIX
 - tune up SSH configs (probably draw inheritance structure)
 
@@ -82,11 +17,11 @@
 - greetd does not contain BASH
 - list updated packages also when doing nixos-rebuild boot
 ## MOVE
-- move `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg` > programs.gpg.homedir = "${hm.config.xdg.dataHome}/gnupg";
+- move `/home/charles/.gnupg move` to `GNUPGHOME="$XDG_DATA_HOME"/gnupg` > programs.gpg.homedir = "${hm.config.xdg.dataHome}/gnupg"; ||     export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 - move mailbox `accounts.email.maildirBasePath` to `.local/shared/mail/` + zfs (disko)
-- move ~/.viminfo ~/.mysql_history
+- move ~/.viminfo
 - move calibre library  ~/.config/calibre/global.py.json:  "library_path": "/home/charles/Calibre Library",
-- move ~/.composer ~/.docker
+- move ~/.composer
 - separate HOME-MANAGER but include in HOST
 # VERDANDI
 - SWAP for hibernate vs encrypted SWAP

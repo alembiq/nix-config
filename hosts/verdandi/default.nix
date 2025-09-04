@@ -327,6 +327,7 @@ in
     systemPackages = with pkgs; [
       modemmanager
       modem-manager-gui
+      ventoy-full-qt
     ];
   };
 
