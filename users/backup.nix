@@ -1,14 +1,13 @@
 { pkgs, ... }:
 {
   users.users.backup = {
-    isNormalUser = true;
-    createHome = false;
-    home = "/var/lib/syncoid";
+    isSystemUser = true;
+    group = "nogroup";
     extraGroups = [ ];
     shell = "/run/current-system/sw/bin/sh";
     openssh = {
       authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKFOEYBSiSuH2QoVmvQojJXMtOWFMHka6JCARceEyJIm kubera-2022-05-31"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOEcw4rXr29oIqoVzrNPOlRh+9e41w9Wo+r9T0jaTu+p verdandi@kubera-20250905"
       ];
     };
   };

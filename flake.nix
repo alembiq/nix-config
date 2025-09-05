@@ -19,9 +19,9 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
     };
-    wezterm = {
-      url = "github:wez/wezterm/?dir=nix";
-    };
+    # wezterm = {
+    #   url = "github:wez/wezterm/?dir=nix";
+    # };
     disko = {
       url = "github:nix-community/disko";
     };
@@ -76,9 +76,9 @@
           allowUnfree = true;
           allowUnfreePredicate = (_: true);
           permittedInsecurePackages = [
-    "ventoy-1.1.05"
-    "ventoy-qt5-1.1.05"
-  ];
+            "ventoy-1.1.05"
+            "ventoy-qt5-1.1.05"
+          ];
         };
       };
       pkgs-stable = import nixpkgs-stable {

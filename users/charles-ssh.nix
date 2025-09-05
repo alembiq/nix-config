@@ -69,6 +69,13 @@
       "badb.*" = {
         hostname = "10.0.42.107";
       };
+      "hanuman hanuman.*" = {
+        user = "karel";
+        forwardAgent = true;
+      };
+      "hanuman.*" = {
+        hostname = "10.0.42.102";
+      };
 
       "gitlab gitlab.svornosti" = {
         hostname = "10.0.42.204";

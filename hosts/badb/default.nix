@@ -42,7 +42,7 @@
         # ../modules/homemanager/hyprland.nix
         # ../modules/homemanager/hyprlock.nix
         # ../modules/homemanager/hypridle.nix
-        ../../modules/homemanager/wezterm.nix
+        # ../../modules/homemanager/wezterm.nix
         ../../modules/homemanager/firefox.nix
         ../../modules/homemanager/nextcloud.nix
         # ../modules/homemanager/photography.nix

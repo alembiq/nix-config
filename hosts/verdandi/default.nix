@@ -58,7 +58,7 @@ in
         ../../modules/homemanager/hyprland.nix
         ../../modules/homemanager/hyprlock.nix
         ../../modules/homemanager/hypridle.nix
-        ../../modules/homemanager/wezterm.nix
+        # ../../modules/homemanager/wezterm.nix
         ../../modules/homemanager/firefox.nix
         ../../modules/homemanager/nextcloud.nix
         ../../modules/homemanager/photography.nix
@@ -267,46 +267,6 @@ in
       };
       datasets."zpool/home/charles/pictures" = {
         useTemplate = [ "rotate" ];
-      };
-    };
-    syncoid = {
-      # FIXME do pull insted of push
-      user = "backup";
-      enable = true;
-      interval = "*:35";
-      commonArgs = [
-        "--no-sync-snap"
-        "--no-privilege-elevation"
-        # "--debug"
-      ];
-      commands = {
-        "nixos" = {
-          source = "zpool/nixos/etc";
-          target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_nixos";
-          sendOptions = "wp"; # raw, copy properties
-          recvOptions = "u";
-          #TODO syncoid path and the key /var/lib/syncoid/id_ed25519 ? user backup
-          sshKey = "/var/lib/syncoid/id_ed25519";
-          extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
-        };
-        "home" = {
-          source = "zpool/home/charles";
-          target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_charles";
-          sendOptions = "w"; # raw
-          recvOptions = "u";
-          sshKey = "/var/lib/syncoid/id_ed25519";
-          extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
-        };
-        "workspace" = {
-          source = "zpool/home/charles/workspace";
-          target = "verdandi@kubera:tank/vault/localhost-verdandi/20240325_workspace";
-          sendOptions = "w"; # raw
-          recvOptions = "u";
-          sshKey = "/var/lib/syncoid/id_ed25519";
-          extraArgs = [ "--sshoption=StrictHostKeyChecking=off" ];
-        };
-        # FIXME syncoid SENDER needs `zfs allow backup create,receive,destroy,rollback,snapshot,hold,release,mount zroot`
-        # FIXME syncoid RECEIVER needs zfs allow backup receive,mount,create
       };
     };
   }; # END of services
