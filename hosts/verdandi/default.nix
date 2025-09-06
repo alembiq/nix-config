@@ -311,7 +311,7 @@ in
   #   security.protectKernelImage = false; # hibernate
 
   boot = {
-    kernelPackages = pkgs.linuxPackages; # FIXME 20250818 _zen; # _6_6;
+    kernelPackages = pkgs.linuxPackages_zen;
     loader = {
       systemd-boot = {
         enable = true;

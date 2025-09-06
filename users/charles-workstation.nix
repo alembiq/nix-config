@@ -35,7 +35,7 @@ in
     kdePackages.okular
     unzip
     xdg-utils
-    nwg-displays
+#FIXME 20250905    nwg-displays
     yt-dlp
     shared-mime-info # TEST
   ];

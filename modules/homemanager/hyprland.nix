@@ -12,6 +12,7 @@ let
     WALLPAPER_DIRECTORY=~/pictures/wallpapers
     WALLPAPER=$(find "$WALLPAPER_DIRECTORY" -type f | shuf -n 1)
     hyprctl hyprpaper preload "$WALLPAPER"
+    hyprctl hyprpaper wallpaper "DP-4,$WALLPAPER"
     hyprctl hyprpaper wallpaper "DP-5,$WALLPAPER"
     hyprctl hyprpaper wallpaper "DP-6,$WALLPAPER"
     sleep 1
@@ -69,6 +70,7 @@ in
       ];
       wallpaper = [
         "eDP-1,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
+        "DP-4,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
         "DP-5,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
         "DP-6,~/pictures/wallpapers/52204128092_76bb16feb4_k.jpg"
       ];
