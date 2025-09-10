@@ -6,7 +6,7 @@
     settings = {
       general = {
         lock_cmd = "pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-        before_sleep_cmd = "${pkgs.grim}/bin/grim ~/.local/screenlock.png && ${pkgs.hyprlock}/bin/hyprlock && ${pkgs.light}/bin/light -O && loginctl lock-session ";
+        before_sleep_cmd = "rm ~/.local/screenlock.png && ${pkgs.grim}/bin/grim ~/.local/screenlock.png && ${pkgs.hyprlock}/bin/hyprlock && ${pkgs.light}/bin/light -O && loginctl lock-session ";
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };
       listener = [

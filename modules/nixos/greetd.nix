@@ -10,6 +10,7 @@
   services = {
     greetd = {
       enable = true;
+      useTextGreeter = true;
       settings = {
         default_session = {
           command = builtins.concatStringsSep " " [
@@ -17,10 +18,10 @@
             "--asterisks"
             "--remember"
             "--time"
-            #            "--sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
-            "--sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
+            "--sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
+            "--xsessions ${config.services.displayManager.sessionData.desktops}/share/xsessions"
             "--time-format '%I:%M %p | %a • %h | %F'"
-            "--cmd Hyprland"
+            "--cmd bash"
           ];
         };
         user = "charles";

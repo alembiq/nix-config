@@ -82,25 +82,6 @@
       };
       enable = true;
     };
-    ssh = {
-      addKeysToAgent = "no";
-      controlMaster = "auto";
-      controlPath = "~/.ssh/master-%r@%h:%p";
-      controlPersist = "60";
-      enable = true;
-      extraConfig = ''
-        ChallengeResponseAuthentication no
-        StrictHostKeyChecking ask
-        VerifyHostKeyDNS ask
-        Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
-        MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
-        KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
-        HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
-      '';
-      hashKnownHosts = true;
-      serverAliveCountMax = 30;
-      serverAliveInterval = 300;
-    };
   }; # END of home-manager.users.<name>.programs
 
   services = {

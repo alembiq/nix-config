@@ -7,7 +7,7 @@
 
 {
 
-  services.logind.lidSwitchExternalPower = "ignore";
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
 
   environment.systemPackages = with pkgs; [
     opensc
