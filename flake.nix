@@ -76,8 +76,8 @@
           allowUnfree = true;
           allowUnfreePredicate = (_: true);
           permittedInsecurePackages = [
-            "ventoy-1.1.05"
-            "ventoy-qt5-1.1.05"
+            "ventoy-1.1.07"
+            "ventoy-qt5-1.1.07"
           ];
         };
       };
