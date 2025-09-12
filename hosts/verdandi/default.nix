@@ -24,7 +24,6 @@ in
 # )
 {
 
-  # hardware.system76.power-daemon.enable = true;
   hardware.nfc-nci.enable = true; # test with pcsc_scan
   services.desktopManager.cosmic.enable = true;
 
@@ -85,68 +84,16 @@ in
       }; # END of home-manager.users.charles.home
     }; # END of home-manager.users.charles
   }; # END of home-manager
-  powerManagement = {
-    enable = true;
-    powertop.enable = true;
-    cpuFreqGovernor = "ondemand"; # power, performance, ondemand
-  };
+  #  powerManagement = {
+  #    enable = true;
+  #    powertop.enable = true;
+  #    cpuFreqGovernor = "ondemand"; # power, performance, ondemand
+  #  };
 
-  #   hardware.system76.power-daemon.enable = true;
   services = {
-    # system76-scheduler.settings.cfsProfiles.enable = true;
-    #   power-profiles-daemon.enable = true; # ppd, not default
-    tlp = {
-      enable = true;
-      settings = {
-        #     # CPU_BOOST_ON_AC = 1;
-        #     # CPU_ENERGY_PERF_POLICY_ON_AC = "performance"; #balance_performance
-        #     # CPU_HWP_DYN_BOOST_ON_AC = 1;
-        #     # CPU_MIN_PERF_ON_AC = 0;
-        #     # CPU_MAX_PERF_ON_AC = 90;
-        #     # CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        #     # PLATFORM_PROFILE_ON_AC = "performance"; # balance_performance
-        #     RUNTIME_PM_ON_AC = "on";
-
-        #     # CPU_BOOST_ON_BAT = 0;
-        #     # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        #     # CPU_HWP_DYN_BOOST_ON_BAT = 0;
-        #     # CPU_MIN_PERF_ON_BAT = 0;
-        #     # CPU_MAX_PERF_ON_BAT = 50;
-        #     # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        #     # PLATFORM_PROFILE_ON_BAT = "low-power";
-        #     RUNTIME_PM_ON_BAT = "auto";
-
-        START_CHARGE_THRESH_BAT0 = 40;
-        STOP_CHARGE_THRESH_BAT0 = 80;
-      };
-    };
+    tuned.enable = true;
+    tlp.enable = false;
     thermald.enable = true;
-    auto-cpufreq = {
-      enable = true;
-      settings = {
-        charger = {
-          energy_performance_preference = "performance"; # performance (0), balance_performance (4), default (6), balance_power (8), or power (15)
-          governor = "performance"; # performance powersave
-          platform_profile = "balance_power"; # low-power balanced performance
-          scaling_min_freq = 400000;
-          scaling_max_freq = 3200000;
-          turbo = "auto";
-
-          enable_thresholds = true;
-          start_threshold = 60;
-          stop_threshold = 80;
-
-        };
-        battery = {
-          energy_performance_preference = "power";
-          governor = "powersave";
-          platform_profile = "low-power";
-          scaling_min_freq = 400000;
-          scaling_max_freq = 1800000;
-          turbo = "never";
-        };
-      };
-    };
     rpcbind.enable = true;
   };
 
