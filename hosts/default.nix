@@ -15,7 +15,7 @@
 
   environment.systemPackages = with pkgs; [
     sops
-    gnupg
+    # gnupg
     wget
     tailscale
     sanoid
@@ -37,29 +37,21 @@
   }; # END of SOPS
 
   programs = {
-    ssh.startAgent = false;
-    gnupg = {
-      agent = {
-        enable = true;
-        enableSSHSupport = true;
-        pinentryPackage = lib.mkForce pkgs.pinentry-all; # nixpkgs-wayland.packages.${system}.wayprompt ;# pkgs.pinentry-qt; # pkgs.pinentry-curses;
-      };
-    };
     bash = {
       completion.enable = true;
       interactiveShellInit = ''
         source /etc/lsb-release
         printf '%.0s*' $(seq $COLUMNS)
         ${pkgs.figurine}/bin/figurine -f "DOS Rebel.flf" $(hostname)
-        echo "Distro version: $DISTRIB_DESCRIPTION  Kernel version: $(uname -srm)" # | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+        echo "Distro version: $DISTRIB_DESCRIPTION  Kernel version: $(uname -srm)"
         printf '%.0s*' $(seq $COLUMNS)
-        ssh-add -L # | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
-        uptime # | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+        ssh-add -L
+        uptime
         free -h
         zfs list
         printf '%.0s*' $(seq $COLUMNS)
       '';
-      loginShellInit = "echo $USER login...";
+    #   loginShellInit = "echo $USER login...";
       logout = ''
         	history -a
                 printf '\e]0;\a'
@@ -106,10 +98,10 @@
         "myip" = "dig +short myip.opendns.com @resolver1.opendns.com";
 
         "gitroot" = ''cd "$(git rev-parse --show-toplevel)"'';
-        "yubikey-reload" = ''${pkgs.gnupg}/bin/gpg-connect-agent "scd serialno" "learn --force" /bye'';
-        "gpg-agent-wipe" =
-          ''ssh_keys=$(${pkgs.gnupg}/bin/gpg-connect-agent 'keyinfo --ssh-list' /bye | awk '{print $3}') && for key in $ssh_keys; do ${pkgs.gnupg}/bin/gpg-connect-agent "delete_key --force $key" /bye; done'';
-        "gpg-agent-restart" = "${pkgs.gnupg}/bin/gpg-connect-agent killagent /bye";
+        # "yubikey-reload" = ''${pkgs.gnupg}/bin/gpg-connect-agent "scd serialno" "learn --force" /bye'';
+        # "gpg-agent-wipe" =
+        #   ''ssh_keys=$(${pkgs.gnupg}/bin/gpg-connect-agent 'keyinfo --ssh-list' /bye | awk '{print $3}') && for key in $ssh_keys; do ${pkgs.gnupg}/bin/gpg-connect-agent "delete_key --force $key" /bye; done'';
+        # "gpg-agent-restart" = "${pkgs.gnupg}/bin/gpg-connect-agent killagent /bye";
 
         "docker-cleanup" =
           "echo 'cleaning sys images'; docker system prune -a -f; echo 'cleaning volumes'; docker volume prune -f";
@@ -147,21 +139,6 @@
     ];
   };
 
-  system.activationScripts = {
-    # FIXME folder .gnupg creation
-    gnupg = {
-      text = ''
-        mkdir -p /root/.gnupg
-        chown root /root/.gnupg
-      '';
-    };
-  };
-
-  # https://github.com/vinnymeller/nixos-config/blob/master/programs/gpg/default.nix
-  environment.shellInit = ''
-    gpg-connect-agent updatestartuptty /bye
-    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-  '';
 
   services = {
     boulette = {
@@ -187,11 +164,6 @@
     tailscale = {
       enable = true;
     };
-    xserver.displayManager.sessionCommands = ''
-      # https://github.com/NixOS/nixpkgs/commit/5391882ebd781149e213e8817fba6ac3c503740c
-      ${pkgs.gnupg}/bin/gpg-connect-agent /bye
-      export GPG_TTY=$(tty)
-    '';
   }; # END of services
 
   networking = {

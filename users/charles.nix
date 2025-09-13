@@ -39,6 +39,24 @@ in
       ];
     };
   }; # END users.users.charles
+
+
+
+
+  hardware = {
+    gpgSmartcards.enable = true;
+  };
+  services.pcscd.enable = true;
+  environment.shellInit = ''
+      gpg-connect-agent /bye
+      export GPG_TTY=$(tty)
+      export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+      gpgcong --launch gpg-agent
+    '';
+
+
+
+
   home-manager = {
     users.charles = {
       imports = [ ./default.nix ];
@@ -47,6 +65,56 @@ in
         after = [ ];
         data = "rm -f /home/charles/.config/mimeapps.list";
       };
+
+  services = {
+    gpg-agent = {
+      defaultCacheTtl = 60;
+      enable = true;
+      enableBashIntegration = true;
+      enableScDaemon = true;
+      enableSshSupport = true;
+      extraConfig = ''
+        ttyname $GPG_TTY
+        allow-preset-passphrase
+      '';
+      maxCacheTtl = 120;
+      pinentry.package = pkgs.pinentry-all;
+      enableExtraSocket = true;
+    };
+    ssh-agent.enable = false;
+  };
+  programs.gpg = {
+    enable = true;
+    settings = {
+      # https://home-manager-options.extranix.com/?query=program.gpg
+      cert-digest-algo = "SHA512";
+      default-preference-list = "SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP Uncompressed";
+      charset = "utf-8";
+      keyid-format = "0xlong";
+      list-options = "show-uid-validity";
+      no-comments = true;
+      no-emit-version = true;
+      no-greeting = true;
+      no-symkey-cache = true;
+      personal-cipher-preferences = "AES256 AES192 AES";
+      personal-digest-preferences = "SHA512 SHA384 SHA256";
+      personal-compress-preferences = "ZLIB BZIP2 ZIP Uncompressed";
+      require-cross-certification = true;
+      s2k-digest-algo = "SHA512";
+      s2k-cipher-algo = "AES256";
+      throw-keyids = true;
+      use-agent = true;
+      verify-options = "show-uid-validity";
+      with-fingerprint = true;
+    };
+  };
+
+
+
+
+
+
+
 
       xdg.userDirs = {
         enable = true;
@@ -63,7 +131,6 @@ in
           extraConfig = {
             user.signing.key = "4A72D7FD235E50F93F6801A005F6EFFABE002CB2";
             commit.gpgSign = true;
-            # gpg.program = "${config.programs.gpg.package}/bin/gpg2";
             pull.rebase = "true";
             push.autoSetupRemote = true;
           };
@@ -75,7 +142,6 @@ in
           };
         };
         gpg = {
-          enable = true;
           publicKeys = [
             # https://discourse.nixos.org/t/gpg-smartcard-for-ssh/33689
             {
@@ -124,7 +190,6 @@ in
           onChange = "chmod 400 ~/.ssh/YUBI-KK2025.pub";
         };
         packages = with pkgs; [
-          #   pinentry-gnome3
           pinentry-all
           list-mailboxes
           list-empty-mailboxes

@@ -101,47 +101,45 @@ in
     };
   }; # END of home-manager.users.charles.sops
 
-  systemd.user = {
-    startServices = true;
-    sockets.yubikey-touch-detector = {
-      Unit.Description = "Unix socket activation for YubiKey touch detector service";
-      Socket = {
-        ListenStream = "%t/yubikey-touch-detector.socket";
-        RemoveOnStop = true;
-      };
-      Install.WantedBy = [ "sockets.target" ];
-    };
-    services.yubikey-touch-detector = {
-      Unit = {
-        Description = "Detects when your YubiKey is waiting for a touch";
-        Requires = "yubikey-touch-detector.socket";
-      };
-      Service = {
-        ExecStart = "${lib.getExe pkgs.yubikey-touch-detector} --libnotify";
-        EnvironmentFile = "-%E/yubikey-touch-detector/service.conf";
-      };
-      Install = {
-        Also = "yubikey-touch-detector.socket";
-        WantedBy = [ "default.target" ];
-      };
-    };
-    # Link /run/user/$UID/gnupg to ~/.gnupg-sockets
-    # So that SSH config does not have to know the UID
-    #FIXME dynamic user, UID
-    services.link-gnupg-sockets = {
-      Unit = {
-        Description = "link gnupg sockets from /run to /home";
-      };
-      Service = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.coreutils}/bin/ln -Tfs /run/user/1111/gnupg /home/charles/.gnupg-sockets";
-        # ExecStart = "${pkgs.coreutils}/bin/ln -Tfs /run/user/$(id -u)/gnupg /home/$(whoami)/.gnupg-sockets";
-        ExecStop = "${pkgs.coreutils}/bin/rm /home/charles/.gnupg-sockets";
-        # ExecStop = "${pkgs.coreutils}/bin/rm /home/charles/.gnupg-sockets";
-        RemainAfterExit = true;
-      };
-      Install.WantedBy = [ "default.target" ];
-    };
-  }; # END of home-manager.users.charles.systemd.user
+  #   systemd.user = {
+  #     startServices = true;
+  #     sockets.yubikey-touch-detector = {
+  #       Unit.Description = "Unix socket activation for YubiKey touch detector service";
+  #       Socket = {
+  #         ListenStream = "%t/yubikey-touch-detector.socket";
+  #         RemoveOnStop = true;
+  #       };
+  #       Install.WantedBy = [ "sockets.target" ];
+  #     };
+  #     services.yubikey-touch-detector = {
+  #       Unit = {
+  #         Description = "Detects when your YubiKey is waiting for a touch";
+  #         Requires = "yubikey-touch-detector.socket";
+  #       };
+  #       Service = {
+  #         ExecStart = "${lib.getExe pkgs.yubikey-touch-detector} --libnotify";
+  #         EnvironmentFile = "-%E/yubikey-touch-detector/service.conf";
+  #       };
+  #       Install = {
+  #         Also = "yubikey-touch-detector.socket";
+  #         WantedBy = [ "default.target" ];
+  #       };
+  #     };
+  #     # Link /run/user/$UID/gnupg to ~/.gnupg-sockets
+  #     # So that SSH config does not have to know the UID
+  #     #FIXME dynamic user, UID
+  #     # services.link-gnupg-sockets = {
+  #     #   Unit = {
+  #     #     Description = "link gnupg sockets from /run to /home";
+  #     #   };
+  #     #   Service = {
+  #     #     Type = "oneshot";
+  #     #     ExecStart = "${pkgs.coreutils}/bin/ln -Tfs /run/user/1111/gnupg /home/charles/.gnupg-sockets";
+  #     #     ExecStop = "${pkgs.coreutils}/bin/rm /home/charles/.gnupg-sockets";
+  #     #     RemainAfterExit = true;
+  #     #   };
+  #     #   Install.WantedBy = [ "default.target" ];
+  #     # };
+  #   }; # END of home-manager.users.charles.systemd.user
 
 }
