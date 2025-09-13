@@ -42,17 +42,30 @@ in
 
 
 
-
+  # YUBIKEY/GPG
   hardware = {
     gpgSmartcards.enable = true;
   };
   services.pcscd.enable = true;
-  environment.shellInit = ''
-      gpg-connect-agent /bye
-      export GPG_TTY=$(tty)
-      export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-      gpgcong --launch gpg-agent
-    '';
+
+environment.shellInit = ''
+  gpg-connect-agent /bye
+  export GPG_TTY=$(tty)
+
+  forwarded_socket="/run/user/$(id -u)/gnupg/S.gpg-agent.ssh-forwarded"
+  
+  if [[ -S "$forwarded_socket" ]] && SSH_AUTH_SOCK="$forwarded_socket" ssh-add -l >/dev/null 2>&1; then
+    echo "DEBUG: Using working forwarded socket"
+    export SSH_AUTH_SOCK="$forwarded_socket"
+  else
+    echo "DEBUG: Using local GPG agent"
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    # Clean up dead socket if it exists
+    [[ -S "$forwarded_socket" ]] && rm -f "$forwarded_socket"
+  fi
+
+  gpgconf --launch gpg-agent
+'';
 
 
 
@@ -66,6 +79,7 @@ in
         data = "rm -f /home/charles/.config/mimeapps.list";
       };
 
+  #YUBIKEY/GPG
   services = {
     gpg-agent = {
       defaultCacheTtl = 60;
